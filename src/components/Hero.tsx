@@ -1,4 +1,5 @@
 import { profile } from '../data/content';
+import { Playground } from './Playground';
 import { Reveal } from './Reveal';
 
 export function Hero() {
@@ -9,6 +10,7 @@ export function Hero() {
       id="home"
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-8 pt-28"
     >
+      <Playground bare faint />
       {/* Ghost section numeral */}
       <span
         aria-hidden="true"

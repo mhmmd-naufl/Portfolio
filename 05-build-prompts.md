@@ -5,17 +5,18 @@ Pakai berurutan. Setiap prompt berdiri sendiri. Ganti aksen bila perlu.
 ## P1 — Init
 ```
 Buatkan Vite React TS + Tailwind di folder ini. Ikuti 00-project-brief.md dan 01-design-system.md.
-Buat tailwind.config.js darkMode 'class' dengan token monokrom (light bg #F7F5F0 ink #1A1917 / dark bg #131210 ink #EDE9E1), font Inter Tight + Inter + mono. Tanpa warna aksen.
+Buat tailwind.config.js darkMode 'class' dengan token monokrom (light bg #FAF9F7 ink #1A1917 / dark bg #131210 ink #EDE9E1), font Inter Tight + Inter + mono. Tanpa warna aksen.
 Buat src/index.css, src/data/content.ts dari 04-content-template.md, komponen Reveal + ThemeToggle (localStorage + prefers-color-scheme).
 Buat src/index.css, src/data/content.ts dari 04-content-template.md, komponen Reveal.
 Jangan install framer-motion/gsap.
 ```
 
-## P2 — Nav + Hero
+## P2 — Nav + Hero (experimental)
 ```
 Buatkan Nav + Hero sesuai 02-site-structure.md dan 03-interactions.md No.1+4.
-Nav fixed, link 01-04 smooth scroll + active accent via IntersectionObserver, mobile overlay.
-Hero min-h 92vh, headline clamp, reveal on load sekali. Hormati prefers-reduced-motion.
+Nav fixed, link 01-04 smooth scroll + active underline via IntersectionObserver, mobile overlay, scramble hover.
+Hero 100svh bottom-anchored, ghost numeral 01, label vertikal, headline staggered 2 baris.
+Hormati prefers-reduced-motion.
 ```
 
 ## P3 — Work List
