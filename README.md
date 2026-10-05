@@ -109,9 +109,9 @@ wrangler pages deploy ./dist --project-name=personal-website
 
 Set these in **Cloudflare Pages → Settings → Environment variables**:
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `NODE_VERSION` | Node.js version for build | Recommended (`20`) |
+| Variable        | Description                                | Required              |
+| --------------- | ------------------------------------------ | --------------------- |
+| `NODE_VERSION`  | Node.js version for build                  | Recommended (`20`)    |
 | `FORM_ENDPOINT` | Form submission endpoint (e.g., Formspree) | If using contact form |
 
 ## License

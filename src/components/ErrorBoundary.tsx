@@ -20,13 +20,8 @@ export class ErrorBoundary extends Component<Props, State> {
   render(): ReactNode {
     if (this.state.failed) {
       return (
-        <div
-          role="alert"
-          className="mx-auto max-w-[1200px] border border-line px-6 py-16 md:px-10"
-        >
-          <p className="font-mono text-xs uppercase tracking-widest text-muted">
-            Something broke
-          </p>
+        <div role="alert" className="mx-auto max-w-[1200px] border border-line px-6 py-16 md:px-10">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted">Something broke</p>
           <button
             type="button"
             onClick={() => window.location.reload()}

@@ -31,21 +31,21 @@ export function Nav() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open ]);
+  }, [open]);
 
   useEffect(() => {
     const sections = observedIds
-      .map((id) => document.getElementById(id))
+      .map(id => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
     const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) setActive(entry.target.id);
         });
       },
-      { rootMargin: '-40% 0px -55% 0px' },
+      { rootMargin: '-40% 0px -55% 0px' }
     );
-    sections.forEach((s) => io.observe(s));
+    sections.forEach(s => io.observe(s));
     return () => io.disconnect();
   }, []);
 
@@ -61,7 +61,7 @@ export function Nav() {
             <img src="/logo.svg" alt="" className="h-7 w-auto" />
           </a>
           <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
-            {links.map((l) => (
+            {links.map(l => (
               <a
                 key={l.id}
                 href={l.href}
@@ -106,7 +106,7 @@ export function Nav() {
             </div>
           </div>
           <nav className="flex flex-1 flex-col justify-center gap-6" aria-label="Mobile">
-            {links.map((l) => (
+            {links.map(l => (
               <a
                 key={l.id}
                 href={l.href}

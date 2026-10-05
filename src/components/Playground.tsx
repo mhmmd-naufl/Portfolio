@@ -152,7 +152,11 @@ export function Playground({ bare = false, faint = false }: { bare?: boolean; fa
 
   if (bare) {
     return (
-      <div ref={wrapRef as React.RefObject<HTMLDivElement>} aria-hidden="true" className="absolute inset-0">
+      <div
+        ref={wrapRef as React.RefObject<HTMLDivElement>}
+        aria-hidden="true"
+        className="absolute inset-0"
+      >
         {canvas}
       </div>
     );

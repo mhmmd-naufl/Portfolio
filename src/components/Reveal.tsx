@@ -14,15 +14,15 @@ export function Reveal({ children, className = '' }: RevealProps) {
     if (!el) return;
     el.classList.add('reveal');
     const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             el.classList.add('is-visible');
             io.disconnect();
           }
         });
       },
-      { threshold: 0.15 },
+      { threshold: 0.15 }
     );
     io.observe(el);
     return () => io.disconnect();

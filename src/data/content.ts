@@ -105,7 +105,11 @@ export const capabilities = [
 export const experiences = [
   { period: 'Jul 2025 — now', role: 'Software Engineer (intern)', org: 'Alzen Metro Data' },
   { period: 'Jul 2025 — Feb 2026', role: 'Broadcast Data & Camera', org: 'Alzen Metro Data' },
-  { period: 'Feb — Jun 2025', role: 'Independent Intern (Social Search)', org: 'Kominfo Banyuwangi' },
+  {
+    period: 'Feb — Jun 2025',
+    role: 'Independent Intern (Social Search)',
+    org: 'Kominfo Banyuwangi',
+  },
   { period: 'Sep 2024 — Dec 2025', role: 'Social Media Specialist', org: 'Howheal.sac' },
   { period: 'Jun 2023 — Jun 2024', role: 'Content Creator', org: 'Visitbanyuwangi.id' },
   { period: 'Jan 2024 — now', role: 'Freelance Designer & Video Editor', org: 'Self Employed' },
