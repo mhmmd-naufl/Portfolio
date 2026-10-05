@@ -33,3 +33,8 @@ dist-ssr
 # Personal docs (keep local, do not publish)
 *.pdf
 *.mp4
+
+# Debug frames (never commit)
+bug*.png
+tile*.png
+frame_*.png
