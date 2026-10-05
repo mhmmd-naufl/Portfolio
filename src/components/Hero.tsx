@@ -12,7 +12,7 @@ export function Hero() {
       {/* Ghost section numeral */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -right-8 top-20 select-none font-display text-[42vw] font-semibold leading-none tracking-[-0.05em] text-ink/[0.05] dark:text-[#EDE9E1]/[0.07] md:text-[28vw]"
+        className="pointer-events-none absolute -right-6 top-24 select-none font-display text-[26vw] font-semibold leading-none tracking-[-0.05em] text-ink/[0.04] dark:text-[#EDE9E1]/[0.06] md:text-[18vw]"
       >
         01
       </span>
@@ -28,12 +28,12 @@ export function Hero() {
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted md:hidden">
           Folio 2026 — {profile.location}
         </p>
-        <h1 className="mt-6 font-display text-[clamp(3.5rem,12vw,11rem)] font-medium leading-[0.9] tracking-[-0.04em]">
+        <h1 className="mt-6 font-display text-[clamp(2.75rem,9vw,8rem)] font-medium leading-[0.92] tracking-[-0.04em]">
           <span className="block">{first}</span>
-          <span className="block md:ml-[16vw]">{rest.join(' ')}</span>
+          <span className="block md:ml-[8vw]">{rest.join(' ')}</span>
         </h1>
         <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <p className="max-w-md text-base leading-relaxed text-muted md:ml-[16vw]">{profile.bio}</p>
+          <p className="max-w-md text-base leading-relaxed text-muted md:ml-[8vw]">{profile.bio}</p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             <a
               href="#work"

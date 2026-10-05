@@ -113,7 +113,7 @@ export function Footer() {
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-white/50">
                 04 / Contact
               </p>
-              <h2 className="mt-6 font-display text-[clamp(2.8rem,7vw,6.5rem)] font-medium leading-[1.0] tracking-[-0.03em]">
+              <h2 className="mt-6 font-display text-[clamp(2.4rem,5.5vw,5rem)] font-medium leading-[1.0] tracking-[-0.03em]">
                 Let&apos;s work
                 <br />
                 together

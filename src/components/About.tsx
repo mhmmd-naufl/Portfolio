@@ -6,7 +6,7 @@ export function About() {
     <section id="about" className="py-36 md:py-56">
       <Reveal>
         <div className="border-b border-line pb-4">
-          <h2 className="font-display text-[clamp(2rem,4vw,3.5rem)] font-medium tracking-tight">
+          <h2 className="font-display text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium tracking-tight">
             <span className="mr-3 font-mono text-sm font-normal text-muted">03 /</span>
             About
           </h2>

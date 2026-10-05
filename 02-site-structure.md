@@ -10,8 +10,8 @@ Semua anchor di 1 halaman. Nav bernomor seperti Gertix.
 
 ## 01 Hero (`#home`, experimental)
 - Full `100svh`, konten nempel bawah (`justify-end`) — udara raksasa di atas.
-- Ghost numeral `01` raksasa di background + label vertikal kiri (desktop).
-- Headline 2 baris staggered (baris 2 indent `16vw`), `clamp(3.5rem, 12vw, 11rem)`.
+- Ghost numeral `01` samar di background + label vertikal kiri (desktop).
+- Headline 2 baris staggered (baris 2 indent `8vw`), `clamp(2.75rem, 9vw, 8rem)`.
 - Meta bar bawah: role + status + `Scroll ↓`, divider dashed.
 
 ## 02 Selected Work (`#work`)

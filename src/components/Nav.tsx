@@ -111,7 +111,7 @@ export function Nav() {
                 key={l.id}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="font-display text-5xl font-medium tracking-tight"
+                className="font-display text-4xl font-medium tracking-tight"
               >
                 <span className="mr-4 font-mono text-sm text-muted">{l.no}</span>
                 <ScrambleText text={l.label} />

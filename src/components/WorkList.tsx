@@ -26,7 +26,7 @@ export function WorkList() {
     <section id="work" className="py-36 md:py-56">
       <Reveal>
         <div className="flex items-baseline justify-between border-b border-line pb-4">
-          <h2 className="font-display text-[clamp(2rem,4vw,3.5rem)] font-medium tracking-tight">
+          <h2 className="font-display text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium tracking-tight">
             <span className="mr-3 font-mono text-sm font-normal text-muted">02 /</span>
             Selected Work
           </h2>
@@ -47,12 +47,12 @@ export function WorkList() {
                 {p.link ? (
                   <a
                     href={p.link}
-                    className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-medium tracking-tight transition-transform duration-300 group-hover:translate-x-2"
+                    className="font-display text-[clamp(1.35rem,2.6vw,2.1rem)] font-medium tracking-tight transition-transform duration-300 group-hover:translate-x-2"
                   >
                     {p.title} <span aria-hidden="true">↗</span>
                   </a>
                 ) : (
-                  <span className="block font-display text-[clamp(1.5rem,3vw,2.5rem)] font-medium tracking-tight transition-transform duration-300 group-hover:translate-x-2">
+                  <span className="block font-display text-[clamp(1.35rem,2.6vw,2.1rem)] font-medium tracking-tight transition-transform duration-300 group-hover:translate-x-2">
                     {p.title}
                   </span>
                 )}
