@@ -21,11 +21,12 @@ export function About() {
 
       <div className="mt-10 grid gap-10 md:grid-cols-12 md:gap-6">
         <Reveal className="md:col-span-4 md:mt-16">
-          <div className="flex aspect-[4/5] items-center justify-center border border-line">
-            <span className="font-display text-7xl font-medium tracking-tight text-muted">
-              {profile.initials}
-            </span>
-          </div>
+          <img
+            src="/portrait.jpg"
+            alt="Portrait of Muhammad Naufal Aulia"
+            loading="lazy"
+            className="aspect-[4/5] w-full border border-line object-cover grayscale"
+          />
           <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted">
             {profile.name} — {profile.role}
           </p>
