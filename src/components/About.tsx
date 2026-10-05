@@ -61,7 +61,7 @@ export function About() {
         <Reveal className="md:col-span-7">
           <h3 className="font-mono text-xs uppercase tracking-widest text-muted">Experience</h3>
           <div className="mt-4">
-            {experiences.map((e) => (
+            {experiences.map(e => (
               <div
                 key={`${e.org}-${e.role}`}
                 className="grid gap-1 border-t border-line py-4 md:grid-cols-12 md:gap-4"
@@ -69,7 +69,9 @@ export function About() {
                 <span className="font-mono text-[11px] text-muted md:col-span-4">{e.period}</span>
                 <div className="md:col-span-8">
                   <p className="font-medium">{e.role}</p>
-                  <p className="font-mono text-[11px] uppercase tracking-widest text-muted">{e.org}</p>
+                  <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
+                    {e.org}
+                  </p>
                 </div>
               </div>
             ))}
@@ -90,7 +92,7 @@ export function About() {
               Certifications
             </h3>
             <ul className="mt-4">
-              {certifications.map((c) => (
+              {certifications.map(c => (
                 <li
                   key={c}
                   className="border-t border-line py-3 font-mono text-xs uppercase tracking-widest"

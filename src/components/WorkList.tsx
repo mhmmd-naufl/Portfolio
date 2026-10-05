@@ -19,7 +19,7 @@ export function WorkList() {
   };
 
   const current: Project | undefined = preview
-    ? projects.find((p) => p.id === preview.id)
+    ? projects.find(p => p.id === preview.id)
     : undefined;
 
   return (
@@ -36,7 +36,9 @@ export function WorkList() {
             <span className="mr-3 font-mono text-sm font-normal text-muted">02 /</span>
             Selected Work
           </h2>
-          <span className="font-mono text-xs text-muted">({String(projects.length).padStart(2, '0')})</span>
+          <span className="font-mono text-xs text-muted">
+            ({String(projects.length).padStart(2, '0')})
+          </span>
         </div>
       </Reveal>
 
@@ -44,8 +46,8 @@ export function WorkList() {
         {projects.map((p, i) => (
           <Reveal key={p.id}>
             <div
-              onMouseEnter={(e) => onRowMove(e, p.id)}
-              onMouseMove={(e) => onRowMove(e, p.id)}
+              onMouseEnter={e => onRowMove(e, p.id)}
+              onMouseMove={e => onRowMove(e, p.id)}
               className={`group grid gap-2 border-b border-line py-6 md:grid-cols-12 md:items-baseline md:gap-6 md:py-8 ${
                 i % 2 === 1 ? 'md:ml-[6vw]' : ''
               }`}

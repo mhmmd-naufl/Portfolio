@@ -87,10 +87,24 @@ export function Footer() {
           <line x1="820" y1="0" x2="820" y2="800" />
           <line x1="0" y1="0" x2="1200" y2="800" />
           <rect x="880" y="480" width="220" height="140" />
-          <text x="852" y="52" fill="currentColor" stroke="none" fontSize="11" fontFamily="monospace">
+          <text
+            x="852"
+            y="52"
+            fill="currentColor"
+            stroke="none"
+            fontSize="11"
+            fontFamily="monospace"
+          >
             BWI—6.9S
           </text>
-          <text x="990" y="640" fill="currentColor" stroke="none" fontSize="11" fontFamily="monospace">
+          <text
+            x="990"
+            y="640"
+            fill="currentColor"
+            stroke="none"
+            fontSize="11"
+            fontFamily="monospace"
+          >
             [C] 2026
           </text>
         </g>
@@ -153,7 +167,7 @@ export function Footer() {
               </address>
               <hr className="my-5 border-t border-dashed border-white/25" />
               <ul className="space-y-2">
-                {profile.socials.map((s) => (
+                {profile.socials.map(s => (
                   <li key={s.label}>
                     <a
                       href={s.href}
@@ -173,7 +187,7 @@ export function Footer() {
         <div className="mt-16 border-y border-dashed border-white/25 px-2 py-4">
           <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
             <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Sitemap">
-              {sitemap.map((l) => (
+              {sitemap.map(l => (
                 <a
                   key={l.href}
                   href={l.href}
