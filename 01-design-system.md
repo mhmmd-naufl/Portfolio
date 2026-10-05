@@ -48,6 +48,7 @@ module.exports = {
 - Image: aspect `4/5` portrait atau `16/10` landscape, `grayscale` default → warna on hover, `object-cover`
 - Link: underline offset `4px` on hover. State aktif = `underline + font-medium`, bukan warna beda
 - Nomor: selalu mono, misal `01`, `P.01`, `[C]` untuk footer
+- Scrollbar: custom tipis site-only (`scrollbar-width: thin`, thumb square tanpa radius, ikut tema). Tidak disembunyikan total agar posisi scroll tetap terbaca.
 - Theme toggle: tombol teks mono `Light / Dark` di nav, icon sun/moon garis tipis saja
 
 ## Contoh Base CSS

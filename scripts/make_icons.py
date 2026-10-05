@@ -60,9 +60,44 @@ def render_micro(size: int, color: tuple) -> Image.Image:
 
 
 if __name__ == '__main__':
+    from PIL import ImageFont
+
     render_micro(32, INK).save('public/favicon-32.png')
     render(180, INK, grid=True, bg=PAPER).save('public/apple-touch-icon.png')
     render(192, INK, grid=True, bg=None).save('public/icon-192.png')
     render(512, INK, grid=True, bg=None).save('public/icon-512.png')
     render_micro(180, INK).save('public/apple-touch-icon-micro.png')
+
+    # OG card 1200x630: mark on top, name + role below (Arial or fallback).
+    W, H = 1200, 630
+    og = Image.new('RGBA', (W, H), PAPER)
+    od = ImageDraw.Draw(og)
+    box, u = 300, 300 / VIEW[2]
+    gx0, gy0 = (W - box) / 2 - VIEW[0] * u, 150 - VIEW[1] * u
+
+    def ox(gx: float) -> float:
+        return gx0 + gx * u
+
+    def oy(gy: float) -> float:
+        return gy0 + gy * u
+
+    gw = max(2, round(1.5 * u))
+    for g in GRID_LINES:
+        od.line([(ox(0), oy(g)), (ox(100), oy(g))], fill=INK, width=gw)
+        od.line([(ox(g), oy(0)), (ox(g), oy(100))], fill=INK, width=gw)
+    (x0, y0), (x1, y1) = EXT_LINE
+    od.line([(ox(x0), oy(y0)), (ox(x1), oy(y1))], fill=INK, width=round(4 * u))
+    od.rectangle([(ox(SQ[0]), oy(SQ[1])), (ox(SQ[2]) - 1, oy(SQ[3]) - 1)], fill=INK)
+
+    try:
+        name_f = ImageFont.truetype('C:/Windows/Fonts/arialbd.ttf', 64)
+        role_f = ImageFont.truetype('C:/Windows/Fonts/arial.ttf', 28)
+    except OSError:
+        name_f = role_f = ImageFont.load_default()
+    name, role = 'Muhammad Naufal Aulia', 'WEB DEVELOPMENT & DIGITAL CONTENT'
+    nb = od.textbbox((0, 0), name, font=name_f)
+    od.text(((W - (nb[2] - nb[0])) / 2, 470), name, font=name_f, fill=INK)
+    rb = od.textbbox((0, 0), role, font=role_f)
+    od.text(((W - (rb[2] - rb[0])) / 2, 545), role, font=role_f, fill=(111, 108, 102, 255))
+    og.convert('RGB').save('public/og-image.png')
     print('icons written to public/')
