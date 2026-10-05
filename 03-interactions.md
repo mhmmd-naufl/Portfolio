@@ -1,4 +1,4 @@
-# 03 — Interactions (5 Saja, Locked)
+# 03 — Interactions (5 inti + 1 signature)
 
 Aturan keras: max 1 animasi per viewport, durasi `0.5-0.7s`, easing `ease-out`, hormati `prefers-reduced-motion`.
 
@@ -51,3 +51,8 @@ export function Reveal({ children, className='' }: { children: React.ReactNode; 
 - No marquee, no parallax, no preloader, no page transition.
 - Cursor: single dot minimalis (`CustomCursor.tsx` + `.cursor-dot`). Lihat komentar di file untuk utak-atik.
 - Link nav header/footer: scramble teks saat hover/focus, kembali normal setelahnya (`ScrambleText.tsx`). Nonaktif bila reduced-motion.
+
+## 6. Dot Field (signature, hero background)
+- Background hero: grid titik canvas 2D (`gap 28px`), faint agar whitespace tetap lega.
+- Titik menjauh dari cursor (radius `150px`, maks `26px`, easing `0.18`), balik elastis. Dekat cursor ungu `#7C3AED` (alpha ikut jarak), sisanya ink redup.
+- Implementasi `Playground.tsx` (props `bare` + `faint`): rAF pause saat offscreen, statis bila touch/reduced-motion, warna dari CSS vars.

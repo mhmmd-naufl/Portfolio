@@ -5,7 +5,7 @@
 /* Monochrome theme tokens (eye-comfort, no pure black/white).
    Light = warm paper, Dark = soft black. */
 :root {
-  --bg: 247 245 240;
+  --bg: 250 249 247;
   --ink: 26 25 23;
   --muted: 111 108 102;
   --line: 229 225 216;
@@ -190,3 +190,5 @@ section[id] {
   position: absolute;
   inset: 0;
 }
+
+/* (magnetic hero type retired with MagneticType) */

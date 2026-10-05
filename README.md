@@ -1,56 +1,119 @@
 # Personal Website — Muhammad Naufal Aulia
 
-Portfolio 1 halaman, minimalis, monokrom + dark/light mode. Adaptasi dari `gertix.studio/studio/`.
-Stack: React (Vite) + Tailwind CSS. Tanpa backend.
+> Portfolio & personal site of Muhammad Naufal Aulia — Creative Technologist based in BWI, ID.
 
-## Jalankan lokal
+## Tech Stack
 
-```sh
+- **Framework:** React 18 + Vite 5
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS 3
+- **Linting:** ESLint + Prettier
+- **Deployment:** Cloudflare Pages (via GitHub Actions)
+- **Analytics:** Cloudflare Web Analytics (privacy-friendly)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js >= 20
+- npm (or yarn/pnpm)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/mhmmd-naufl/personal-website.git
+cd personal-website
+
+# Install dependencies
 npm install
+```
+
+### Development
+
+```bash
+# Start dev server (hot reload)
 npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build locally
+npm run preview
+
+# Lint code
+npm run lint
+
+# Format code
+npm run format
+
+# Check formatting
+npm run format:check
 ```
 
-## Build
-
-```sh
-npm run build   # output di dist/
-npm run preview # cek hasil build
-```
-
-## Deploy
-
-Repo ini static, bisa di mana saja:
-
-- **Vercel:** import repo → framework preset `Vite` → build `npm run build`, output `dist`. Jadi otomatis.
-- **Netlify:** build command `npm run build`, publish directory `dist`.
-- **GitHub Pages:** `npm run build`, serve folder `dist/` (via action atau manual).
-
-Tidak perlu env variable. Font diambil dari Google Fonts saat runtime (tetap tampil dengan fallback Helvetica/Arial bila offline).
-
-## Error handling
-
-- App ini 1 halaman tanpa router, jadi tidak ada 404 in-app.
-- **Vercel:** `vercel.json` me-rewrite semua path ke `/index.html`.
-- **Netlify:** `public/_redirects` me-rewrite semua path ke `/index.html` (status 200).
-- **GitHub Pages / host statis lain:** `public/404.html` tampil untuk URL yang tidak ada (monokrom, ikut dark mode sistem, link balik ke `/`).
-
-## Ubah konten
-
-Satu file saja: `src/data/content.ts` (profil, projects P.01–P.06, capabilities, experiences, sertifikat).
-Sumber kebenaran data: `06-input-pengalaman.md`. Status link/cover project: pending (cari di GitHub).
-
-## Font Creato Display (opsional)
-
-Bila punya file `creato-display.woff2`, taruh di `src/assets/fonts/`, lalu uncomment blok `@font-face` di `src/index.css`. Heading otomatis pakai Creato, fallback Inter Tight bila file tidak ada.
-
-## Struktur
+## Project Structure
 
 ```
-src/
-├── data/content.ts          # semua teks — edit di sini
-├── components/              # Nav, Hero, WorkList, About, Contact, Footer, Reveal, ThemeToggle
-├── App.tsx
-├── main.tsx
-└── index.css                # token tema + reveal + reduced-motion
-00–06 *.md                   # brief, design system, struktur, interaksi, template, prompt, input data
+├── public/                 # Static assets (copied to build output)
+│   ├── _headers            # Cloudflare Pages security headers
+│   ├── _redirects          # URL redirects
+│   ├── favicon.ico
+│   ├── og-image.png        # Social share image (1200x630)
+│   └── robots.txt
+├── src/
+│   ├── components/         # Reusable UI components
+│   ├── pages/              # Page components
+│   ├── styles/             # Global styles / Tailwind entry
+│   ├── utils/              # Utility functions
+│   ├── data/               # Profile data, projects data
+│   ├── App.tsx             # Root component
+│   └── main.tsx            # Entry point
+├── .github/
+│   ├── workflows/
+│   │   └── deploy.yml      # CI/CD → Cloudflare Pages
+│   └── dependabot.yml      # Auto-update dependencies
+├── eslint.config.js
+├── .prettierrc
+├── .prettierignore
+├── .editorconfig
+├── tailwind.config.js
+├── postcss.config.js
+├── tsconfig.json
+├── vite.config.ts
+├── package.json
+├── LICENSE                 # MIT License
+└── README.md
 ```
+
+## Deployment
+
+### Automatic (GitHub Actions)
+
+Push to `main` branch → GitHub Actions builds & deploys to Cloudflare Pages automatically.
+
+### Manual (Wrangler CLI)
+
+```bash
+# Install Wrangler
+npm install -g wrangler
+
+# Login to Cloudflare
+wrangler login
+
+# Deploy
+npm run build
+wrangler pages deploy ./dist --project-name=personal-website
+```
+
+## Environment Variables
+
+Set these in **Cloudflare Pages → Settings → Environment variables**:
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `NODE_VERSION` | Node.js version for build | Recommended (`20`) |
+| `FORM_ENDPOINT` | Form submission endpoint (e.g., Formspree) | If using contact form |
+
+## License
+
+[MIT](LICENSE) © [Muhammad Naufal Aulia](https://github.com/mhmmd-naufl)

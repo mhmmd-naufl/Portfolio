@@ -1,1 +1,5 @@
-/* /index.html 200
+# SPA fallback (uncomment if using client-side routing)
+# /*    /index.html   200
+
+# Example: redirect old URL to new
+# /old-path    /new-path    301

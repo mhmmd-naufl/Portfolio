@@ -13,6 +13,7 @@ Semua anchor di 1 halaman. Nav bernomor seperti Gertix.
 - Ghost numeral `01` samar di background + label vertikal kiri (desktop).
 - Headline 2 baris staggered (baris 2 indent `8vw`), `clamp(2.75rem, 9vw, 8rem)`.
 - Meta bar bawah: role + status + `Scroll ↓`, divider dashed.
+- Background: dot field interaktif (`Playground bare faint`), faint agar whitespace tetap lega.
 
 ## 02 Selected Work (`#work`, experimental)
 - Ghost numeral `02` samar kanan atas + rows selang-seling indent `6vw` (ganjil).

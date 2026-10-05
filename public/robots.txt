@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mhmmd-naufl.github.io/personal-website/sitemap.xml

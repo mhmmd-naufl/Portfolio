@@ -3,7 +3,7 @@
 Prinsip: ketenangan > keramaian. Bedakan lewat kerapian tipografi + data, bukan dekorasi.
 
 ## Warna: hitam-putih saja + dark/light mode
-- Light (default): bg `#F7F5F0` (warm paper, nyaman di mata), ink `#1A1917` (soft black), muted `#6F6C66`, line `#E5E1D8`
+- Light (default): bg `#FAF9F7` (nyaris putih, tetap warm), ink `#1A1917` (soft black), muted `#6F6C66`, line `#E5E1D8`
 - Dark: bg `#131210` (soft black, bukan pure), ink `#EDE9E1` (warm white), muted `#A3A099`, line `#2A2825`
 - Aturan: tanpa warna aksen. Status aktif = `underline` / `font-semibold` / invert, bukan warna. Dot status pakai `currentColor` (ikut ink), bukan hijau.
 - Jangan pakai pure `#FFFFFF` / `#000000` untuk area besar (silau). Pure hanya untuk teks kecil bila perlu.
