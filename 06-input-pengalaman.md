@@ -27,7 +27,7 @@ LinkedIn/Behance web diblokir, tapi PDF ekspornya cukup.
 | LinkedIn                                             | https://linkedin.com/in/mhmmd-naufl                                                                                                                                                                                               |
 | Instagram                                            | https://instagram.com/mhmmd.naufl [CEK]                                                                                                                                                                                           |
 | Behance                                              | https://behance.net/mhmmdnaufl                                                                                                                                                                                                    |
-| Foto portrait                                        | (kosong — siapkan portrait.jpg 1200x1500)                                                                                                                                                                                         |
+| Foto portrait                                        | public/portrait.jpg (formal B&W, 1200px, 125KB)                                                                                                                                                                                         |
 
 ## B. Pengalaman (final merged, urut terbaru)
 
@@ -100,4 +100,4 @@ LinkedIn/Behance web diblokir, tapi PDF ekspornya cukup.
 - [ ] Link/cover per project (pending — cari di GitHub, tulis "tanpa link" bila tidak ada)
 - [ ] Role dikunci (Web Dev & Digital Content vs Creative Technologist)
 - [ ] Tanggal akhir Howheal (Okt vs Des 2025) + tahun mulai freelance (2023 vs 2024) + IPK (3.63 vs 3.60)
-- [ ] Foto portrait disiapkan
+- [x] Foto portrait disiapkan
