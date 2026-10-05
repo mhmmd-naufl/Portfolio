@@ -148,10 +148,9 @@ section[id] {
   }
 }
 
-/* Subtle custom cursor (difference blend = visible on both themes).
-   Tweak size/color/speed here. Speed lives in CustomCursor.tsx (0.16). */
-.cursor-dot,
-.cursor-ring {
+/* Minimalist custom cursor: single dot, difference blend.
+   Tweak size here. Grows slightly over links via .cursor-hot. */
+.cursor-dot {
   display: none;
 }
 
@@ -168,39 +167,22 @@ section[id] {
     top: 0;
     left: 0;
     z-index: 200;
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     border-radius: 9999px;
     background: #fff;
     mix-blend-mode: difference;
     pointer-events: none;
+    transition: scale 0.25s ease;
   }
 
-  .has-cursor .cursor-ring {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 200;
-    width: 28px;
-    height: 28px;
-    border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    mix-blend-mode: difference;
-    pointer-events: none;
-    transition:
-      width 0.25s ease,
-      height 0.25s ease;
-  }
-
-  .has-cursor.cursor-hot .cursor-ring {
-    width: 48px;
-    height: 48px;
+  .has-cursor.cursor-hot .cursor-dot {
+    scale: 1.8;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .has-cursor .cursor-ring {
+  .has-cursor .cursor-dot {
     transition: none;
   }
 }

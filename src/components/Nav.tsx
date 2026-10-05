@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { profile } from '../data/content';
+import { ScrambleText } from './ScrambleText';
 import { ThemeToggle } from './ThemeToggle';
 
 const links = [
@@ -70,7 +71,7 @@ export function Nav() {
                     : 'text-muted hover:text-ink'
                 }`}
               >
-                {l.no} {l.label}
+                <span>{l.no}</span> <ScrambleText text={l.label} />
               </a>
             ))}
           </nav>
@@ -113,7 +114,7 @@ export function Nav() {
                 className="font-display text-5xl font-medium tracking-tight"
               >
                 <span className="mr-4 font-mono text-sm text-muted">{l.no}</span>
-                {l.label}
+                <ScrambleText text={l.label} />
               </a>
             ))}
           </nav>

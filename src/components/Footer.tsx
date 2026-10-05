@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { profile } from '../data/content';
+import { ScrambleText } from './ScrambleText';
 import { Reveal } from './Reveal';
 
 const sitemap = [
@@ -178,7 +179,7 @@ export function Footer() {
                   href={l.href}
                   className="u-line font-mono text-xs uppercase tracking-widest"
                 >
-                  {l.no} {l.label}
+                  <span>{l.no}</span> <ScrambleText text={l.label} />
                 </a>
               ))}
             </nav>

@@ -49,4 +49,5 @@ export function Reveal({ children, className='' }: { children: React.ReactNode; 
 
 ## Yang Dilarang
 - No marquee, no parallax, no preloader, no page transition.
-- Cursor: dot + ring subtle saja (hover devices, reduced-motion off). Lihat `CustomCursor.tsx` + `.cursor-dot` di CSS.
+- Cursor: single dot minimalis (`CustomCursor.tsx` + `.cursor-dot`). Lihat komentar di file untuk utak-atik.
+- Link nav header/footer: scramble teks saat hover/focus, kembali normal setelahnya (`ScrambleText.tsx`). Nonaktif bila reduced-motion.
