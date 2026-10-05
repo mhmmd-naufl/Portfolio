@@ -38,3 +38,4 @@ dist-ssr
 bug*.png
 tile*.png
 frame_*.png
+vite.config.ts.timestamp-*.mjs
