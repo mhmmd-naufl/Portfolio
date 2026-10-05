@@ -8,8 +8,8 @@ import {
   projects as defaultProjects,
 } from '../data/content';
 import type { Project } from '../data/content';
-import type { ContentBundle } from '../lib/api';
-import { AdminServer } from './AdminServer';
+import type { ContentBundle } from '../lib/supabase';
+import { AdminCloud } from './AdminCloud';
 
 type Tab = 'profile' | 'projects' | 'site';
 
@@ -275,7 +275,7 @@ export default function AdminPanel() {
         <h1 className="mt-2 font-display text-4xl font-medium tracking-tight">Content editor</h1>
 
         <div className="mt-6">
-          <AdminServer getData={getData} applyData={applyData} />
+          <AdminCloud getData={getData} applyData={applyData} />
         </div>
 
         <div className="mt-6 flex flex-wrap gap-2">
