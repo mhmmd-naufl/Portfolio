@@ -5,7 +5,7 @@ Aturan keras: max 1 animasi per viewport, durasi `0.5-0.7s`, easing `ease-out`, 
 ## 1. Numbered Nav + Active on Scroll
 
 - Link `01-04` mono. Active section via IntersectionObserver → `underline + font-medium` (tanpa ganti warna).
-- Smooth scroll: `scroll-behavior: smooth; scroll-margin-top: 88px` per section.
+- Smooth scroll: Lenis (`SmoothScroll.tsx`, wheel desktop saja, anchor via `lenis.scrollTo` offset `-88px`). Mati total bila reduced-motion (fallback CSS).
 - Tanpa underline animasi aneh. Cukup warna.
 
 ## 2. Work List Hover Preview (signature)
