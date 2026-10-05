@@ -145,7 +145,7 @@ export function Footer() {
 
           <div className="flex flex-col justify-end md:col-span-5 md:self-end md:text-right">
             <Reveal>
-              <p className="font-display text-2xl font-medium tracking-tight">{profile.initials}</p>
+              <img src="/logo.svg" alt={profile.name} className="h-8 w-auto md:ml-auto" />
               <address className="mt-3 font-mono text-xs uppercase not-italic leading-relaxed tracking-widest text-white/60">
                 {profile.name}
                 <br />

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 180 180" fill="none">
+  <g stroke="currentColor" stroke-width="1.5">
+    <path d="M0 0H100M0 20H100M0 40H100M0 60H100M0 80H100M0 100H100M0 0V100M20 0V100M40 0V100M60 0V100M80 0V100M100 0V100"/>
+    <line x1="-20" y1="60" x2="40" y2="60" stroke-width="4"/>
+  </g>
+  <rect x="40" y="40" width="40" height="40" fill="currentColor"/>
+</svg>
