@@ -29,6 +29,13 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+!.env.example
+!.env.development
+
+# Backend (secrets + local db)
+server/.env
+server/content.db
+server/__pycache__/
 
 # Personal docs (keep local, do not publish)
 *.pdf
