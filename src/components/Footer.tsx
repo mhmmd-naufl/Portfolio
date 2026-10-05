@@ -146,6 +146,13 @@ export function Footer() {
                 >
                   {copied ? 'Copied ✓' : 'Copy email'}
                 </button>
+                <button
+                  type="button"
+                  onClick={() => window.print()}
+                  className="border border-white/25 px-4 py-2 font-mono text-xs uppercase tracking-widest text-white/70 transition-colors hover:text-white"
+                >
+                  Resume ↓
+                </button>
               </div>
               <p className="mt-8 flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-white/50">
                 <span

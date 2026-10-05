@@ -98,6 +98,12 @@ for (const c of data.certifications ?? []) {
 }
 L.push('];');
 L.push('');
+L.push('export const tools = [');
+for (const t of data.tools ?? []) {
+  L.push(`  ${str(t)},`);
+}
+L.push('];');
+L.push('');
 L.push('export const education = {');
 for (const [k, v] of Object.entries(data.education ?? {})) {
   L.push(`  ${k}: ${str(v)},`);
