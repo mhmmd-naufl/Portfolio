@@ -39,6 +39,8 @@ npm install
 npm run dev        # start dev server
 npm run build      # production build to dist/
 npm run preview    # preview the build locally
+
+# Local content editor (dev only): npm run dev, then open http://localhost:5173/#admin
 npm run lint       # eslint, zero warnings allowed
 npm run format     # prettier write
 ```

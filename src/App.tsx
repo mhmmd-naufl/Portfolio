@@ -1,3 +1,4 @@
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { About } from './components/About';
 import { CommandMenu } from './components/CommandMenu';
 import { CustomCursor } from './components/CustomCursor';
@@ -8,7 +9,38 @@ import { Nav } from './components/Nav';
 import { SmoothScroll } from './components/SmoothScroll';
 import { WorkList } from './components/WorkList';
 
+const AdminPanel = lazy(() => import('./components/AdminPanel'));
+
+// Local content editor at #admin — dev builds only, never production.
+function useAdmin(): boolean {
+  const [admin, setAdmin] = useState(
+    () => import.meta.env.DEV && window.location.hash === '#admin'
+  );
+  useEffect(() => {
+    const onHash = () => setAdmin(import.meta.env.DEV && window.location.hash === '#admin');
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+  return admin;
+}
+
 export default function App() {
+  const admin = useAdmin();
+
+  if (admin) {
+    return (
+      <div className="min-h-screen bg-base font-sans text-ink">
+        <Suspense
+          fallback={
+            <p className="p-10 font-mono text-xs uppercase tracking-widest">Loading editor…</p>
+          }
+        >
+          <AdminPanel />
+        </Suspense>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-base font-sans text-ink">
       <SmoothScroll />
