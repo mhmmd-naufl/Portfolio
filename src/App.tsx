@@ -1,4 +1,5 @@
 import { About } from './components/About';
+import { CommandMenu } from './components/CommandMenu';
 import { CustomCursor } from './components/CustomCursor';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Footer } from './components/Footer';
@@ -12,6 +13,7 @@ export default function App() {
     <div className="min-h-screen bg-base font-sans text-ink">
       <SmoothScroll />
       <CustomCursor />
+      <CommandMenu />
       <a href="#main" className="skip-link">
         Skip to content
       </a>

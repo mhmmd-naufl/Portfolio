@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import Lenis from 'lenis';
 
 // Lenis smooth scroll: desktop wheel only, off with reduced-motion.
-// Anchor links (#home/#work/...) are intercepted and animated via
-// lenis.scrollTo with a -88px offset for the fixed nav.
+// Anchor links (#home/#work/...) and palette jumps ('app:goto') are
+// animated via lenis.scrollTo with a -88px offset for the fixed nav.
 export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -27,11 +27,19 @@ export function SmoothScroll() {
       e.preventDefault();
       lenis.scrollTo(hash, { offset: -88, duration: 1.2 });
     };
+    const onGoto = (e: Event) => {
+      const id = (e as CustomEvent<string>).detail;
+      if (typeof id === 'string' && document.querySelector(id)) {
+        lenis.scrollTo(id, { offset: -88, duration: 1.2 });
+      }
+    };
     document.addEventListener('click', onClick);
+    window.addEventListener('app:goto', onGoto);
 
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener('click', onClick);
+      window.removeEventListener('app:goto', onGoto);
       root.style.scrollBehavior = prev;
       lenis.destroy();
     };

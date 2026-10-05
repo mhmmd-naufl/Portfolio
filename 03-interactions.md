@@ -81,3 +81,7 @@ export function Reveal({
 - Background hero: grid titik canvas 2D (`gap 28px`), faint agar whitespace tetap lega.
 - Titik menjauh dari cursor (radius `150px`, maks `26px`, easing `0.18`), balik elastis. Dekat cursor ungu `#7C3AED` (alpha ikut jarak), sisanya ink redup.
 - Implementasi `Playground.tsx` (props `bare` + `faint`): rAF pause saat offscreen, statis bila touch/reduced-motion, warna dari CSS vars.
+
+## 7. Command Palette (⌘K)
+- `CommandMenu.tsx` (cmdk): floating `⌘K` + `Ctrl/⌘+K`, jump sections via event `app:goto` (didengar `SmoothScroll`), toggle theme via `lib/theme.ts`, copy email, open socials.
+- `vite-plugin-pwa`: service worker auto-update, precache assets + `navigateFallback index.html`. Manifest tetap `public/site.webmanifest`.
