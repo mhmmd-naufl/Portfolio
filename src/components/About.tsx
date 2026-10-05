@@ -3,7 +3,13 @@ import { Reveal } from './Reveal';
 
 export function About() {
   return (
-    <section id="about" className="py-36 md:py-56">
+    <section id="about" className="relative py-36 md:py-56">
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-8 left-0 -z-10 select-none font-display text-[22vw] font-semibold leading-none tracking-[-0.05em] text-ink/[0.04] dark:text-[#EDE9E1]/[0.06] md:text-[15vw]"
+      >
+        03
+      </span>
       <Reveal>
         <div className="border-b border-line pb-4">
           <h2 className="font-display text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium tracking-tight">
@@ -14,7 +20,7 @@ export function About() {
       </Reveal>
 
       <div className="mt-10 grid gap-10 md:grid-cols-12 md:gap-6">
-        <Reveal className="md:col-span-4">
+        <Reveal className="md:col-span-4 md:mt-16">
           <div className="flex aspect-[4/5] items-center justify-center border border-line">
             <span className="font-display text-7xl font-medium tracking-tight text-muted">
               {profile.initials}
@@ -31,9 +37,13 @@ export function About() {
           </Reveal>
 
           <div className="mt-10">
-            {capabilities.map((c) => (
+            {capabilities.map((c, i) => (
               <Reveal key={c.no}>
-                <div className="grid gap-1 border-t border-line py-5 md:grid-cols-12 md:gap-6">
+                <div
+                  className={`grid gap-1 border-t border-line py-5 md:grid-cols-12 md:gap-6 ${
+                    i % 2 === 1 ? 'md:ml-[6vw]' : ''
+                  }`}
+                >
                   <span className="font-mono text-xs text-muted md:col-span-1">{c.no}</span>
                   <h3 className="font-display text-2xl font-medium tracking-tight md:col-span-3">
                     {c.title}

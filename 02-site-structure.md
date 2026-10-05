@@ -14,27 +14,28 @@ Semua anchor di 1 halaman. Nav bernomor seperti Gertix.
 - Headline 2 baris staggered (baris 2 indent `8vw`), `clamp(2.75rem, 9vw, 8rem)`.
 - Meta bar bawah: role + status + `Scroll ↓`, divider dashed.
 
-## 02 Selected Work (`#work`)
-- Header: `02 / Selected Work` + count `(06)` + link `Archive ↗` (opsional).
+## 02 Selected Work (`#work`, experimental)
+- Ghost numeral `02` samar kanan atas + rows selang-seling indent `6vw` (ganjil).
+- Header: `02 / Selected Work` + count `(06)`.
 - Pola: list rows, tiap row border-top `1px line`:
   `[P.01] [Judul Besar] [Category — Year] [↗]`
-- Meta mono kanan: `React / 2024`. Hover: judul geser `8px` + thumbnail melayang (desktop saja, lihat `03-interactions.md`).
-- Mobile: judul + meta + thumbnail stacked 16:10 di bawah teks.
-- Klik → modal sederhana atau halaman `/work/:slug` (MVP: modal saja).
+- Meta mono kanan. Hover: judul geser + kartu preview melayang (desktop saja, lihat `03-interactions.md`).
+- Mobile: judul + meta stacked (tanpa indent, tanpa preview).
+- Klik → link bila ada, teks statis bila belum (link/cover pending GitHub).
 
-## 03 About / Capabilities (`#about`)
-- Header: `03 / About`.
-- Kolom 1: foto portrait 4/5 grayscale + nama + `Creative Technologist`.
-- Kolom 2: bio 2-3 kalimat + 3 capabilities:
-  - `IT — Web dev, automation, n8n`
-  - `Creative — UI, typography, prototyping`
-  - `Analytics — dashboards, tracking, experiments`
-- Kolom 3 (atau bawah): stack list mono + `Currently` status.
+## 03 About / Capabilities (`#about`, experimental)
+- Ghost numeral `03` samar kiri bawah.
+- Kolom 1: foto portrait 4/5 (offset turun `mt-16` desktop, off-grid) + nama + role.
+- Kolom 2: bio + 3 capabilities selang-seling indent `6vw`:
+  - `IT — Backend FastAPI + Selenium, YOLOv8`
+  - `Creative — Desain minimalis, branding, video, broadcast`
+  - `Analytics — Analisis konten, timing/scoring, strategi konten`
+- Bawah: experience list mono + education + certifications.
 
 ## 04 Contact Room / Footer (`#contact`, adaptasi Gertix)
 - Footer = ruangan penutup setinggi `min-h-100svh`, selalu dark (`#131210` + `#EDE9E1`) di kedua mode — seperti footer gelap Gertix.
-- Pola garis abstrak (lingkaran konsentris, garis silang, label mono `BWI—6.9S`, `P.01—P.06`) tersingkap mengikuti cursor via radial mask + glow lembut. Touch: pola statis samar. Bukan animasi loop.
-- Kiri: label `04 / Contact`, headline raksasa `Let's work together`, email + tombol `Copy email`, status dot.
+- Pola garis abstrak (lingkaran konsentris, garis silang, label mono `BWI—6.9S`, `[C] 2026`) tersingkap mengikuti cursor via radial mask + glow lembut. Touch: pola statis samar. Bukan animasi loop.
+- Kiri: label `04 / Contact`, headline staggered (`together` indent `8vw`), email + tombol `Copy email`, status dot.
 - Kanan (rata kanan, align bawah): inisial, alamat + telp mono uppercase, divider dashed, sosial.
 - Bottom bar garis dashed atas-bawah: sitemap 01-04 (underline animasi scaleX), `© 2026`, live clock WIB, `Back to top ↑`.
 
