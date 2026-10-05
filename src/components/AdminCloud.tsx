@@ -75,8 +75,13 @@ export function AdminCloud({
           return;
         }
         localStorage.setItem('deploy_hook', hook);
-        await triggerHook(hook.trim());
-        setStatus('published ✓ — Cloudflare rebuild ~1-2 mnt');
+        try {
+          await triggerHook(hook.trim());
+          setStatus('published ✓ — Cloudflare rebuild ~1-2 mnt');
+        } catch {
+          await navigator.clipboard.writeText(`Invoke-RestMethod -Method Post "${hook.trim()}"`);
+          setStatus('browser diblokir — perintah publish tercopy, paste di PowerShell');
+        }
       } else {
         setStatus('saved ✓ ke Supabase');
       }
