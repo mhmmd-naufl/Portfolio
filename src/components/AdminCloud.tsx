@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { SUPABASE_CONFIGURED, loadRemote, saveRemote, signIn, triggerHook } from '../lib/supabase';
+import {
+  SUPABASE_CONFIGURED,
+  loadRemote,
+  publishViaRelay,
+  saveRemote,
+  signIn,
+} from '../lib/supabase';
 import type { ContentBundle } from '../lib/supabase';
 
 export function AdminCloud({
@@ -12,7 +18,6 @@ export function AdminCloud({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState(() => sessionStorage.getItem('supa_token') ?? '');
-  const [hook, setHook] = useState(() => localStorage.getItem('deploy_hook') ?? '');
   const [status, setStatus] = useState(
     SUPABASE_CONFIGURED ? 'belum login' : 'offline — isi env Supabase dulu',
   );
@@ -69,22 +74,12 @@ export function AdminCloud({
     setBusy(true);
     try {
       await saveRemote(getData(), token);
-      if (publish) {
-        if (!hook.trim()) {
-          setStatus('saved ✓ — tapi hook URL kosong, tidak publish');
-          return;
-        }
-        localStorage.setItem('deploy_hook', hook);
-        try {
-          await triggerHook(hook.trim());
-          setStatus('published ✓ — Cloudflare rebuild ~1-2 mnt');
-        } catch {
-          await navigator.clipboard.writeText(`Invoke-RestMethod -Method Post "${hook.trim()}"`);
-          setStatus('browser diblokir — perintah publish tercopy, paste di PowerShell');
-        }
-      } else {
+      if (!publish) {
         setStatus('saved ✓ ke Supabase');
+        return;
       }
+      await publishViaRelay(token);
+      setStatus('published ✓ — Cloudflare rebuild ~1-2 mnt');
     } catch (e) {
       setStatus(e instanceof Error ? e.message : 'gagal menyimpan');
     } finally {
@@ -133,52 +128,44 @@ export function AdminCloud({
           </button>
         </div>
       ) : (
-        <div className="mt-3 grid gap-3">
-          <input
-            value={hook}
-            onChange={(e) => setHook(e.target.value)}
-            placeholder="Cloudflare deploy hook URL (untuk Publish)"
-            spellCheck={false}
-            className={`${inputCls} font-mono text-xs`}
-          />
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={load}
-              disabled={busy}
-              className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-ink disabled:opacity-50"
-            >
-              Load
-            </button>
-            <button
-              type="button"
-              onClick={() => save(false)}
-              disabled={busy}
-              className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-ink disabled:opacity-50"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              onClick={() => save(true)}
-              disabled={busy}
-              className="border border-ink bg-ink px-4 py-2 font-mono text-xs uppercase tracking-widest text-base disabled:opacity-50"
-            >
-              Publish
-            </button>
-            <button
-              type="button"
-              onClick={logout}
-              disabled={busy}
-              className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-ink disabled:opacity-50"
-            >
-              Logout
-            </button>
-          </div>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={load}
+            disabled={busy}
+            className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-ink disabled:opacity-50"
+          >
+            Load
+          </button>
+          <button
+            type="button"
+            onClick={() => save(false)}
+            disabled={busy}
+            className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-ink disabled:opacity-50"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            onClick={() => save(true)}
+            disabled={busy}
+            className="border border-ink bg-ink px-4 py-2 font-mono text-xs uppercase tracking-widest text-base disabled:opacity-50"
+          >
+            Publish
+          </button>
+          <button
+            type="button"
+            onClick={logout}
+            disabled={busy}
+            className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-ink disabled:opacity-50"
+          >
+            Logout
+          </button>
         </div>
       )}
       <p className="mt-2 font-mono text-[11px] leading-relaxed text-muted">
-        Save = tulis DB. Publish = save + rebuild Cloudflare. Offline = edit jalan, sync gagal.
+        Save = tulis DB. Publish = save + rebuild Cloudflare via relay. Offline = edit jalan,
+        sync gagal.
       </p>
     </div>
   );

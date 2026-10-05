@@ -15,26 +15,23 @@ export type ContentBundle = {
   education: typeof education;
 };
 
-const SUPA_URL = (
+export const SUPABASE_URL = (
   (import.meta.env.VITE_SUPABASE_URL as string | undefined) ?? ''
 ).replace(/\/$/, '');
-const SUPA_KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) ?? '';
+export const SUPABASE_ANON_KEY =
+  (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) ?? '';
+export const SUPABASE_CONFIGURED = SUPABASE_URL.length > 0 && SUPABASE_ANON_KEY.length > 0;
 
-export const SUPABASE_CONFIGURED = SUPA_URL.length > 0 && SUPA_KEY.length > 0;
-
-async function supa(
-  path: string,
-  init: RequestInit & { token?: string },
-): Promise<Response> {
+async function supa(path: string, init: RequestInit & { token?: string }): Promise<Response> {
   const ctrl = new AbortController();
   const timer = window.setTimeout(() => ctrl.abort(), 12000);
   try {
     const headers: Record<string, string> = {
-      apikey: SUPA_KEY,
+      apikey: SUPABASE_ANON_KEY,
       ...(init.token ? { Authorization: `Bearer ${init.token}` } : {}),
     };
     if (init.body) headers['Content-Type'] = 'application/json';
-    const res = await fetch(`${SUPA_URL}${path}`, { ...init, signal: ctrl.signal, headers });
+    const res = await fetch(`${SUPABASE_URL}${path}`, { ...init, signal: ctrl.signal, headers });
     return res;
   } finally {
     window.clearTimeout(timer);
@@ -77,7 +74,11 @@ export async function saveRemote(data: ContentBundle, token: string): Promise<vo
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
 }
 
-export async function triggerHook(url: string): Promise<void> {
-  const res = await fetch(url, { method: 'POST' });
-  if (!res.ok) throw new Error(`hook HTTP ${res.status}`);
+export async function publishViaRelay(token: string): Promise<void> {
+  const res = await supa('/functions/v1/publish', { method: 'POST', token });
+  if (res.status === 401) throw new Error('ditolak — login dulu');
+  if (res.status === 404) throw new Error('edge function belum di-deploy');
+  if (!res.ok) throw new Error(`relay HTTP ${res.status}`);
+  const json = (await res.json()) as { ok?: boolean; error?: string };
+  if (!json.ok) throw new Error(json.error ?? 'publish gagal');
 }
