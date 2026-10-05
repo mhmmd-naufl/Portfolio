@@ -1,3 +1,4 @@
+// @ts-nocheck — Deno runtime file (deployed to Supabase, not type-checked locally).
 // Supabase Edge Function: publish relay.
 // Browser cannot POST to api.cloudflare.com (CORS), so the panel calls HERE
 // (same Supabase origin) and this function POSTs to the Deploy Hook server-side.
