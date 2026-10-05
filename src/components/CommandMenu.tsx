@@ -8,7 +8,7 @@ const sections = [
   { id: '#work', no: '02', label: 'Work' },
   { id: '#about', no: '03', label: 'About' },
   { id: '#contact', no: '04', label: 'Contact' },
-};
+];
 
 async function copyEmail(): Promise<void> {
   try {
