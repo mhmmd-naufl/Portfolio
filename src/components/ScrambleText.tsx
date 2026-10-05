@@ -4,6 +4,8 @@ const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@%&*';
 const DURATION = 450;
 
 // Scrambles text on hover/focus, then resolves back.
+// Width is locked: an invisible ghost reserves the exact width while the
+// scrambled layer overlays it — layout can never shift mid-animation.
 // Skipped entirely with prefers-reduced-motion.
 export function ScrambleText({ text, className = '' }: { text: string; className?: string }) {
   const [display, setDisplay] = useState(text);
@@ -36,8 +38,11 @@ export function ScrambleText({ text, className = '' }: { text: string; className
   };
 
   return (
-    <span className={className} onMouseEnter={start} onFocus={start}>
-      {display}
+    <span className={`scramble ${className}`} onMouseEnter={start} onFocus={start}>
+      <span className="scramble-ghost">{text}</span>
+      <span aria-hidden="true" className="scramble-live">
+        {display}
+      </span>
     </span>
   );
 }

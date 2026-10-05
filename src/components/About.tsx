@@ -3,7 +3,7 @@ import { Reveal } from './Reveal';
 
 export function About() {
   return (
-    <section id="about" className="py-28 md:py-40">
+    <section id="about" className="py-36 md:py-56">
       <Reveal>
         <div className="border-b border-line pb-4">
           <h2 className="font-display text-[clamp(2rem,4vw,3.5rem)] font-medium tracking-tight">

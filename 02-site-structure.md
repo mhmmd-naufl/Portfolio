@@ -8,10 +8,11 @@ Semua anchor di 1 halaman. Nav bernomor seperti Gertix.
 - Mobile: logo + hamburger → fullscreen overlay, link besar display font.
 - Border-bottom `1px line` hanya setelah scroll > 8px.
 
-## 01 Hero (`#home`)
-- Full viewport min-h `92vh`, vertikal center-left.
-- Isi: label mono `FOLIO 2026 — JAKARTA`, headline display 1-2 baris, sub 1 baris muted, 2 link: `View work ↓` + `email@kamu.com`.
-- Whitespace bawah besar (jangan tempel ke section berikut).
+## 01 Hero (`#home`, experimental)
+- Full `100svh`, konten nempel bawah (`justify-end`) — udara raksasa di atas.
+- Ghost numeral `01` raksasa di background + label vertikal kiri (desktop).
+- Headline 2 baris staggered (baris 2 indent `16vw`), `clamp(3.5rem, 12vw, 11rem)`.
+- Meta bar bawah: role + status + `Scroll ↓`, divider dashed.
 
 ## 02 Selected Work (`#work`)
 - Header: `02 / Selected Work` + count `(06)` + link `Archive ↗` (opsional).

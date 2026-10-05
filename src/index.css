@@ -148,9 +148,9 @@ section[id] {
   }
 }
 
-/* Minimalist custom cursor: single dot, difference blend.
-   Tweak size here. Grows slightly over links via .cursor-hot. */
-.cursor-dot {
+/* Minimalist custom cursor: small solid purple square.
+   The only color on the site. Tweak size here. */
+.cursor-box {
   display: none;
 }
 
@@ -161,28 +161,42 @@ section[id] {
 }
 
 @media (hover: hover) {
-  .has-cursor .cursor-dot {
+  .has-cursor .cursor-box {
     display: block;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 200;
-    width: 8px;
-    height: 8px;
-    border-radius: 9999px;
-    background: #fff;
-    mix-blend-mode: difference;
+    width: 12px;
+    height: 12px;
+    background: #7c3aed;
     pointer-events: none;
     transition: scale 0.25s ease;
   }
 
-  .has-cursor.cursor-hot .cursor-dot {
-    scale: 1.8;
+  .has-cursor.cursor-hot .cursor-box {
+    scale: 1.6;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .has-cursor .cursor-dot {
+  .has-cursor .cursor-box {
     transition: none;
   }
+}
+
+/* Width-locked scramble: ghost reserves width, live layer overlays it */
+.scramble {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.scramble-ghost {
+  visibility: hidden;
+}
+
+.scramble-live {
+  position: absolute;
+  inset: 0;
 }

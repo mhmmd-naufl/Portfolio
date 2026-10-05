@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-// Minimalist custom cursor: a single dot that follows the mouse.
-// Tweak it yourself in src/index.css (.cursor-dot).
+// Minimalist custom cursor: a small solid purple square.
+// Tweak it yourself in src/index.css (.cursor-box).
 // Active on hover-capable devices only, off with reduced-motion.
 // Native cursor is hidden via .has-cursor (see index.css).
 
@@ -43,5 +43,5 @@ export function CustomCursor() {
     };
   }, []);
 
-  return <div ref={dot} aria-hidden="true" className="cursor-dot" />;
+  return <div ref={dot} aria-hidden="true" className="cursor-box" />;
 }
