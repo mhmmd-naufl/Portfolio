@@ -1,6 +1,7 @@
 import type { Project } from '../data/content';
 import {
   capabilities,
+  certifications,
   education,
   experiences,
   profile,
