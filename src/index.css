@@ -171,17 +171,7 @@ section[id] {
     height: 12px;
     background: #7c3aed;
     pointer-events: none;
-    transition: scale 0.25s ease;
-  }
-
-  .has-cursor.cursor-hot .cursor-box {
-    scale: 1.6;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .has-cursor .cursor-box {
-    transition: none;
+    will-change: transform;
   }
 }
 

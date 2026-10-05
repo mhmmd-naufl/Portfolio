@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
 
 // Minimalist custom cursor: a small solid purple square.
-// Position is set synchronously inside the mousemove event (no rAF loop),
-// so React re-renders elsewhere can never make it lag or jump.
+// - Position is set synchronously inside mousemove (no rAF, no lag).
+// - Constant size: no grow/shrink on hover, so nothing visually "jumps".
+// - Composited on its own layer (will-change) to avoid paint jank.
 // Tweak it yourself in src/index.css (.cursor-box).
 // Active on hover-capable devices only, off with reduced-motion.
 // Native cursor is hidden via .has-cursor (see index.css).
@@ -15,19 +16,9 @@ export function CustomCursor() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     document.documentElement.classList.add('has-cursor');
 
-    let hot = false;
-
     const move = (e: MouseEvent) => {
       if (dot.current) {
         dot.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-      }
-    };
-    const over = (e: MouseEvent) => {
-      const t = e.target as HTMLElement | null;
-      const next = !!t?.closest('a,button');
-      if (next !== hot) {
-        hot = next;
-        document.documentElement.classList.toggle('cursor-hot', next);
       }
     };
     const leave = () => {
@@ -37,13 +28,11 @@ export function CustomCursor() {
     };
 
     window.addEventListener('mousemove', move, { passive: true });
-    window.addEventListener('mouseover', over, { passive: true });
     document.documentElement.addEventListener('mouseleave', leave);
     return () => {
       window.removeEventListener('mousemove', move);
-      window.removeEventListener('mouseover', over);
       document.documentElement.removeEventListener('mouseleave', leave);
-      document.documentElement.classList.remove('has-cursor', 'cursor-hot');
+      document.documentElement.classList.remove('has-cursor');
     };
   }, []);
 
