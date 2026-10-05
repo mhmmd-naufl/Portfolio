@@ -1,22 +1,17 @@
 import { useEffect, useState } from 'react';
+import { isDark, setDark } from '../lib/theme';
 
 export function ThemeToggle() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDarkState] = useState(false);
 
   useEffect(() => {
-    setDark(document.documentElement.classList.contains('dark'));
+    const sync = () => setDarkState(isDark());
+    sync();
+    window.addEventListener('themechange', sync);
+    return () => window.removeEventListener('themechange', sync);
   }, []);
 
-  const toggle = () => {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.classList.toggle('dark', next);
-    try {
-      localStorage.setItem('theme', next ? 'dark' : 'light');
-    } catch {
-      // storage unavailable — theme still applies for this session
-    }
-  };
+  const toggle = () => setDark(!dark);
 
   return (
     <button
