@@ -116,7 +116,7 @@ export function Footer() {
               <h2 className="mt-6 font-display text-[clamp(2.4rem,5.5vw,5rem)] font-medium leading-[1.0] tracking-[-0.03em]">
                 Let&apos;s work
                 <br />
-                together
+                <span className="md:ml-[8vw]">together</span>
               </h2>
               <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <a

@@ -23,7 +23,13 @@ export function WorkList() {
     : undefined;
 
   return (
-    <section id="work" className="py-36 md:py-56">
+    <section id="work" className="relative py-36 md:py-56">
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute right-0 top-10 -z-10 select-none font-display text-[24vw] font-semibold leading-none tracking-[-0.05em] text-ink/[0.04] dark:text-[#EDE9E1]/[0.06] md:text-[16vw]"
+      >
+        02
+      </span>
       <Reveal>
         <div className="flex items-baseline justify-between border-b border-line pb-4">
           <h2 className="font-display text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium tracking-tight">
@@ -35,12 +41,14 @@ export function WorkList() {
       </Reveal>
 
       <div onMouseLeave={() => setPreview(null)}>
-        {projects.map((p) => (
+        {projects.map((p, i) => (
           <Reveal key={p.id}>
             <div
               onMouseEnter={(e) => onRowMove(e, p.id)}
               onMouseMove={(e) => onRowMove(e, p.id)}
-              className="group grid gap-2 border-b border-line py-6 md:grid-cols-12 md:items-baseline md:gap-6 md:py-8"
+              className={`group grid gap-2 border-b border-line py-6 md:grid-cols-12 md:items-baseline md:gap-6 md:py-8 ${
+                i % 2 === 1 ? 'md:ml-[6vw]' : ''
+              }`}
             >
               <span className="font-mono text-xs text-muted md:col-span-1">{p.id}</span>
               <div className="md:col-span-7">
