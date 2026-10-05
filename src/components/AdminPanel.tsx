@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   capabilities as defaultCapabilities,
   certifications as defaultCerts,
@@ -8,19 +8,26 @@ import {
   projects as defaultProjects,
 } from '../data/content';
 import type { Project } from '../data/content';
+import type { ContentBundle } from '../lib/api';
+import { AdminServer } from './AdminServer';
 
 type Tab = 'profile' | 'projects' | 'site';
 
-const esc = (s: string) => s.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n');
+const esc = (s: string) =>
+  s
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/\n/g, '\\n');
 const str = (s: string) => `'${esc(s)}'`;
 
 const cloneProfile = () => ({
   ...defaultProfile,
-  socials: defaultProfile.socials.map(s => ({ ...s })),
+  socials: defaultProfile.socials.map((s) => ({ ...s })),
 });
-const cloneProjects = (): Project[] => defaultProjects.map(p => ({ ...p, stack: [...p.stack] }));
-const cloneCapabilities = () => defaultCapabilities.map(c => ({ ...c }));
-const cloneExperiences = () => defaultExperiences.map(e => ({ ...e }));
+const cloneProjects = (): Project[] =>
+  defaultProjects.map((p) => ({ ...p, stack: [...p.stack] }));
+const cloneCapabilities = () => defaultCapabilities.map((c) => ({ ...c }));
+const cloneExperiences = () => defaultExperiences.map((e) => ({ ...e }));
 const cloneEducation = () => ({ ...defaultEducation });
 
 function buildSource(
@@ -29,7 +36,7 @@ function buildSource(
   capabilities: ReturnType<typeof cloneCapabilities>,
   experiences: ReturnType<typeof cloneExperiences>,
   certifications: string[],
-  education: ReturnType<typeof cloneEducation>
+  education: ReturnType<typeof cloneEducation>,
 ): string {
   const L: string[] = [];
   L.push('// Single source of truth for all site copy.');
@@ -48,7 +55,7 @@ function buildSource(
   L.push(`  bio: ${str(profile.bio)},`);
   L.push(`  status: ${str(profile.status)},`);
   L.push('  socials: [');
-  profile.socials.forEach(s => {
+  profile.socials.forEach((s) => {
     L.push(`    { label: ${str(s.label)}, href: ${str(s.href)} },`);
   });
   L.push('  ],');
@@ -82,7 +89,7 @@ function buildSource(
   L.push('];');
   L.push('');
   L.push('export const capabilities = [');
-  capabilities.forEach(c => {
+  capabilities.forEach((c) => {
     L.push('  {');
     L.push(`    no: ${str(c.no)},`);
     L.push(`    title: ${str(c.title)},`);
@@ -92,13 +99,13 @@ function buildSource(
   L.push('];');
   L.push('');
   L.push('export const experiences = [');
-  experiences.forEach(e => {
+  experiences.forEach((e) => {
     L.push(`  { period: ${str(e.period)}, role: ${str(e.role)}, org: ${str(e.org)} },`);
   });
   L.push('];');
   L.push('');
   L.push('export const certifications = [');
-  certifications.forEach(c => {
+  certifications.forEach((c) => {
     L.push(`  ${str(c)},`);
   });
   L.push('];');
@@ -135,11 +142,11 @@ function Field({
         <textarea
           value={value}
           rows={lines}
-          onChange={e => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           className={cls}
         />
       ) : (
-        <input value={value} onChange={e => onChange(e.target.value)} className={cls} />
+        <input value={value} onChange={(e) => onChange(e.target.value)} className={cls} />
       )}
     </label>
   );
@@ -192,8 +199,33 @@ export default function AdminPanel() {
     capabilities,
     experiences,
     certifications,
-    education
+    education,
   );
+
+  const getData = useCallback(
+    (): ContentBundle => ({
+      profile,
+      projects: projects.map((p, i) => ({
+        ...p,
+        stack: [...p.stack],
+        id: `P.${String(i + 1).padStart(2, '0')}`,
+      })),
+      capabilities: capabilities.map((c) => ({ ...c })),
+      experiences: experiences.map((e) => ({ ...e })),
+      certifications: [...certifications],
+      education: { ...education },
+    }),
+    [profile, projects, capabilities, experiences, certifications, education],
+  );
+
+  const applyData = useCallback((b: ContentBundle) => {
+    setProfile({ ...b.profile, socials: b.profile.socials.map((s) => ({ ...s })) });
+    setProjects(b.projects.map((p) => ({ ...p, stack: [...p.stack] })));
+    setCapabilities(b.capabilities.map((c) => ({ ...c })));
+    setExperiences(b.experiences.map((e) => ({ ...e })));
+    setCertifications([...b.certifications]);
+    setEducation({ ...b.education });
+  }, []);
 
   const resetAll = () => {
     setProfile(cloneProfile());
@@ -224,7 +256,7 @@ export default function AdminPanel() {
   };
 
   const setP = (patch: Partial<ReturnType<typeof cloneProfile>>) =>
-    setProfile(p => ({ ...p, ...patch }));
+    setProfile((p) => ({ ...p, ...patch }));
 
   const move = (arr: Project[], i: number, dir: -1 | 1): Project[] => {
     const j = i + dir;
@@ -242,8 +274,12 @@ export default function AdminPanel() {
         </p>
         <h1 className="mt-2 font-display text-4xl font-medium tracking-tight">Content editor</h1>
 
+        <div className="mt-6">
+          <AdminServer getData={getData} applyData={applyData} />
+        </div>
+
         <div className="mt-6 flex flex-wrap gap-2">
-          {(['profile', 'projects', 'site'] as Tab[]).map(t => (
+          {(['profile', 'projects', 'site'] as Tab[]).map((t) => (
             <button
               key={t}
               type="button"
@@ -260,25 +296,33 @@ export default function AdminPanel() {
         <div className="mt-8 space-y-5">
           {tab === 'profile' && (
             <>
-              <Field label="Name" value={profile.name} onChange={v => setP({ name: v })} />
+              <Field label="Name" value={profile.name} onChange={(v) => setP({ name: v })} />
               <div className="grid gap-5 md:grid-cols-2">
                 <Field
                   label="Initials"
                   value={profile.initials}
-                  onChange={v => setP({ initials: v })}
+                  onChange={(v) => setP({ initials: v })}
                 />
-                <Field label="Role" value={profile.role} onChange={v => setP({ role: v })} />
+                <Field label="Role" value={profile.role} onChange={(v) => setP({ role: v })} />
                 <Field
                   label="Location"
                   value={profile.location}
-                  onChange={v => setP({ location: v })}
+                  onChange={(v) => setP({ location: v })}
                 />
-                <Field label="Email" value={profile.email} onChange={v => setP({ email: v })} />
-                <Field label="Phone" value={profile.phone} onChange={v => setP({ phone: v })} />
-                <Field label="Status" value={profile.status} onChange={v => setP({ status: v })} />
+                <Field label="Email" value={profile.email} onChange={(v) => setP({ email: v })} />
+                <Field label="Phone" value={profile.phone} onChange={(v) => setP({ phone: v })} />
+                <Field
+                  label="Status"
+                  value={profile.status}
+                  onChange={(v) => setP({ status: v })}
+                />
               </div>
-              <Field label="Tagline" value={profile.tagline} onChange={v => setP({ tagline: v })} />
-              <Field label="Bio" value={profile.bio} onChange={v => setP({ bio: v })} lines={4} />
+              <Field
+                label="Tagline"
+                value={profile.tagline}
+                onChange={(v) => setP({ tagline: v })}
+              />
+              <Field label="Bio" value={profile.bio} onChange={(v) => setP({ bio: v })} lines={4} />
               <div>
                 <p className="mb-2 font-mono text-[11px] uppercase tracking-widest text-muted">
                   Socials
@@ -289,8 +333,8 @@ export default function AdminPanel() {
                       <Field
                         label="Label"
                         value={s.label}
-                        onChange={v =>
-                          setProfile(p => ({
+                        onChange={(v) =>
+                          setProfile((p) => ({
                             ...p,
                             socials: p.socials.map((x, j) => (j === i ? { ...x, label: v } : x)),
                           }))
@@ -299,8 +343,8 @@ export default function AdminPanel() {
                       <Field
                         label="URL"
                         value={s.href}
-                        onChange={v =>
-                          setProfile(p => ({
+                        onChange={(v) =>
+                          setProfile((p) => ({
                             ...p,
                             socials: p.socials.map((x, j) => (j === i ? { ...x, href: v } : x)),
                           }))
@@ -310,7 +354,7 @@ export default function AdminPanel() {
                         <RowButton
                           danger
                           onClick={() =>
-                            setProfile(p => ({
+                            setProfile((p) => ({
                               ...p,
                               socials: p.socials.filter((_, j) => j !== i),
                             }))
@@ -325,7 +369,7 @@ export default function AdminPanel() {
                 <div className="mt-3">
                   <RowButton
                     onClick={() =>
-                      setProfile(p => ({ ...p, socials: [...p.socials, { label: '', href: '' }] }))
+                      setProfile((p) => ({ ...p, socials: [...p.socials, { label: '', href: '' }] }))
                     }
                   >
                     + social
@@ -344,11 +388,11 @@ export default function AdminPanel() {
                       P.{String(i + 1).padStart(2, '0')} (auto id)
                     </p>
                     <div className="flex gap-2">
-                      <RowButton onClick={() => setProjects(ps => move(ps, i, -1))}>↑</RowButton>
-                      <RowButton onClick={() => setProjects(ps => move(ps, i, 1))}>↓</RowButton>
+                      <RowButton onClick={() => setProjects((ps) => move(ps, i, -1))}>↑</RowButton>
+                      <RowButton onClick={() => setProjects((ps) => move(ps, i, 1))}>↓</RowButton>
                       <RowButton
                         danger
-                        onClick={() => setProjects(ps => ps.filter((_, j) => j !== i))}
+                        onClick={() => setProjects((ps) => ps.filter((_, j) => j !== i))}
                       >
                         del
                       </RowButton>
@@ -357,50 +401,44 @@ export default function AdminPanel() {
                   <Field
                     label="Title"
                     value={p.title}
-                    onChange={v =>
-                      setProjects(ps => ps.map((x, j) => (j === i ? { ...x, title: v } : x)))
+                    onChange={(v) =>
+                      setProjects((ps) => ps.map((x, j) => (j === i ? { ...x, title: v } : x)))
                     }
                   />
                   <div className="grid gap-4 md:grid-cols-2">
                     <Field
                       label="Category"
                       value={p.category}
-                      onChange={v =>
-                        setProjects(ps => ps.map((x, j) => (j === i ? { ...x, category: v } : x)))
+                      onChange={(v) =>
+                        setProjects((ps) => ps.map((x, j) => (j === i ? { ...x, category: v } : x)))
                       }
                     />
                     <Field
                       label="Year"
                       value={p.year}
-                      onChange={v =>
-                        setProjects(ps => ps.map((x, j) => (j === i ? { ...x, year: v } : x)))
+                      onChange={(v) =>
+                        setProjects((ps) => ps.map((x, j) => (j === i ? { ...x, year: v } : x)))
                       }
                     />
                   </div>
                   <Field
                     label="Stack (comma separated)"
                     value={p.stack.join(', ')}
-                    onChange={v =>
-                      setProjects(ps =>
+                    onChange={(v) =>
+                      setProjects((ps) =>
                         ps.map((x, j) =>
                           j === i
-                            ? {
-                                ...x,
-                                stack: v
-                                  .split(',')
-                                  .map(s => s.trim())
-                                  .filter(Boolean),
-                              }
-                            : x
-                        )
+                            ? { ...x, stack: v.split(',').map((s) => s.trim()).filter(Boolean) }
+                            : x,
+                        ),
                       )
                     }
                   />
                   <Field
                     label="Summary"
                     value={p.summary}
-                    onChange={v =>
-                      setProjects(ps => ps.map((x, j) => (j === i ? { ...x, summary: v } : x)))
+                    onChange={(v) =>
+                      setProjects((ps) => ps.map((x, j) => (j === i ? { ...x, summary: v } : x)))
                     }
                     lines={2}
                   />
@@ -408,25 +446,25 @@ export default function AdminPanel() {
                     <Field
                       label="Image path (optional)"
                       value={p.image ?? ''}
-                      onChange={v =>
-                        setProjects(ps =>
-                          ps.map((x, j) => (j === i ? { ...x, image: v || undefined } : x))
+                      onChange={(v) =>
+                        setProjects((ps) =>
+                          ps.map((x, j) => (j === i ? { ...x, image: v || undefined } : x)),
                         )
                       }
                     />
                     <Field
                       label="Link (optional)"
                       value={p.link ?? ''}
-                      onChange={v =>
-                        setProjects(ps =>
-                          ps.map((x, j) => (j === i ? { ...x, link: v || undefined } : x))
+                      onChange={(v) =>
+                        setProjects((ps) =>
+                          ps.map((x, j) => (j === i ? { ...x, link: v || undefined } : x)),
                         )
                       }
                     />
                   </div>
                 </div>
               ))}
-              <RowButton onClick={() => setProjects(ps => [...ps, blankProject()])}>
+              <RowButton onClick={() => setProjects((ps) => [...ps, blankProject()])}>
                 + project
               </RowButton>
             </>
@@ -440,33 +478,30 @@ export default function AdminPanel() {
                 </p>
                 <div className="space-y-3">
                   {capabilities.map((c, i) => (
-                    <div
-                      key={i}
-                      className="grid gap-3 border border-line p-4 md:grid-cols-[auto_1fr]"
-                    >
+                    <div key={i} className="grid gap-3 border border-line p-4 md:grid-cols-[auto_1fr]">
                       <Field
                         label="No"
                         value={c.no}
-                        onChange={v =>
-                          setCapabilities(cs => cs.map((x, j) => (j === i ? { ...x, no: v } : x)))
+                        onChange={(v) =>
+                          setCapabilities((cs) => cs.map((x, j) => (j === i ? { ...x, no: v } : x)))
                         }
                       />
                       <div className="space-y-3">
                         <Field
                           label="Title"
                           value={c.title}
-                          onChange={v =>
-                            setCapabilities(cs =>
-                              cs.map((x, j) => (j === i ? { ...x, title: v } : x))
+                          onChange={(v) =>
+                            setCapabilities((cs) =>
+                              cs.map((x, j) => (j === i ? { ...x, title: v } : x)),
                             )
                           }
                         />
                         <Field
                           label="Desc"
                           value={c.desc}
-                          onChange={v =>
-                            setCapabilities(cs =>
-                              cs.map((x, j) => (j === i ? { ...x, desc: v } : x))
+                          onChange={(v) =>
+                            setCapabilities((cs) =>
+                              cs.map((x, j) => (j === i ? { ...x, desc: v } : x)),
                             )
                           }
                           lines={2}
@@ -487,18 +522,18 @@ export default function AdminPanel() {
                         <Field
                           label="Period"
                           value={e.period}
-                          onChange={v =>
-                            setExperiences(es =>
-                              es.map((x, j) => (j === i ? { ...x, period: v } : x))
+                          onChange={(v) =>
+                            setExperiences((es) =>
+                              es.map((x, j) => (j === i ? { ...x, period: v } : x)),
                             )
                           }
                         />
                         <Field
                           label="Role"
                           value={e.role}
-                          onChange={v =>
-                            setExperiences(es =>
-                              es.map((x, j) => (j === i ? { ...x, role: v } : x))
+                          onChange={(v) =>
+                            setExperiences((es) =>
+                              es.map((x, j) => (j === i ? { ...x, role: v } : x)),
                             )
                           }
                         />
@@ -507,14 +542,16 @@ export default function AdminPanel() {
                         <Field
                           label="Org"
                           value={e.org}
-                          onChange={v =>
-                            setExperiences(es => es.map((x, j) => (j === i ? { ...x, org: v } : x)))
+                          onChange={(v) =>
+                            setExperiences((es) =>
+                              es.map((x, j) => (j === i ? { ...x, org: v } : x)),
+                            )
                           }
                         />
                         <div className="flex items-end pb-1">
                           <RowButton
                             danger
-                            onClick={() => setExperiences(es => es.filter((_, j) => j !== i))}
+                            onClick={() => setExperiences((es) => es.filter((_, j) => j !== i))}
                           >
                             del
                           </RowButton>
@@ -525,7 +562,9 @@ export default function AdminPanel() {
                 </div>
                 <div className="mt-3">
                   <RowButton
-                    onClick={() => setExperiences(es => [...es, { period: '', role: '', org: '' }])}
+                    onClick={() =>
+                      setExperiences((es) => [...es, { period: '', role: '', org: '' }])
+                    }
                   >
                     + experience
                   </RowButton>
@@ -534,13 +573,8 @@ export default function AdminPanel() {
               <Field
                 label="Certifications (one per line)"
                 value={certifications.join('\n')}
-                onChange={v =>
-                  setCertifications(
-                    v
-                      .split('\n')
-                      .map(s => s.trim())
-                      .filter(Boolean)
-                  )
+                onChange={(v) =>
+                  setCertifications(v.split('\n').map((s) => s.trim()).filter(Boolean))
                 }
                 lines={5}
               />
@@ -548,22 +582,22 @@ export default function AdminPanel() {
                 <Field
                   label="School"
                   value={education.school}
-                  onChange={v => setEducation(e => ({ ...e, school: v }))}
+                  onChange={(v) => setEducation((e) => ({ ...e, school: v }))}
                 />
                 <Field
                   label="Degree"
                   value={education.degree}
-                  onChange={v => setEducation(e => ({ ...e, degree: v }))}
+                  onChange={(v) => setEducation((e) => ({ ...e, degree: v }))}
                 />
                 <Field
                   label="GPA"
                   value={education.gpa}
-                  onChange={v => setEducation(e => ({ ...e, gpa: v }))}
+                  onChange={(v) => setEducation((e) => ({ ...e, gpa: v }))}
                 />
                 <Field
                   label="Period"
                   value={education.period}
-                  onChange={v => setEducation(e => ({ ...e, period: v }))}
+                  onChange={(v) => setEducation((e) => ({ ...e, period: v }))}
                 />
               </div>
             </>
@@ -574,7 +608,7 @@ export default function AdminPanel() {
           <button
             type="button"
             onClick={download}
-            className="border border-ink bg-ink px-4 py-2 font-mono text-base text-xs uppercase tracking-widest"
+            className="border border-ink bg-ink px-4 py-2 font-mono text-xs uppercase tracking-widest text-base"
           >
             Download content.ts
           </button>
@@ -594,8 +628,9 @@ export default function AdminPanel() {
           </button>
         </div>
         <p className="mt-4 font-mono text-[11px] leading-relaxed text-muted">
-          Replace src/data/content.ts with the export → run npm run format → restart dev. Exit:
-          remove #admin from the URL.
+          File export: replace src/data/content.ts → npm run format → restart dev. Server
+          Save/Load syncs the same data with the backend DB. Exit: remove #admin from the
+          URL.
         </p>
       </div>
     </div>
