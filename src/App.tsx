@@ -1,5 +1,6 @@
 import { About } from './components/About';
 import { CustomCursor } from './components/CustomCursor';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { Footer } from './components/Footer';
 import { Hero } from './components/Hero';
 import { Nav } from './components/Nav';
@@ -13,12 +14,16 @@ export default function App() {
         Skip to content
       </a>
       <Nav />
-      <main id="main" className="mx-auto max-w-[1200px] px-6 md:px-10">
-        <Hero />
-        <WorkList />
-        <About />
-      </main>
-      <Footer />
+      <ErrorBoundary>
+        <main id="main" className="mx-auto max-w-[1200px] px-6 md:px-10">
+          <Hero />
+          <WorkList />
+          <About />
+        </main>
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Footer />
+      </ErrorBoundary>
     </div>
   );
 }
