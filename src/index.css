@@ -215,3 +215,14 @@ section[id] {
 }
 
 /* (magnetic hero type retired with MagneticType) */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  #root > div > *:not(.resume-doc) {
+    display: none !important;
+  }
+}

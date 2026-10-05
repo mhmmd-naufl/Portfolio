@@ -6,6 +6,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { Footer } from './components/Footer';
 import { Hero } from './components/Hero';
 import { Nav } from './components/Nav';
+import { ResumeDoc } from './components/ResumeDoc';
 import { SmoothScroll } from './components/SmoothScroll';
 import { WorkList } from './components/WorkList';
 
@@ -14,7 +15,7 @@ const AdminPanel = lazy(() => import('./components/AdminPanel'));
 // Local content editor at #admin — dev builds only, never production.
 function useAdmin(): boolean {
   const [admin, setAdmin] = useState(
-    () => import.meta.env.DEV && window.location.hash === '#admin'
+    () => import.meta.env.DEV && window.location.hash === '#admin',
   );
   useEffect(() => {
     const onHash = () => setAdmin(import.meta.env.DEV && window.location.hash === '#admin');
@@ -60,6 +61,7 @@ export default function App() {
       <ErrorBoundary>
         <Footer />
       </ErrorBoundary>
+      <ResumeDoc />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import {
   experiences as defaultExperiences,
   profile as defaultProfile,
   projects as defaultProjects,
+  tools as defaultTools,
 } from '../data/content';
 import type { Project } from '../data/content';
 import type { ContentBundle } from '../lib/supabase';
@@ -36,6 +37,7 @@ function buildSource(
   capabilities: ReturnType<typeof cloneCapabilities>,
   experiences: ReturnType<typeof cloneExperiences>,
   certifications: string[],
+  tools: string[],
   education: ReturnType<typeof cloneEducation>,
 ): string {
   const L: string[] = [];
@@ -107,6 +109,12 @@ function buildSource(
   L.push('export const certifications = [');
   certifications.forEach((c) => {
     L.push(`  ${str(c)},`);
+  });
+  L.push('];');
+  L.push('');
+  L.push('export const tools = [');
+  tools.forEach((t) => {
+    L.push(`  ${str(t)},`);
   });
   L.push('];');
   L.push('');
@@ -190,6 +198,7 @@ export default function AdminPanel() {
   const [capabilities, setCapabilities] = useState(cloneCapabilities);
   const [experiences, setExperiences] = useState(cloneExperiences);
   const [certifications, setCertifications] = useState<string[]>([...defaultCerts]);
+  const [tools, setTools] = useState<string[]>([...defaultTools]);
   const [education, setEducation] = useState(cloneEducation);
   const [copied, setCopied] = useState(false);
 
@@ -199,6 +208,7 @@ export default function AdminPanel() {
     capabilities,
     experiences,
     certifications,
+    tools,
     education,
   );
 
@@ -213,9 +223,10 @@ export default function AdminPanel() {
       capabilities: capabilities.map((c) => ({ ...c })),
       experiences: experiences.map((e) => ({ ...e })),
       certifications: [...certifications],
+      tools: [...tools],
       education: { ...education },
     }),
-    [profile, projects, capabilities, experiences, certifications, education],
+    [profile, projects, capabilities, experiences, certifications, tools, education],
   );
 
   const applyData = useCallback((b: ContentBundle) => {
@@ -224,6 +235,7 @@ export default function AdminPanel() {
     setCapabilities(b.capabilities.map((c) => ({ ...c })));
     setExperiences(b.experiences.map((e) => ({ ...e })));
     setCertifications([...b.certifications]);
+    setTools([...(b.tools ?? [])]);
     setEducation({ ...b.education });
   }, []);
 
@@ -233,6 +245,7 @@ export default function AdminPanel() {
     setCapabilities(cloneCapabilities());
     setExperiences(cloneExperiences());
     setCertifications([...defaultCerts]);
+    setTools([...defaultTools]);
     setEducation(cloneEducation());
   };
 
@@ -478,7 +491,10 @@ export default function AdminPanel() {
                 </p>
                 <div className="space-y-3">
                   {capabilities.map((c, i) => (
-                    <div key={i} className="grid gap-3 border border-line p-4 md:grid-cols-[auto_1fr]">
+                    <div
+                      key={i}
+                      className="grid gap-3 border border-line p-4 md:grid-cols-[auto_1fr]"
+                    >
                       <Field
                         label="No"
                         value={c.no}
@@ -577,6 +593,12 @@ export default function AdminPanel() {
                   setCertifications(v.split('\n').map((s) => s.trim()).filter(Boolean))
                 }
                 lines={5}
+              />
+              <Field
+                label="Tools (one per line)"
+                value={tools.join('\n')}
+                onChange={(v) => setTools(v.split('\n').map((s) => s.trim()).filter(Boolean))}
+                lines={4}
               />
               <div className="grid gap-5 md:grid-cols-2">
                 <Field

@@ -30,6 +30,13 @@ export function About() {
           <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted">
             {profile.name} — {profile.role}
           </p>
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted underline underline-offset-4 transition-colors hover:text-ink"
+          >
+            Download resume ↓
+          </button>
         </Reveal>
 
         <div className="md:col-span-8">

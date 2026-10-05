@@ -11,7 +11,7 @@ export const profile = {
   phone: '089515758977',
   tagline: 'keep minimalism.',
   bio: 'Software Engineering student at the intersection of technology and creativity — from simple web systems to visual stories. 50+ visual assets, 30+ tourism videos, live broadcast data for national events. Exploring data and AI.',
-  status: 'Open for freelance',
+  status: 'Open for collaboration',
   socials: [
     { label: 'GitHub', href: 'https://github.com/mhmmd-naufl' },
     { label: 'LinkedIn', href: 'https://linkedin.com/in/mhmmd-naufl' },
@@ -121,6 +121,19 @@ export const certifications = [
   'Intro to Data Analytics',
   'Belajar Dasar Pemrograman Web',
   'EF SET 65/100 (C1)',
+];
+
+export const tools = [
+  'Figma',
+  'Adobe Illustrator',
+  'Canva',
+  'CapCut',
+  'OBS Studio',
+  'FastAPI',
+  'Python',
+  'Selenium',
+  'YOLOv8',
+  'Git',
 ];
 
 export const education = {

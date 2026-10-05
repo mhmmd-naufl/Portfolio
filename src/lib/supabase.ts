@@ -12,6 +12,7 @@ export type ContentBundle = {
   capabilities: typeof capabilities;
   experiences: typeof experiences;
   certifications: string[];
+  tools: string[];
   education: typeof education;
 };
 
