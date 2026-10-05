@@ -27,6 +27,13 @@ Repo ini static, bisa di mana saja:
 
 Tidak perlu env variable. Font diambil dari Google Fonts saat runtime (tetap tampil dengan fallback Helvetica/Arial bila offline).
 
+## Error handling
+
+- App ini 1 halaman tanpa router, jadi tidak ada 404 in-app.
+- **Vercel:** `vercel.json` me-rewrite semua path ke `/index.html`.
+- **Netlify:** `public/_redirects` me-rewrite semua path ke `/index.html` (status 200).
+- **GitHub Pages / host statis lain:** `public/404.html` tampil untuk URL yang tidak ada (monokrom, ikut dark mode sistem, link balik ke `/`).
+
 ## Ubah konten
 
 Satu file saja: `src/data/content.ts` (profil, projects P.01–P.06, capabilities, experiences, sertifikat).
