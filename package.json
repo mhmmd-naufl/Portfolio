@@ -11,11 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mhmmd-naufl/personal-website.git"
+    "url": "https://github.com/mhmmd-naufl/Portfolio.git"
   },
-  "homepage": "https://mhmmd-naufl.github.io/personal-website",
   "bugs": {
-    "url": "https://github.com/mhmmd-naufl/personal-website/issues"
+    "url": "https://github.com/mhmmd-naufl/Portfolio/issues"
   },
   "keywords": [
     "portfolio",
