@@ -46,3 +46,6 @@ bug*.png
 tile*.png
 frame_*.png
 vite.config.ts.timestamp-*.mjs
+
+# Agent skills (local tooling, third-party assets — do not publish)
+.opencode/

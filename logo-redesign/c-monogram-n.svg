@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <title>Monogram N</title>
+  <rect x="32" y="31" width="40" height="194" fill="currentColor"/>
+  <rect x="184" y="31" width="40" height="194" fill="currentColor"/>
+  <path fill="currentColor" d="M72 31L184 161V225L72 95Z"/>
+</svg>

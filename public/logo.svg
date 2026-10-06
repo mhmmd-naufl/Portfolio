@@ -1,7 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 180 180" fill="none">
-  <g stroke="currentColor" stroke-width="1.5">
-    <path d="M0 0H100M0 20H100M0 40H100M0 60H100M0 80H100M0 100H100M0 0V100M20 0V100M40 0V100M60 0V100M80 0V100M100 0V100"/>
-    <line x1="-20" y1="60" x2="40" y2="60" stroke-width="4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" role="img" aria-label="Muhammad Naufal Aulia">
+  <title>Muhammad Naufal Aulia — monogram N</title>
+  <style>
+    .mark {
+      fill: #1a1917;
+    }
+    @media (prefers-color-scheme: dark) {
+      .mark {
+        fill: #ede9e1;
+      }
+    }
+  </style>
+  <g class="mark">
+    <rect x="32" y="31" width="40" height="194" />
+    <rect x="184" y="31" width="40" height="194" />
+    <path d="M72 31L184 161V225L72 95Z" />
   </g>
-  <rect x="40" y="40" width="40" height="40" fill="currentColor"/>
 </svg>
