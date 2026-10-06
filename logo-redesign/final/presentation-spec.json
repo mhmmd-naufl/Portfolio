@@ -1,0 +1,28 @@
+{
+  "brand": "Muhammad Naufal Aulia",
+  "tagline": "Creative Technologist — keep minimalism.",
+  "brief": "Portfolio 1 halaman, monokrom, tenang. Logo lama (grid halus) tidak terbaca di nav 28px & favicon. Arah baru: monogram N modular — identitas personal yang tetap kuat di 16px.",
+  "adjectives": ["calm", "precise", "minimal", "personal"],
+  "industry": "services",
+  "nav": ["Work", "About", "Contact"],
+  "brand_color": "#1A1917",
+  "tile_color": "#1A1917",
+  "greyscale": true,
+  "final": true,
+  "concepts": [
+    {
+      "name": "Naufal N",
+      "symbol": "naufal-n.svg",
+      "symbol_on_dark": "dist/naufal-n-white.svg",
+      "symbol_on_tile": "dist/naufal-n-white.svg",
+      "avatar": "dist/naufal-n-square.svg",
+      "idea": "Monogram N modular: dua stem vertikal dan satu diagonal, dengan potongan rata yang membuatnya terasa dibangun, bukan diketik.",
+      "rationale": [
+        "Identitas personal: satu huruf yang mewakili nama, bukan simbol data yang generik.",
+        "Terbaca jelas dari 16px sampai billboard; mono satu warna aman di light & dark.",
+        "Bahasa geometri sama dengan situs: sudut tegak, garis tegas, tanpa dekorasi."
+      ]
+    }
+  ],
+  "recommendation": "Naufal N sebagai arah final. Berikutnya: lockup dengan nama, aturan clear space, dan ukuran minimum."
+}
