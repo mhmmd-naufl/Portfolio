@@ -1,16 +1,16 @@
 // Single source of truth for all site copy.
 // Edit here, never hardcode text in components.
-// Site language: English.
+// Site language: English (adapted from Indonesian CV).
 
 export const profile = {
   name: 'Muhammad Naufal Aulia',
   initials: 'MNA',
-  role: 'Web Development & Digital Content',
+  role: 'Full-Stack Developer & Digital Creator',
   location: 'Banyuwangi, ID',
   email: 'novalqwerty15@gmail.com',
   phone: '089515758977',
-  tagline: 'keep minimalism.',
-  bio: 'Software Engineering student at the intersection of technology and creativity — from simple web systems to visual stories. 50+ visual assets, 30+ tourism videos, live broadcast data for national events. Exploring data and AI.',
+  tagline: 'Bridging technical complexity with visual aesthetics.',
+  bio: 'D4 Software Engineering Technology graduate combining backend/automation programming logic with visual storytelling. Experienced in building analytics and data management systems (FastAPI, PostgreSQL), while leading creative content production and live broadcasting. Capable of bridging technical complexity (AI, automation, database) with aesthetic design values to create functional, efficient, and visually appealing digital solutions.',
   status: 'Open for collaboration',
   socials: [
     { label: 'GitHub', href: 'https://github.com/mhmmd-naufl' },
@@ -31,109 +31,120 @@ export type Project = {
   link?: string;
 };
 
-// Links/covers pending — cari di GitHub. Row tanpa link tampil sebagai teks biasa.
 export const projects: Project[] = [
   {
     id: 'P.01',
-    title: 'Social Search App',
-    category: 'Web — Analytics',
-    year: '2025',
-    stack: ['FastAPI', 'Python', 'Selenium'],
-    summary:
-      'FastAPI backend + Selenium scraping, local web dashboard for social content analysis (Kominfo internship).',
+    title: 'Live-Auto-Cliper (Final Project)',
+    category: 'Automation — Broadcasting',
+    year: '2026',
+    stack: ['Python', 'FastAPI', 'FFmpeg', 'React.js', 'OBS WebSocket'],
+    summary: 'Real-time football highlight clipping automation system based on audio spike detection (F1-Score 96.0%).',
   },
   {
     id: 'P.02',
-    title: 'Live Race Graphics',
-    category: 'Broadcast — Data',
+    title: 'Komang SAC Business Management',
+    category: 'Full-Stack Web App',
     year: '2025',
-    stack: ['OBS', 'Live Graphics'],
-    summary: 'Live data graphics + stage profiles for Tour de Banyuwangi Ijen 2025.',
+    stack: ['FastAPI', 'React.js', 'Supabase', 'UI/UX'],
+    summary: 'Multi-user operational full-stack app with Role-Based Access Control (RBAC), AI analytics integration, and clean UI.',
   },
   {
     id: 'P.03',
-    title: 'Howheal Fun Run',
-    category: 'Campaign — Social',
+    title: 'Rentalyzer',
+    category: 'Rental Management System',
     year: '2025',
-    stack: ['Figma', 'CapCut'],
-    summary: 'Fun-run campaign with 100+ participants, from concept to content.',
+    stack: ['FastAPI', 'React.js', 'PostgreSQL', 'OpenRouter AI'],
+    summary: 'End-to-end rental platform with analytics dashboard, scheduling automation, and multi-model AI integration for automatic business summaries.',
   },
   {
     id: 'P.04',
-    title: 'Tourism Recaps',
-    category: 'Video — Tourism',
-    year: '2024',
-    stack: ['CapCut'],
-    summary: '30+ cinematic tourism recaps across Banyuwangi.',
+    title: 'Social Search App',
+    category: 'Web — Analytics',
+    year: '2025',
+    stack: ['FastAPI', 'Python', 'MongoDB', 'Web Scraping'],
+    summary: 'Backend prototype for collecting, managing, and classifying public opinion data from social media (Diskominfo Banyuwangi).',
   },
   {
     id: 'P.05',
-    title: 'UMKM Brand Kit',
-    category: 'Branding',
-    year: '2024',
-    stack: ['Figma', 'Illustrator'],
-    summary: 'Logo + flyers + instastories for local clients.',
-  },
-  {
-    id: 'P.06',
-    title: 'BIB Reader',
-    category: 'CV — YOLOv8',
+    title: 'Computer Vision BIB Reader',
+    category: 'AI — Computer Vision',
     year: '2025',
-    stack: ['YOLOv8', 'Python'],
-    summary: 'Race BIB reader (Alzen internal project — publish pending approval).',
+    stack: ['YOLOv8', 'ByteTrack', 'OCR', 'Python'],
+    summary: 'Pipeline prototype to automatically detect runners BIB numbers for participant data verification (Alzen Metro Data).',
   },
 ];
 
 export const capabilities = [
   {
     no: '01',
-    title: 'IT',
-    desc: 'FastAPI backend + Selenium scraping (Social Search), YOLOv8 (BIB reader), technical documentation.',
+    title: 'IT & System Development',
+    desc: 'Python, React.js, FastAPI, PostgreSQL, Supabase, API Integration.',
   },
   {
     no: '02',
-    title: 'Creative',
-    desc: 'Minimalist design, visual branding, short video, multi-camera live broadcast.',
+    title: 'AI & Data Automation',
+    desc: 'YOLOv8 (Computer Vision), FFmpeg, OpenRouter AI, Web Scraping.',
   },
   {
     no: '03',
-    title: 'Analytics',
-    desc: 'Content analysis (Social Search), event timing & scoring, content strategy. Data Science cert.',
+    title: 'Creative & Media',
+    desc: 'Visual Branding, Video Production, Multi-camera Live Broadcast, Event Timing, Graphic Design.',
   },
 ];
 
 export const experiences = [
-  { period: 'Jul 2025 — now', role: 'Software Engineer (intern)', org: 'Alzen Metro Data' },
-  { period: 'Jul 2025 — Feb 2026', role: 'Broadcast Data & Camera', org: 'Alzen Metro Data' },
-  {
-    period: 'Feb — Jun 2025',
-    role: 'Independent Intern (Social Search)',
-    org: 'Kominfo Banyuwangi',
+  { 
+    period: 'Jan 2025 — Sep 2026', 
+    role: 'Technical Broadcast & Computer Vision Intern', 
+    org: 'CV. Alzen Metro Data' 
   },
-  { period: 'Sep 2024 — Dec 2025', role: 'Social Media Specialist', org: 'Howheal.sac' },
-  { period: 'Jun 2023 — Jun 2024', role: 'Content Creator', org: 'Visitbanyuwangi.id' },
-  { period: 'Jan 2024 — now', role: 'Freelance Designer & Video Editor', org: 'Self Employed' },
+  { 
+    period: 'Feb 2025 — Jun 2025', 
+    role: 'Software Engineer Intern', 
+    org: 'Diskominfo Banyuwangi' 
+  },
+  { 
+    period: 'Sep 2024 — Dec 2025', 
+    role: 'Social Media Specialist', 
+    org: 'Howheal SAC' 
+  },
+  { 
+    period: 'Jan 2024 — Jun 2026', 
+    role: 'Freelance Graphic Designer & Video Editor', 
+    org: 'Self Employed' 
+  },
+  { 
+    period: 'Jan 2024 — Jun 2026', 
+    role: 'Freelance Content Creator', 
+    org: 'Visitbanyuwangi.id' 
+  },
 ];
 
 export const certifications = [
-  'BNSP Junior Mobile Programmer',
-  'Data Science (Fresh Graduate Academy)',
-  'Intro to Data Analytics',
-  'Belajar Dasar Pemrograman Web',
-  'EF SET 65/100 (C1)',
+  'BNSP Pemrogram Mobile Pratama (Junior Mobile Programmer)',
+  'Data Science - Fresh Graduate Academy (Digital Talent Scholarship)',
+  'Intro to Data Analytics - RevoU',
+  'Basic Proficiency in KNIME Analytics Platform - KNIME',
+  'Python Introduction for Data Analysis - MySkill',
+  'Belajar Back-End Pemula dengan JavaScript - Dicoding Indonesia',
+  'Belajar Dasar Pemrograman Web - Dicoding Indonesia',
+  'Belajar Dasar Pemrograman JavaScript - Dicoding Indonesia',
+  'Languages: Indonesian (Native), English (TOEIC: 610)',
 ];
 
 export const tools = [
+  'OBS Studio',
   'Figma',
   'Adobe Illustrator',
-  'Canva',
   'CapCut',
-  'OBS Studio',
+  'VN',
+  'Google Workspace',
   'FastAPI',
-  'Python',
-  'Selenium',
+  'React.js',
+  'PostgreSQL',
+  'Supabase',
   'YOLOv8',
-  'Git',
+  'FFmpeg',
 ];
 
 export const education = {
@@ -141,4 +152,7 @@ export const education = {
   degree: 'D4 Teknologi Rekayasa Perangkat Lunak',
   gpa: '3.63/4.00',
   period: '2022 — 2026',
+  // Catatan: Jika komponen UI Anda belum menampilkan field 'achievement', 
+  // Anda bisa menggabungkannya ke string 'degree' atau menambahkan field ini di komponen About/Education.
+  achievement: 'Ketua Angkatan Jurusan Bisnis dan Informatika 2022',
 };
