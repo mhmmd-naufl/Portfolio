@@ -9,7 +9,7 @@ export const profile = {
   location: 'Banyuwangi, ID',
   email: 'novalqwerty15@gmail.com',
   phone: '089515758977',
-  tagline: 'Bridging technical complexity with visual aesthetics.',
+  tagline: 'Technical precision. Visual clarity.',
   bio: 'D4 Software Engineering Technology graduate combining backend/automation programming logic with visual storytelling. Experienced in building analytics and data management systems (FastAPI, PostgreSQL), while leading creative content production and live broadcasting. Capable of bridging technical complexity (AI, automation, database) with aesthetic design values to create functional, efficient, and visually appealing digital solutions.',
   status: 'Open for collaboration',
   socials: [
