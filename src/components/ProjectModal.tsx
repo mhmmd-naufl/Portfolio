@@ -126,26 +126,28 @@ export function ProjectModal({
               Stack — {project.stack.join(' / ')}
             </p>
             <span className="flex-1" />
-            {project.demo && (
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noreferrer"
-                className="border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-base"
-              >
-                Live demo ↗
-              </a>
-            )}
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-                className="border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-base"
-              >
-                GitHub ↗
-              </a>
-            )}
+            <span className="flex items-center gap-2">
+              {project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-base"
+                >
+                  GitHub ↗
+                </a>
+              )}
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-base"
+                >
+                  Live demo ↗
+                </a>
+              )}
+            </span>
           </div>
         </div>
       </div>
