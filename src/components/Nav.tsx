@@ -63,7 +63,7 @@ export function Nav() {
       >
         <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6 md:px-10">
           <a href="#home" aria-label={profile.name} className="block">
-            <img src="/logo.svg" alt="" className="h-7 w-auto" />
+            <img src="/logo.svg" alt="" className="h-7 w-auto dark:invert" />
           </a>
           <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
             {links.map(l => (
@@ -97,7 +97,7 @@ export function Nav() {
       {open && (
         <div className="fixed inset-0 z-[60] flex flex-col bg-base px-6 py-5">
           <div className="flex items-center justify-between">
-            <img src="/logo.svg" alt="" className="h-7 w-auto" />
+            <img src="/logo.svg" alt="" className="h-7 w-auto dark:invert" />
             <div className="flex items-center gap-6">
               <ThemeToggle />
               <button

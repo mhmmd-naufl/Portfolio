@@ -1,13 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none" role="img" aria-label="Muhammad Naufal Aulia">
   <title>Muhammad Naufal Aulia — monogram N</title>
+  <!-- Always dark mark; consumers adapt via CSS (dark:invert / logo-inverse). -->
   <style>
     .mark {
       fill: #1a1917;
-    }
-    @media (prefers-color-scheme: dark) {
-      .mark {
-        fill: #ede9e1;
-      }
     }
   </style>
   <g class="mark">

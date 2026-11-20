@@ -4,9 +4,10 @@ import type { ReactNode } from 'react';
 type RevealProps = {
   children: ReactNode;
   className?: string;
+  delay?: number; // ms — stagger via transition-delay
 };
 
-export function Reveal({ children, className = '' }: RevealProps) {
+export function Reveal({ children, className = '', delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export function Reveal({ children, className = '' }: RevealProps) {
   }, []);
 
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref} className={className} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   );

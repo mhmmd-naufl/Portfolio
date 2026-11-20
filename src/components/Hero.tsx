@@ -32,7 +32,7 @@ export function Hero() {
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             <a
               href="#work"
-              className="font-mono text-sm uppercase tracking-widest underline underline-offset-4"
+              className="border border-line px-4 py-2 font-mono text-sm uppercase tracking-widest transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-base"
             >
               View work ↓
             </a>
