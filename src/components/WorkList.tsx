@@ -88,6 +88,14 @@ export function WorkList() {
             top: Math.max(preview.y - 140, 16),
           }}
         >
+          {current.image && (
+            <img
+              src={current.image}
+              alt=""
+              loading="lazy"
+              className="mb-4 aspect-video w-full border border-line object-cover"
+            />
+          )}
           <p className="font-mono text-xs text-muted">{current.id}</p>
           <p className="mt-2 font-display text-3xl font-medium tracking-tight">{current.title}</p>
           <p className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted">

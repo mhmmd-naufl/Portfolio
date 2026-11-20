@@ -26,7 +26,7 @@ export function CommandMenu() {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        setOpen((v) => !v);
+        setOpen(v => !v);
       }
       if (e.key === 'Escape') setOpen(false);
     };
@@ -55,7 +55,7 @@ export function CommandMenu() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open command menu"
-        className="fixed bottom-5 left-5 z-[60] border border-line bg-base px-3 py-2 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink"
+        className="fixed bottom-5 left-5 z-[60] hidden border border-line bg-base px-3 py-2 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink [@media(hover:hover)]:block"
       >
         ⌘K
       </button>
@@ -66,7 +66,7 @@ export function CommandMenu() {
         >
           <div
             className="w-full max-w-md border border-line bg-base"
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             <Command label="Site commands" loop>
               <Command.Input
@@ -81,7 +81,7 @@ export function CommandMenu() {
                   heading="Go to"
                   className="px-2 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-widest [&_[cmdk-group-heading]]:text-muted"
                 >
-                  {sections.map((s) => (
+                  {sections.map(s => (
                     <Command.Item
                       key={s.id}
                       value={`${s.no} ${s.label}`}
@@ -113,7 +113,7 @@ export function CommandMenu() {
                   >
                     Copy email
                   </Command.Item>
-                  {profile.socials.map((s) => (
+                  {profile.socials.map(s => (
                     <Command.Item
                       key={s.label}
                       value={`open ${s.label}`}

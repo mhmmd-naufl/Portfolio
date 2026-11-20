@@ -39,10 +39,13 @@ export function ScrambleText({ text, className = '' }: { text: string; className
 
   return (
     <span className={`scramble ${className}`} onMouseEnter={start} onFocus={start}>
-      <span className="scramble-ghost">{text}</span>
-      <span aria-hidden="true" className="scramble-live">
+      <span className="scramble-ghost" aria-hidden="true">
+        {text}
+      </span>
+      <span className="scramble-live" aria-hidden="true">
         {display}
       </span>
+      <span className="sr-only">{text}</span>
     </span>
   );
 }

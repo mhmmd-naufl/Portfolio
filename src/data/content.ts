@@ -27,7 +27,7 @@ export type Project = {
   year: string;
   stack: string[];
   summary: string;
-  image?: string;
+  image?: string; // e.g. '/projects/p01.jpg' — shown in the hover preview card
   link?: string;
 };
 
@@ -38,7 +38,8 @@ export const projects: Project[] = [
     category: 'Automation — Broadcasting',
     year: '2026',
     stack: ['Python', 'FastAPI', 'FFmpeg', 'React.js', 'OBS WebSocket'],
-    summary: 'Real-time football highlight clipping automation system based on audio spike detection (F1-Score 96.0%).',
+    summary:
+      'Real-time football highlight clipping automation system based on audio spike detection (F1-Score 96.0%).',
   },
   {
     id: 'P.02',
@@ -46,7 +47,8 @@ export const projects: Project[] = [
     category: 'Full-Stack Web App',
     year: '2025',
     stack: ['FastAPI', 'React.js', 'Supabase', 'UI/UX'],
-    summary: 'Multi-user operational full-stack app with Role-Based Access Control (RBAC), AI analytics integration, and clean UI.',
+    summary:
+      'Multi-user operational full-stack app with Role-Based Access Control (RBAC), AI analytics integration, and clean UI.',
   },
   {
     id: 'P.03',
@@ -54,7 +56,8 @@ export const projects: Project[] = [
     category: 'Rental Management System',
     year: '2025',
     stack: ['FastAPI', 'React.js', 'PostgreSQL', 'OpenRouter AI'],
-    summary: 'End-to-end rental platform with analytics dashboard, scheduling automation, and multi-model AI integration for automatic business summaries.',
+    summary:
+      'End-to-end rental platform with analytics dashboard, scheduling automation, and multi-model AI integration for automatic business summaries.',
   },
   {
     id: 'P.04',
@@ -62,7 +65,8 @@ export const projects: Project[] = [
     category: 'Web — Analytics',
     year: '2025',
     stack: ['FastAPI', 'Python', 'MongoDB', 'Web Scraping'],
-    summary: 'Backend prototype for collecting, managing, and classifying public opinion data from social media (Diskominfo Banyuwangi).',
+    summary:
+      'Backend prototype for collecting, managing, and classifying public opinion data from social media (Diskominfo Banyuwangi).',
   },
   {
     id: 'P.05',
@@ -70,7 +74,8 @@ export const projects: Project[] = [
     category: 'AI — Computer Vision',
     year: '2025',
     stack: ['YOLOv8', 'ByteTrack', 'OCR', 'Python'],
-    summary: 'Pipeline prototype to automatically detect runners BIB numbers for participant data verification (Alzen Metro Data).',
+    summary:
+      'Pipeline prototype to automatically detect runners BIB numbers for participant data verification (Alzen Metro Data).',
   },
 ];
 
@@ -93,30 +98,30 @@ export const capabilities = [
 ];
 
 export const experiences = [
-  { 
-    period: 'Jan 2025 — Sep 2026', 
-    role: 'Technical Broadcast & Computer Vision Intern', 
-    org: 'CV. Alzen Metro Data' 
+  {
+    period: 'Jan 2025 — Sep 2026',
+    role: 'Technical Broadcast & Computer Vision Intern',
+    org: 'CV. Alzen Metro Data',
   },
-  { 
-    period: 'Feb 2025 — Jun 2025', 
-    role: 'Software Engineer Intern', 
-    org: 'Diskominfo Banyuwangi' 
+  {
+    period: 'Feb 2025 — Jun 2025',
+    role: 'Software Engineer Intern',
+    org: 'Diskominfo Banyuwangi',
   },
-  { 
-    period: 'Sep 2024 — Dec 2025', 
-    role: 'Social Media Specialist', 
-    org: 'Howheal SAC' 
+  {
+    period: 'Sep 2024 — Dec 2025',
+    role: 'Social Media Specialist',
+    org: 'Howheal SAC',
   },
-  { 
-    period: 'Jan 2024 — Jun 2026', 
-    role: 'Freelance Graphic Designer & Video Editor', 
-    org: 'Self Employed' 
+  {
+    period: 'Jan 2024 — Jun 2026',
+    role: 'Freelance Graphic Designer & Video Editor',
+    org: 'Self Employed',
   },
-  { 
-    period: 'Jan 2024 — Jun 2026', 
-    role: 'Freelance Content Creator', 
-    org: 'Visitbanyuwangi.id' 
+  {
+    period: 'Jan 2024 — Jun 2026',
+    role: 'Freelance Content Creator',
+    org: 'Visitbanyuwangi.id',
   },
 ];
 
@@ -152,7 +157,7 @@ export const education = {
   degree: 'D4 Teknologi Rekayasa Perangkat Lunak',
   gpa: '3.63/4.00',
   period: '2022 — 2026',
-  // Catatan: Jika komponen UI Anda belum menampilkan field 'achievement', 
+  // Catatan: Jika komponen UI Anda belum menampilkan field 'achievement',
   // Anda bisa menggabungkannya ke string 'degree' atau menambahkan field ini di komponen About/Education.
   achievement: 'Ketua Angkatan Jurusan Bisnis dan Informatika 2022',
 };
