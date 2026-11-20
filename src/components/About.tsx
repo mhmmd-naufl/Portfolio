@@ -19,7 +19,7 @@ export function About() {
             src="/portrait.jpg"
             alt="Portrait of Muhammad Naufal Aulia"
             loading="lazy"
-            className="aspect-[4/5] w-full border border-line object-cover grayscale"
+            className="aspect-[4/5] w-full border border-line object-cover grayscale transition-[filter] duration-500 hover:grayscale-0"
           />
           <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted">
             {profile.name} — {profile.degree}
@@ -45,11 +45,13 @@ export function About() {
             {capabilities.map((c, i) => (
               <Reveal key={c.no}>
                 <div
-                  className={`grid gap-1 border-t border-line py-5 md:grid-cols-12 md:gap-6 ${
+                  className={`group grid gap-1 border-t border-line py-5 transition-transform duration-300 hover:translate-x-2 md:grid-cols-12 md:gap-6 ${
                     i % 2 === 1 ? 'md:ml-[6vw]' : ''
                   }`}
                 >
-                  <span className="font-mono text-xs text-muted md:col-span-1">{c.no}</span>
+                  <span className="font-mono text-xs text-muted transition-colors duration-300 group-hover:text-ink md:col-span-1">
+                    {c.no}
+                  </span>
                   <h3 className="font-display text-2xl font-medium tracking-tight md:col-span-3">
                     {c.title}
                   </h3>
@@ -69,7 +71,7 @@ export function About() {
             {experiences.map(e => (
               <div
                 key={`${e.org}-${e.role}`}
-                className="grid gap-1 border-t border-line py-4 md:grid-cols-12 md:gap-4"
+                className="grid gap-1 border-t border-line py-4 transition-transform duration-300 hover:translate-x-2 md:grid-cols-12 md:gap-4"
               >
                 <span className="font-mono text-[11px] text-muted md:col-span-4">{e.period}</span>
                 <div className="md:col-span-8">
@@ -91,6 +93,9 @@ export function About() {
             <p className="mt-1 font-mono text-[11px] text-muted">
               {education.gpa} · {education.period}
             </p>
+            <p className="mt-1 font-mono text-[11px] uppercase tracking-widest text-muted">
+              {education.achievement}
+            </p>
           </Reveal>
           <Reveal>
             <h3 className="mt-10 font-mono text-xs uppercase tracking-widest text-muted">
@@ -106,6 +111,9 @@ export function About() {
                 </li>
               ))}
             </ul>
+            <p className="mt-6 border-t border-line pt-4 font-mono text-[11px] uppercase tracking-widest text-muted">
+              Languages — {profile.languages}
+            </p>
           </Reveal>
         </div>
       </div>

@@ -12,7 +12,7 @@ import {
 // Screen-hidden, print-visible. Opened via window.print() -> Save as PDF.
 export function ResumeDoc() {
   const linkedIn =
-    profile.socials.find((s) => s.label === 'LinkedIn')?.href.replace('https://', '') ?? '';
+    profile.socials.find(s => s.label === 'LinkedIn')?.href.replace('https://', '') ?? '';
 
   return (
     <div
@@ -35,7 +35,7 @@ export function ResumeDoc() {
       <h2 className="mb-1 mt-4 border-b border-black pb-1 text-[12pt] font-bold uppercase">
         Experience
       </h2>
-      {experiences.map((e) => (
+      {experiences.map(e => (
         <div key={`${e.org}-${e.role}`} className="mb-2">
           <p className="text-[11pt] font-bold">
             {e.role} — {e.org}
@@ -47,7 +47,7 @@ export function ResumeDoc() {
       <h2 className="mb-1 mt-4 border-b border-black pb-1 text-[12pt] font-bold uppercase">
         Selected Work
       </h2>
-      {projects.map((p) => (
+      {projects.map(p => (
         <div key={p.id} className="mb-2">
           <p className="text-[11pt] font-bold">
             {p.title} ({p.category}, {p.year})
@@ -70,8 +70,9 @@ export function ResumeDoc() {
       </h2>
       <p className="text-[10.5pt] leading-relaxed">{tools.join(', ')}</p>
       <p className="mt-1 text-[10.5pt] leading-relaxed">
-        {capabilities.map((c) => c.title).join(' · ')} — {certifications.join('; ')}
+        {capabilities.map(c => c.title).join(' · ')} — {certifications.join('; ')}
       </p>
+      <p className="mt-1 text-[10.5pt] leading-relaxed">Languages: {profile.languages}</p>
     </div>
   );
 }

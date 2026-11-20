@@ -63,7 +63,7 @@ export function Footer() {
       id="contact"
       ref={ref}
       onMouseMove={onMove}
-      className="relative overflow-hidden bg-[#0B0A09] text-[#EDE9E1]"
+      className="relative overflow-hidden border-t border-line bg-base text-ink"
     >
       {/* Abstract line pattern — revealed around cursor (Gertix adapt, monochrome) */}
       <svg
@@ -112,7 +112,7 @@ export function Footer() {
       {/* Soft glow following cursor */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute h-[32rem] w-[32rem] rounded-full bg-white/[0.05] blur-3xl"
+        className="pointer-events-none absolute h-[32rem] w-[32rem] rounded-full bg-ink/[0.05] blur-3xl"
         style={{
           left: 'var(--mx, 50%)',
           top: 'var(--my, 38%)',
@@ -124,7 +124,7 @@ export function Footer() {
         <div className="grid flex-1 gap-12 md:grid-cols-12 md:gap-6">
           <div className="flex flex-col justify-center md:col-span-7">
             <Reveal>
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-white/50">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
                 04 / Contact
               </p>
               <h2 className="mt-6 font-display text-[clamp(2.4rem,5.5vw,5rem)] font-medium leading-[1.0] tracking-[-0.03em]">
@@ -142,19 +142,19 @@ export function Footer() {
                 <button
                   type="button"
                   onClick={copy}
-                  className="border border-white/25 px-4 py-2 font-mono text-xs uppercase tracking-widest text-white/70 transition-colors hover:text-white"
+                  className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:border-ink hover:text-ink"
                 >
                   {copied ? 'Copied ✓' : 'Copy email'}
                 </button>
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="border border-white/25 px-4 py-2 font-mono text-xs uppercase tracking-widest text-white/70 transition-colors hover:text-white"
+                  className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:border-ink hover:text-ink"
                 >
                   Resume ↓
                 </button>
               </div>
-              <p className="mt-8 flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-white/50">
+              <p className="mt-8 flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-muted">
                 <span
                   className="inline-block h-2 w-2 animate-pulse rounded-full bg-current"
                   aria-hidden="true"
@@ -166,13 +166,22 @@ export function Footer() {
 
           <div className="flex flex-col justify-end md:col-span-5 md:self-end md:text-right">
             <Reveal>
-              <img src="/logo-inverse.svg" alt={profile.name} className="h-8 w-auto md:ml-auto" />
-              <address className="mt-3 font-mono text-xs uppercase not-italic leading-relaxed tracking-widest text-white/60">
+              <img
+                src="/logo.svg"
+                alt={profile.name}
+                className="hidden h-8 w-auto dark:block md:ml-auto"
+              />
+              <img
+                src="/logo-inverse.svg"
+                alt={profile.name}
+                className="h-8 w-auto dark:hidden md:ml-auto"
+              />
+              <address className="mt-3 font-mono text-xs uppercase not-italic leading-relaxed tracking-widest text-muted">
                 {profile.name}
                 <br />
                 {profile.location} — {profile.phone}
               </address>
-              <hr className="my-5 border-t border-dashed border-white/25" />
+              <hr className="my-5 border-t border-dashed border-line" />
               <ul className="space-y-2">
                 {profile.socials.map(s => (
                   <li key={s.label}>
@@ -180,7 +189,7 @@ export function Footer() {
                       href={s.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="u-line font-mono text-xs uppercase tracking-widest text-white/70"
+                      className="u-line font-mono text-xs uppercase tracking-widest text-muted"
                     >
                       {s.label} ↗
                     </a>
@@ -191,7 +200,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 border-y border-dashed border-white/25 px-2 py-4">
+        <div className="mt-16 border-y border-dashed border-line px-2 py-4">
           <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
             <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Sitemap">
               {sitemap.map(l => (
@@ -204,10 +213,10 @@ export function Footer() {
                 </a>
               ))}
             </nav>
-            <p className="font-mono text-[11px] uppercase tracking-widest text-white/50">
+            <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
               © 2026 {profile.name}
             </p>
-            <p className="font-mono text-[11px] uppercase tracking-widest text-white/50">
+            <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
               {profile.location} — {time} WIB
             </p>
             <a href="#home" className="u-line font-mono text-[11px] uppercase tracking-widest">

@@ -5,8 +5,8 @@
 /* Monochrome theme tokens (eye-comfort, no pure black/white).
    Light = warm paper, Dark = soft black. */
 :root {
-  --bg: 254 253 251;
-  --ink: 26 25 23;
+  --bg: 251 250 248;
+  --ink: 18 17 15;
   --muted: 111 108 102;
   --line: 229 225 216;
   color-scheme: light;
@@ -215,6 +215,66 @@ section[id] {
 }
 
 /* (magnetic hero type retired with MagneticType) */
+
+/* Tools marquee: two identical rows, translate -50% loops seamlessly */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 36s linear infinite;
+}
+
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+/* Modal entrance */
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-modal-fade {
+  animation: modal-fade 0.2s ease-out;
+}
+
+.animate-modal-pop {
+  animation: modal-pop 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-modal-fade,
+  .animate-modal-pop {
+    animation: none;
+  }
+}
 
 @media print {
   @page {
