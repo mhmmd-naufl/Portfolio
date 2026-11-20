@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { projects } from '../data/content';
 import type { Project } from '../data/content';
+import { gsap, reducedMotion } from '../lib/gsap';
+import { withViewTransition } from '../lib/theme';
 import { ProjectModal } from './ProjectModal';
 import { Reveal } from './Reveal';
 
@@ -10,15 +12,37 @@ export function WorkList() {
   const [preview, setPreview] = useState<Preview>(null);
   const [open, setOpen] = useState<Project | null>(null);
   const hoverable = useRef(false);
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     hoverable.current = window.matchMedia('(hover: hover) and (min-width: 1024px)').matches;
+  }, []);
+
+  // GSAP stagger reveal for rows — replaces per-row CSS reveal here.
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list || reducedMotion()) return;
+    const rows = list.querySelectorAll<HTMLElement>('.work-row');
+    const ctx = gsap.context(() => {
+      gsap.from(rows, {
+        y: 28,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        stagger: 0.07,
+        scrollTrigger: { trigger: list, start: 'top 78%', once: true },
+      });
+    }, list);
+    return () => ctx.revert();
   }, []);
 
   const onRowMove = (e: React.MouseEvent, id: string) => {
     if (!hoverable.current) return;
     setPreview({ x: e.clientX, y: e.clientY, id });
   };
+
+  const openProject = (p: Project) => withViewTransition(() => setOpen(p));
+  const closeProject = () => setOpen(null);
 
   const current: Project | undefined = preview
     ? projects.find(p => p.id === preview.id)
@@ -38,15 +62,15 @@ export function WorkList() {
         </div>
       </Reveal>
 
-      <div onMouseLeave={() => setPreview(null)}>
+      <div ref={listRef} onMouseLeave={() => setPreview(null)}>
         {projects.map((p, i) => (
-          <Reveal key={p.id}>
+          <div key={p.id} className="work-row">
             <div
-              onClick={() => setOpen(p)}
+              onClick={() => openProject(p)}
               onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  setOpen(p);
+                  openProject(p);
                 }
               }}
               role="button"
@@ -76,7 +100,7 @@ export function WorkList() {
                 </p>
               </div>
             </div>
-          </Reveal>
+          </div>
         ))}
       </div>
 
@@ -106,7 +130,7 @@ export function WorkList() {
         </div>
       )}
 
-      <ProjectModal project={open} onClose={() => setOpen(null)} />
+      <ProjectModal project={open} onClose={closeProject} />
     </section>
   );
 }

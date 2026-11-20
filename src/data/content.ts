@@ -9,7 +9,7 @@ export const profile = {
   degree: 'S.Tr.Kom.',
   languages: 'Indonesian (Native) · English (TOEIC: 610)',
   location: 'Banyuwangi, ID',
-  email: 'novalqwerty15@gmail.com',
+  email: 'halo@mhmmdnaufl.my.id',
   phone: '089515758977',
   tagline: 'Technical precision. Visual clarity.',
   bio: 'D4 Software Engineering Technology graduate bridging backend systems and visual storytelling. Builds analytics and data-management platforms (FastAPI, PostgreSQL, Supabase, RBAC) while leading creative production — from 50+ visual assets and weekly content strategy to multi-camera live broadcasts across regional sports events. Turns technical complexity (AI, automation, computer vision) into functional, efficient, and visually clear digital solutions.',

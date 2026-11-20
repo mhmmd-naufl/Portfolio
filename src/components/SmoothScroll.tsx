@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
+import { gsap, ScrollTrigger } from '../lib/gsap';
 
 // Lenis smooth scroll: desktop wheel only, off with reduced-motion.
 // Anchor links (#home/#work/...) and palette jumps ('app:goto') are
 // animated via lenis.scrollTo with a -88px offset for the fixed nav.
+// GSAP ticker drives lenis.raf so ScrollTrigger scrub stays in sync.
 export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -12,10 +14,10 @@ export function SmoothScroll() {
     root.style.scrollBehavior = 'auto';
 
     const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
-    let raf = requestAnimationFrame(function loop(time: number) {
-      lenis.raf(time);
-      raf = requestAnimationFrame(loop);
-    });
+    lenis.on('scroll', ScrollTrigger.update);
+    const tick = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
 
     const onClick = (e: MouseEvent) => {
       const t = e.target as HTMLElement | null;
@@ -37,7 +39,7 @@ export function SmoothScroll() {
     window.addEventListener('app:goto', onGoto);
 
     return () => {
-      cancelAnimationFrame(raf);
+      gsap.ticker.remove(tick);
       document.removeEventListener('click', onClick);
       window.removeEventListener('app:goto', onGoto);
       root.style.scrollBehavior = prev;

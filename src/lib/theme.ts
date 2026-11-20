@@ -11,3 +11,15 @@ export function setDark(next: boolean): void {
   }
   window.dispatchEvent(new CustomEvent('themechange'));
 }
+
+// Crossfade state changes via the View Transitions API when available.
+export function withViewTransition(fn: () => void): void {
+  const doc = document as Document & {
+    startViewTransition?: (cb: () => void) => unknown;
+  };
+  if (typeof doc.startViewTransition === 'function') {
+    doc.startViewTransition(fn);
+  } else {
+    fn();
+  }
+}

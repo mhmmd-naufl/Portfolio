@@ -32,29 +32,12 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-width: thin;
-  scrollbar-color: rgb(var(--muted)) transparent;
+  scrollbar-width: none;
   scrollbar-gutter: stable;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgb(var(--muted));
-  border: 3px solid transparent;
-  background-clip: padding-box;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgb(var(--ink));
-  border: 3px solid transparent;
-  background-clip: padding-box;
+  display: none;
 }
 
 body {
@@ -178,9 +161,8 @@ section[id] {
 }
 
 .has-cursor,
-.has-cursor a,
-.has-cursor button {
-  cursor: none;
+.has-cursor * {
+  cursor: none !important;
 }
 
 @media (hover: hover) {
@@ -269,9 +251,64 @@ section[id] {
   animation: modal-pop 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Modal exit: panel fades while drifting upward with a soft bounce. */
+@keyframes modal-exit {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  55% {
+    opacity: 0.5;
+    transform: translateY(-9vh);
+  }
+  78% {
+    opacity: 0.18;
+    transform: translateY(-13vh);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-16vh);
+  }
+}
+
+.animate-modal-exit {
+  animation: modal-exit 0.42s cubic-bezier(0.4, 0, 0.3, 1) forwards;
+}
+
+/* Hide scrollbars (modal panel) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Gallery image wipe on switch */
+@keyframes img-wipe {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-img-wipe {
+  animation: img-wipe 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* View Transitions: quick monochrome crossfade */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-modal-fade,
-  .animate-modal-pop {
+  .animate-modal-pop,
+  .animate-modal-exit,
+  .animate-img-wipe {
     animation: none;
   }
 }

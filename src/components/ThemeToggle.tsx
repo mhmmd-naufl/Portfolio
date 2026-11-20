@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { isDark, setDark } from '../lib/theme';
+import { isDark, setDark, withViewTransition } from '../lib/theme';
 
 export function ThemeToggle() {
   const [dark, setDarkState] = useState(false);
@@ -11,7 +11,7 @@ export function ThemeToggle() {
     return () => window.removeEventListener('themechange', sync);
   }, []);
 
-  const toggle = () => setDark(!dark);
+  const toggle = () => withViewTransition(() => setDark(!dark));
 
   return (
     <button
