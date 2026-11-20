@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- TODO: ganti "/" dengan URL absolut domain produksi -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://mhmmd-naufl.pages.dev/</loc>
+    <lastmod>2026-11-20</lastmod>
   </url>
 </urlset>

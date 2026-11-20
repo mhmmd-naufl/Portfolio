@@ -114,16 +114,23 @@ export function Playground({ bare = false, faint = false }: { bare?: boolean; fa
       mx = -9999;
       my = -9999;
     };
+    let resizeTimer = 0;
     const onResize = () => {
-      build();
-      if (still) draw();
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        build();
+        if (still) draw();
+      }, 150);
     };
 
     build();
     window.addEventListener('resize', onResize);
     if (still) {
       draw();
-      return () => window.removeEventListener('resize', onResize);
+      return () => {
+        window.clearTimeout(resizeTimer);
+        window.removeEventListener('resize', onResize);
+      };
     }
 
     const io = new IntersectionObserver(([entry]) => {
@@ -139,6 +146,7 @@ export function Playground({ bare = false, faint = false }: { bare?: boolean; fa
     host.addEventListener('mouseleave', onLeave);
     return () => {
       cancelAnimationFrame(raf);
+      window.clearTimeout(resizeTimer);
       io.disconnect();
       host.removeEventListener('mousemove', onMove);
       host.removeEventListener('mouseleave', onLeave);

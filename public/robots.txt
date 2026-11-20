@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# TODO: ganti dengan URL absolut domain produksi
-Sitemap: /sitemap.xml
+Sitemap: https://mhmmd-naufl.pages.dev/sitemap.xml
