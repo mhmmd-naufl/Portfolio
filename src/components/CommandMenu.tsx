@@ -61,7 +61,7 @@ export function CommandMenu() {
       </button>
       {open && (
         <div
-          className="fixed inset-0 z-[70] flex items-start justify-center bg-ink/40 px-4 pt-[18vh]"
+          className="fixed inset-0 z-[70] flex items-start justify-center bg-ink/[0.06] px-4 pt-[18vh] backdrop-blur-md"
           onClick={() => setOpen(false)}
         >
           <div
