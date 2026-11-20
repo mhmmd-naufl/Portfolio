@@ -1,41 +1,80 @@
+import { useEffect, useRef } from 'react';
 import { profile } from '../data/content';
+import { gsap, reducedMotion } from '../lib/gsap';
+import { Magnetic } from './Magnetic';
 import { Playground } from './Playground';
 import { Reveal } from './Reveal';
 
 export function Hero() {
   const [first, ...rest] = profile.tagline.split(' ');
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Intro timeline: lines rise in staggered, then gentle parallax on scroll.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || reducedMotion()) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.from('.hero-line', { yPercent: 110, opacity: 0, duration: 0.9, stagger: 0.12 }).from(
+        '.hero-fade',
+        { y: 18, opacity: 0, duration: 0.7, stagger: 0.08 },
+        '-=0.5'
+      );
+
+      gsap.to('.hero-parallax', {
+        yPercent: -8,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       id="home"
+      ref={sectionRef}
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-8 pt-28"
     >
       <Playground bare faint />
       {/* Vertical side label */}
       <span
         aria-hidden="true"
-        className="absolute left-6 top-1/2 hidden -translate-y-1/2 font-mono text-[11px] uppercase tracking-[0.3em] text-muted [writing-mode:vertical-rl] md:left-10 md:block"
+        className="hero-parallax absolute left-6 top-1/2 hidden -translate-y-1/2 font-mono text-[11px] uppercase tracking-[0.3em] text-muted [writing-mode:vertical-rl] md:left-10 md:block"
       >
         Folio 2026 — {profile.location}
       </span>
 
       <Reveal className="relative">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted md:hidden">
+        <p className="hero-fade font-mono text-xs uppercase tracking-[0.2em] text-muted md:hidden">
           Folio 2026 — {profile.location}
         </p>
         <h1 className="mt-6 font-display text-[clamp(2.75rem,9vw,8rem)] font-medium leading-[0.92] tracking-[-0.04em]">
-          <span className="block">{first}</span>
-          <span className="block md:ml-[8vw]">{rest.join(' ')}</span>
+          <span className="-mb-[0.08em] block overflow-hidden pb-[0.08em]">
+            <span className="hero-line block">{first}</span>
+          </span>
+          <span className="-mb-[0.08em] block overflow-hidden pb-[0.08em] md:ml-[8vw]">
+            <span className="hero-line block">{rest.join(' ')}</span>
+          </span>
         </h1>
-        <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <div className="hero-fade mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <p className="max-w-md text-base leading-relaxed text-muted md:ml-[8vw]">{profile.bio}</p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-            <a
-              href="#work"
-              className="border border-line px-4 py-2 font-mono text-sm uppercase tracking-widest transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-base"
-            >
-              View work ↓
-            </a>
+            <Magnetic>
+              <a
+                href="#work"
+                className="inline-block border border-line px-4 py-2 font-mono text-sm uppercase tracking-widest transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-base"
+              >
+                View work ↓
+              </a>
+            </Magnetic>
             <a
               href={`mailto:${profile.email}`}
               className="font-mono text-sm uppercase tracking-widest text-muted transition-colors hover:text-ink"
@@ -44,7 +83,7 @@ export function Hero() {
             </a>
           </div>
         </div>
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-2 border-t border-dashed border-line pt-4 font-mono text-[11px] uppercase tracking-widest text-muted">
+        <div className="hero-fade mt-12 flex flex-wrap items-center justify-between gap-2 border-t border-dashed border-line pt-4 font-mono text-[11px] uppercase tracking-widest text-muted">
           <span>{profile.role}</span>
           <span className="flex items-center gap-2">
             <span

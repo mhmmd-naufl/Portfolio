@@ -7,6 +7,7 @@ import { Footer } from './components/Footer';
 import { Hero } from './components/Hero';
 import { Nav } from './components/Nav';
 import { ResumeDoc } from './components/ResumeDoc';
+import { ScrollProgress } from './components/ScrollProgress';
 import { SmoothScroll } from './components/SmoothScroll';
 import { ToolsMarquee } from './components/ToolsMarquee';
 import { WorkList } from './components/WorkList';
@@ -46,6 +47,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-base font-sans text-ink">
       <SmoothScroll />
+      <ScrollProgress />
       <CustomCursor />
       <CommandMenu />
       <a href="#main" className="skip-link">

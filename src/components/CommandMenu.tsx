@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Command } from 'cmdk';
 import { profile } from '../data/content';
-import { isDark, setDark } from '../lib/theme';
+import { isDark, setDark, withViewTransition } from '../lib/theme';
 
 const sections = [
   { id: '#home', no: '01', label: 'Home' },
@@ -40,7 +40,7 @@ export function CommandMenu() {
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setDark(!isDark());
+    withViewTransition(() => setDark(!isDark()));
     setOpen(false);
   }, []);
 

@@ -11,13 +11,21 @@ export function ProjectModal({
   onClose: () => void;
 }) {
   const [idx, setIdx] = useState(0);
+  const [closing, setClosing] = useState(false);
 
   useEffect(() => setIdx(0), [project]);
 
+  const requestClose = () => {
+    if (closing) return;
+    setClosing(true);
+    window.setTimeout(onClose, 400);
+  };
+
   useEffect(() => {
     if (!project) return;
+    setClosing(false);
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') requestClose();
     };
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -26,7 +34,8 @@ export function ProjectModal({
       document.body.style.overflow = prev;
       window.removeEventListener('keydown', onKey);
     };
-  }, [project, onClose]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [project]);
 
   if (!project) return null;
 
@@ -35,14 +44,18 @@ export function ProjectModal({
 
   return (
     <div
-      className="animate-modal-fade fixed inset-0 z-[80] flex items-center justify-center bg-ink/40 px-4 py-8"
-      onClick={onClose}
+      className={`fixed inset-0 z-[80] flex items-center justify-center bg-ink/[0.06] px-4 py-8 backdrop-blur-md transition-opacity duration-300 ${
+        closing ? 'opacity-0' : 'animate-modal-fade opacity-100'
+      }`}
+      onClick={requestClose}
       role="dialog"
       aria-modal="true"
       aria-label={project.title}
     >
       <div
-        className="animate-modal-pop max-h-full w-full max-w-3xl overflow-y-auto border border-line bg-base"
+        className={`no-scrollbar max-h-full w-full max-w-3xl overflow-y-auto border border-line bg-base ${
+          closing ? 'animate-modal-exit' : 'animate-modal-pop'
+        }`}
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-line px-6 py-4 md:px-8">
@@ -51,7 +64,7 @@ export function ProjectModal({
           </p>
           <button
             type="button"
-            onClick={onClose}
+            onClick={requestClose}
             aria-label="Close"
             className="font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-ink"
           >
@@ -82,7 +95,7 @@ export function ProjectModal({
                   key={current.src}
                   src={current.src}
                   alt={current.alt}
-                  className="w-full border border-line object-cover"
+                  className="animate-img-wipe w-full border border-line object-cover"
                 />
               )}
               {images.length > 1 && (

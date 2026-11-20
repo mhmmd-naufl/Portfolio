@@ -5,7 +5,7 @@
   "url": "https://mhmmd-naufl.pages.dev/",
   "jobTitle": "Web Development & Digital Content",
   "address": { "@type": "PostalAddress", "addressLocality": "Banyuwangi", "addressCountry": "ID" },
-  "email": "mailto:novalqwerty15@gmail.com",
+  "email": "mailto:halo@mhmmdnaufl.my.id",
   "sameAs": [
     "https://github.com/mhmmd-naufl",
     "https://linkedin.com/in/mhmmd-naufl",
