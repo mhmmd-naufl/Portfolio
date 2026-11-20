@@ -44,7 +44,7 @@ export function ProjectModal({
 
   return (
     <div
-      className={`fixed inset-0 z-[80] flex items-center justify-center bg-ink/[0.06] px-4 py-8 backdrop-blur-md transition-opacity duration-300 ${
+      className={`fixed inset-0 z-[80] flex items-center justify-center bg-ink/[0.08] px-4 py-8 backdrop-blur-sm transition-opacity duration-300 ${
         closing ? 'opacity-0' : 'animate-modal-fade opacity-100'
       }`}
       onClick={requestClose}
