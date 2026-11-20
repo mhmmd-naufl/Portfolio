@@ -24,12 +24,6 @@ export function WorkList() {
 
   return (
     <section id="work" className="relative py-36 md:py-56">
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-10 -z-10 select-none font-display text-[24vw] font-semibold leading-none tracking-[-0.05em] text-ink/[0.04] dark:text-[#EDE9E1]/[0.06] md:text-[16vw]"
-      >
-        02
-      </span>
       <Reveal>
         <div className="flex items-baseline justify-between border-b border-line pb-4">
           <h2 className="font-display text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium tracking-tight">

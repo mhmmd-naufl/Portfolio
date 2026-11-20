@@ -20,7 +20,9 @@ export function ResumeDoc() {
       className="resume-doc hidden bg-white font-[Arial,_Helvetica,_sans-serif] text-black print:block"
     >
       <h1 className="text-[24pt] font-bold leading-tight">{profile.name}</h1>
-      <p className="mt-1 text-[12pt]">{profile.role}</p>
+      <p className="mt-1 text-[12pt]">
+        {profile.role}, {profile.degree}
+      </p>
       <p className="mt-1 text-[10pt]">
         {profile.location} | {profile.email} | {profile.phone} | {linkedIn}
       </p>
