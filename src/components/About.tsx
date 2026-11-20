@@ -4,12 +4,6 @@ import { Reveal } from './Reveal';
 export function About() {
   return (
     <section id="about" className="relative py-36 md:py-56">
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-8 left-0 -z-10 select-none font-display text-[22vw] font-semibold leading-none tracking-[-0.05em] text-ink/[0.04] dark:text-[#EDE9E1]/[0.06] md:text-[15vw]"
-      >
-        03
-      </span>
       <Reveal>
         <div className="border-b border-line pb-4">
           <h2 className="font-display text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium tracking-tight">
@@ -28,7 +22,10 @@ export function About() {
             className="aspect-[4/5] w-full border border-line object-cover grayscale"
           />
           <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted">
-            {profile.name} — {profile.role}
+            {profile.name} — {profile.degree}
+          </p>
+          <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
+            {profile.role}
           </p>
           <button
             type="button"

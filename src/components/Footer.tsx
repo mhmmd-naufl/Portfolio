@@ -63,7 +63,7 @@ export function Footer() {
       id="contact"
       ref={ref}
       onMouseMove={onMove}
-      className="relative overflow-hidden bg-[#131210] text-[#EDE9E1]"
+      className="relative overflow-hidden bg-[#0B0A09] text-[#EDE9E1]"
     >
       {/* Abstract line pattern — revealed around cursor (Gertix adapt, monochrome) */}
       <svg

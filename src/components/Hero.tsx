@@ -11,13 +11,6 @@ export function Hero() {
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-8 pt-28"
     >
       <Playground bare faint />
-      {/* Ghost section numeral */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-6 top-24 select-none font-display text-[26vw] font-semibold leading-none tracking-[-0.05em] text-ink/[0.04] dark:text-[#EDE9E1]/[0.06] md:text-[18vw]"
-      >
-        01
-      </span>
       {/* Vertical side label */}
       <span
         aria-hidden="true"

@@ -5,7 +5,7 @@
 /* Monochrome theme tokens (eye-comfort, no pure black/white).
    Light = warm paper, Dark = soft black. */
 :root {
-  --bg: 250 249 247;
+  --bg: 254 253 251;
   --ink: 26 25 23;
   --muted: 111 108 102;
   --line: 229 225 216;
@@ -13,7 +13,7 @@
 }
 
 .dark {
-  --bg: 19 18 16;
+  --bg: 11 10 9;
   --ink: 237 233 225;
   --muted: 163 160 153;
   --line: 42 40 37;

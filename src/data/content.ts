@@ -6,6 +6,7 @@ export const profile = {
   name: 'Muhammad Naufal Aulia',
   initials: 'MNA',
   role: 'Full-Stack Developer & Digital Creator',
+  degree: 'S.Tr.Kom.',
   location: 'Banyuwangi, ID',
   email: 'novalqwerty15@gmail.com',
   phone: '089515758977',
@@ -40,6 +41,7 @@ export const projects: Project[] = [
     stack: ['Python', 'FastAPI', 'FFmpeg', 'React.js', 'OBS WebSocket'],
     summary:
       'Real-time football highlight clipping automation system based on audio spike detection (F1-Score 96.0%).',
+    link: 'https://github.com/mhmmd-naufl/Live-Auto-Cliper',
   },
   {
     id: 'P.02',
@@ -49,33 +51,37 @@ export const projects: Project[] = [
     stack: ['FastAPI', 'React.js', 'Supabase', 'UI/UX'],
     summary:
       'Multi-user operational full-stack app with Role-Based Access Control (RBAC), AI analytics integration, and clean UI.',
+    link: 'https://github.com/mhmmd-naufl/Solea',
   },
   {
     id: 'P.03',
-    title: 'Rentalyzer',
-    category: 'Rental Management System',
-    year: '2025',
-    stack: ['FastAPI', 'React.js', 'PostgreSQL', 'OpenRouter AI'],
-    summary:
-      'End-to-end rental platform with analytics dashboard, scheduling automation, and multi-model AI integration for automatic business summaries.',
-  },
-  {
-    id: 'P.04',
     title: 'Social Search App',
     category: 'Web — Analytics',
     year: '2025',
     stack: ['FastAPI', 'Python', 'MongoDB', 'Web Scraping'],
     summary:
       'Backend prototype for collecting, managing, and classifying public opinion data from social media (Diskominfo Banyuwangi).',
+    link: 'https://github.com/mhmmd-naufl/social_searchv2',
   },
   {
-    id: 'P.05',
+    id: 'P.04',
     title: 'Computer Vision BIB Reader',
     category: 'AI — Computer Vision',
     year: '2025',
     stack: ['YOLOv8', 'ByteTrack', 'OCR', 'Python'],
     summary:
       'Pipeline prototype to automatically detect runners BIB numbers for participant data verification (Alzen Metro Data).',
+    link: 'https://github.com/mhmmd-naufl/OCR_BIBNumber',
+  },
+  {
+    id: 'P.05',
+    title: 'VibeSift',
+    category: 'AI — Full-Stack Web App',
+    year: '2026',
+    stack: ['Next.js', 'FastAPI', 'Spotify API', 'LiteLLM'],
+    summary:
+      'Open-source AI playlist curator: turns natural-language prompts into Spotify playlists via Audio Features and multi-provider LLM (BYOK).',
+    link: 'https://github.com/mhmmd-naufl/VibeSift',
   },
 ];
 
