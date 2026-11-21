@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { profile } from '../data/content';
 import { gsap, reducedMotion } from '../lib/gsap';
 import { Magnetic } from './Magnetic';
-import { Playground } from './Playground';
 import { Reveal } from './Reveal';
 
 export function Hero() {
@@ -43,7 +42,6 @@ export function Hero() {
       ref={sectionRef}
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-8 pt-28"
     >
-      <Playground bare faint />
       {/* Vertical side label */}
       <span
         aria-hidden="true"
@@ -64,8 +62,7 @@ export function Hero() {
             <span className="hero-line block">{rest.join(' ')}</span>
           </span>
         </h1>
-        <div className="hero-fade mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <p className="max-w-md text-base leading-relaxed text-muted md:ml-[8vw]">{profile.bio}</p>
+        <div className="hero-fade mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-end">
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             <Magnetic>
               <a

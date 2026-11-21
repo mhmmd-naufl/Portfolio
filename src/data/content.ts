@@ -164,8 +164,13 @@ export const experiences = [
   },
   {
     period: 'Jan 2024 — Jan 2025',
-    role: 'Head, Media Communications & Information Dept.',
-    org: 'HMJ Bisnis dan Informatika — Polinema',
+    role: 'Coordinator, Media Communications & Information Dept.',
+    org: 'HMJ Bisnis dan Informatika — Politeknik Negeri Banyuwangi',
+  },
+  {
+    period: 'Jan 2023 — Jan 2024',
+    role: 'Member, Media Communications & Information Dept.',
+    org: 'HMJ Bisnis dan Informatika — Politeknik Negeri Banyuwangi',
   },
 ];
 

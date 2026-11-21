@@ -63,7 +63,7 @@ export function Footer() {
       id="contact"
       ref={ref}
       onMouseMove={onMove}
-      className="relative overflow-hidden border-t border-line bg-base text-ink"
+      className="relative overflow-hidden border-t border-line text-ink"
     >
       {/* Abstract line pattern — revealed around cursor (Gertix adapt, monochrome) */}
       <svg
@@ -109,17 +109,6 @@ export function Footer() {
           </text>
         </g>
       </svg>
-      {/* Soft glow following cursor */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute h-[32rem] w-[32rem] rounded-full bg-ink/[0.05] blur-3xl"
-        style={{
-          left: 'var(--mx, 50%)',
-          top: 'var(--my, 38%)',
-          transform: 'translate(-50%, -50%)',
-        }}
-      />
-
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1200px] flex-col px-6 py-16 md:px-10">
         <div className="grid flex-1 gap-12 md:grid-cols-12 md:gap-6">
           <div className="flex flex-col justify-center md:col-span-7">
@@ -127,11 +116,13 @@ export function Footer() {
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
                 04 / Contact
               </p>
-              <h2 className="mt-6 font-display text-[clamp(2.4rem,5.5vw,5rem)] font-medium leading-[1.0] tracking-[-0.03em]">
-                Let&apos;s work
-                <br />
-                <span className="md:ml-[8vw]">together</span>
-              </h2>
+              <div className="scrub-y">
+                <h2 className="mt-6 font-display text-[clamp(2.4rem,5.5vw,5rem)] font-medium leading-[1.0] tracking-[-0.03em]">
+                  Let&apos;s work
+                  <br />
+                  <span className="md:ml-[8vw]">together</span>
+                </h2>
+              </div>
               <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <a
                   href={`mailto:${profile.email}`}
@@ -200,30 +191,32 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 border-y border-dashed border-line px-2 py-4">
-          <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
-            <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Sitemap">
-              {sitemap.map(l => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  className="u-line font-mono text-xs uppercase tracking-widest"
-                >
-                  <span>{l.no}</span> <ScrambleText text={l.label} />
-                </a>
-              ))}
-            </nav>
-            <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
-              © 2026 {profile.name}
-            </p>
-            <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
-              {profile.location} — {time} WIB
-            </p>
-            <a href="#home" className="u-line font-mono text-[11px] uppercase tracking-widest">
-              Back to top ↑
-            </a>
+        <Reveal>
+          <div className="mt-16 border-y border-dashed border-line px-2 py-4">
+            <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
+              <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Sitemap">
+                {sitemap.map(l => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    className="u-line font-mono text-xs uppercase tracking-widest"
+                  >
+                    <span>{l.no}</span> <ScrambleText text={l.label} />
+                  </a>
+                ))}
+              </nav>
+              <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
+                © 2026 {profile.name}
+              </p>
+              <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
+                {profile.location} — {time} WIB
+              </p>
+              <a href="#home" className="u-line font-mono text-[11px] uppercase tracking-widest">
+                Back to top ↑
+              </a>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </footer>
   );

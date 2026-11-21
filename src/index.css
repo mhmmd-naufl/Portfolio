@@ -13,7 +13,7 @@
 }
 
 .dark {
-  --bg: 11 10 9;
+  --bg: 8 7 6;
   --ink: 237 233 225;
   --muted: 163 160 153;
   --line: 42 40 37;
@@ -82,14 +82,17 @@ section[id] {
 .reveal {
   opacity: 0;
   transform: translateY(16px);
+  filter: blur(6px);
   transition:
     opacity 0.6s ease,
-    transform 0.6s ease;
+    transform 0.6s ease,
+    filter 0.6s ease;
 }
 
 .reveal.is-visible {
   opacity: 1;
   transform: none;
+  filter: blur(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -99,6 +102,7 @@ section[id] {
   .reveal {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
   }
 }
@@ -198,6 +202,45 @@ section[id] {
 
 /* (magnetic hero type retired with MagneticType) */
 
+/* Site-wide atmosphere: hairline grid drifting diagonally + one faint glow.
+   Sits fixed behind everything, monochrome via CSS vars. */
+.site-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -20; /* behind hero dot field (-z-10), above page background */
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(var(--ink) / 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--ink) / 0.018) 1px, transparent 1px);
+  background-size: 120px 120px;
+  animation: atmosphere-drift 90s linear infinite;
+}
+
+@keyframes atmosphere-drift {
+  from {
+    background-position:
+      0 0,
+      0 0;
+  }
+  to {
+    background-position:
+      120px 120px,
+      120px 120px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-atmosphere {
+    animation: none;
+  }
+}
+
+@media print {
+  .site-atmosphere {
+    display: none;
+  }
+}
+
 /* Tools marquee: two identical rows, translate -50% loops seamlessly */
 @keyframes marquee {
   from {
@@ -210,10 +253,6 @@ section[id] {
 
 .animate-marquee {
   animation: marquee 36s linear infinite;
-}
-
-.group:hover .animate-marquee {
-  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {

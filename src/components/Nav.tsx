@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { profile } from '../data/content';
 import { ScrambleText } from './ScrambleText';
 import { ThemeToggle } from './ThemeToggle';
@@ -14,15 +14,35 @@ const observedIds = ['home', 'work', 'about', 'contact'];
 
 export function Nav() {
   const [active, setActive] = useState('home');
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [indicator, setIndicator] = useState({ left: 0, top: 0, width: 0, ready: false });
 
+  // Sliding indicator: measure the active link and glide a 2px ink
+  // segment so it rests just under the link text.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    const measure = () => {
+      const container = containerRef.current;
+      const link = container?.querySelector<HTMLElement>(`nav a[href="#${active}"]`);
+      if (!container || !link) return;
+      const c = container.getBoundingClientRect();
+      const r = link.getBoundingClientRect();
+      setIndicator({
+        left: r.left - c.left,
+        top: r.bottom - c.top + 4,
+        width: r.width,
+        ready: true,
+      });
+    };
+    measure();
+    const raf = requestAnimationFrame(measure);
+    window.addEventListener('resize', measure);
+    document.fonts?.ready.then(measure).catch(() => {});
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', measure);
+    };
+  }, [active]);
 
   useEffect(() => {
     if (!open) return;
@@ -56,12 +76,11 @@ export function Nav() {
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 bg-base transition-colors ${
-          scrolled ? 'border-b border-line' : 'border-b border-transparent'
-        }`}
-      >
-        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6 md:px-10">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-base">
+        <div
+          ref={containerRef}
+          className="relative mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6 md:px-10"
+        >
           <a href="#home" aria-label={profile.name} className="block">
             <img src="/logo.svg" alt="" className="h-7 w-auto dark:invert" />
           </a>
@@ -71,9 +90,7 @@ export function Nav() {
                 key={l.id}
                 href={l.href}
                 className={`font-mono text-xs uppercase tracking-widest transition-colors ${
-                  active === l.id
-                    ? 'text-ink underline underline-offset-4'
-                    : 'text-muted hover:text-ink'
+                  active === l.id ? 'text-ink' : 'text-muted hover:text-ink'
                 }`}
               >
                 <span>{l.no}</span> <ScrambleText text={l.label} />
@@ -91,6 +108,13 @@ export function Nav() {
           >
             Menu
           </button>
+          <span
+            aria-hidden="true"
+            className={`pointer-events-none absolute hidden h-[2px] bg-ink transition-[left,top,width,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:block ${
+              indicator.ready ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ left: indicator.left, top: indicator.top, width: indicator.width }}
+          />
         </div>
       </header>
 
