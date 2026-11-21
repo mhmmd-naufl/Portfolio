@@ -1,4 +1,5 @@
 import { tools } from '../data/content';
+import { Reveal } from './Reveal';
 
 // Infinite tools strip between About and Contact. Pure CSS marquee,
 // pauses on hover, static under prefers-reduced-motion.
@@ -17,11 +18,13 @@ export function ToolsMarquee() {
   );
 
   return (
-    <div className="group overflow-hidden border-y border-line py-5">
-      <div className="animate-marquee flex w-max">
-        {row(false)}
-        {row(true)}
+    <Reveal>
+      <div className="group overflow-hidden border-y border-line py-5">
+        <div className="animate-marquee flex w-max">
+          {row(false)}
+          {row(true)}
+        </div>
       </div>
-    </div>
+    </Reveal>
   );
 }

@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
+import { gsap, reducedMotion } from './lib/gsap';
 import { About } from './components/About';
 import { CommandMenu } from './components/CommandMenu';
 import { CustomCursor } from './components/CustomCursor';
@@ -7,7 +8,6 @@ import { Footer } from './components/Footer';
 import { Hero } from './components/Hero';
 import { Nav } from './components/Nav';
 import { ResumeDoc } from './components/ResumeDoc';
-import { ScrollProgress } from './components/ScrollProgress';
 import { SmoothScroll } from './components/SmoothScroll';
 import { ToolsMarquee } from './components/ToolsMarquee';
 import { WorkList } from './components/WorkList';
@@ -27,8 +27,39 @@ function useAdmin(): boolean {
   return admin;
 }
 
+// Subtle scroll-scrub parallax on `.scrub-y` elements: they drift ±28px
+// across their section's transit, adding depth without distracting motion.
+function useScrubParallax() {
+  useEffect(() => {
+    if (reducedMotion()) return;
+    const els = gsap.utils.toArray<HTMLElement>('.scrub-y');
+    if (!els.length) return;
+    const ctx = gsap.context(() => {
+      els.forEach(el => {
+        const trigger = el.closest('section, footer') ?? el;
+        gsap.fromTo(
+          el,
+          { y: 28 },
+          {
+            y: -28,
+            ease: 'none',
+            scrollTrigger: {
+              trigger,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          }
+        );
+      });
+    });
+    return () => ctx.revert();
+  }, []);
+}
+
 export default function App() {
   const admin = useAdmin();
+  useScrubParallax();
 
   if (admin) {
     return (
@@ -45,9 +76,9 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-base font-sans text-ink">
+    <div className="min-h-screen font-sans text-ink">
+      <div className="site-atmosphere" aria-hidden="true" />
       <SmoothScroll />
-      <ScrollProgress />
       <CustomCursor />
       <CommandMenu />
       <a href="#main" className="skip-link">
