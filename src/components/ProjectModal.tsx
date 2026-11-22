@@ -55,7 +55,7 @@ export function ProjectModal({
       aria-label={project.title}
     >
       <div
-        className={`no-scrollbar max-h-full w-full max-w-3xl overflow-y-auto border border-line bg-base ${
+        className={`glass no-scrollbar max-h-full w-full max-w-3xl overflow-y-auto border border-line ${
           closing ? 'animate-modal-exit' : 'animate-modal-pop'
         }`}
         onClick={e => e.stopPropagation()}

@@ -1,29 +1,21 @@
+import { useEffect, useState } from 'react';
 import { useContent, useUi } from '../lib/i18n';
 import { DotPattern } from './DotPattern';
-import { PortraitField } from './PortraitField';
+import ReflectiveCard from './ReflectiveCard';
 import { Reveal } from './Reveal';
-import { motion, useMotionValue, useReducedMotion, useTransform } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 export function About() {
   const { profile, capabilities, certifications, education, experiences } = useContent();
   const ui = useUi();
   const reduce = useReducedMotion();
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rotateX = useTransform(my, [-0.5, 0.5], [3, -3]);
-  const rotateY = useTransform(mx, [-0.5, 0.5], [-3, 3]);
+  const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'));
 
-  const onTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (reduce) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    mx.set((e.clientX - r.left) / r.width - 0.5);
-    my.set((e.clientY - r.top) / r.height - 0.5);
-  };
-
-  const onTiltEnd = () => {
-    mx.set(0);
-    my.set(0);
-  };
+  useEffect(() => {
+    const sync = () => setDark(document.documentElement.classList.contains('dark'));
+    window.addEventListener('themechange', sync);
+    return () => window.removeEventListener('themechange', sync);
+  }, []);
 
   return (
     <section id="about" className="relative overflow-hidden py-36 md:py-56">
@@ -38,24 +30,27 @@ export function About() {
       </Reveal>
 
       <div className="mt-10 grid gap-10 md:grid-cols-12 md:gap-6">
-        <Reveal className="md:col-span-4 md:mt-16">
+        <Reveal className="md:col-span-4 md:mt-8">
           <motion.div
-            onMouseMove={onTilt}
-            onMouseLeave={onTiltEnd}
-            style={{ rotateX, rotateY, transformPerspective: 900 }}
             animate={reduce ? undefined : { y: [0, -8, 0] }}
             transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
             className="will-change-transform"
           >
-            <div className="relative">
+            <ReflectiveCard
+              width={300}
+              height={375}
+              radius={14}
+              theme={dark ? 'dark' : 'light'}
+              grayscale={1}
+              style={{ maxWidth: '100%' }}
+            >
               <img
                 src="/portrait.jpg"
                 alt={ui.about.portraitAlt}
                 loading="lazy"
-                className="aspect-[4/5] w-full border border-line object-cover grayscale transition-[filter] duration-500 hover:grayscale-0"
+                className="w-full flex-1 rounded-[10px] object-cover"
               />
-              <PortraitField />
-            </div>
+            </ReflectiveCard>
           </motion.div>
           <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted">
             {profile.name} · {profile.degree}
@@ -66,7 +61,7 @@ export function About() {
           <button
             type="button"
             onClick={() => window.print()}
-            className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted underline underline-offset-4 transition-colors hover:text-ink"
+            className="glass mt-3 inline-block rounded-md border border-line px-4 py-2 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:border-ink hover:text-ink"
           >
             {ui.about.downloadResume}
           </button>

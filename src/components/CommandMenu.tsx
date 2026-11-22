@@ -56,7 +56,7 @@ export function CommandMenu() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={ui.command.open}
-        className="fixed bottom-5 left-5 z-[60] hidden border border-line bg-base px-3 py-2 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink [@media(hover:hover)]:block"
+        className="glass fixed bottom-5 left-5 z-[60] hidden rounded-md border border-line px-4 py-2 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink [@media(hover:hover)]:block"
       >
         ⌘K
       </button>
@@ -66,7 +66,7 @@ export function CommandMenu() {
           onClick={() => setOpen(false)}
         >
           <div
-            className="w-full max-w-md border border-line bg-base"
+            className="glass w-full max-w-md rounded-2xl border border-line"
             onClick={e => e.stopPropagation()}
           >
             <Command label={ui.command.label} loop>

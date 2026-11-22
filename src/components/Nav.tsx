@@ -78,7 +78,7 @@ export function Nav() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-base">
+      <header className="glass fixed inset-x-0 top-0 z-50 border-b border-line">
         <div
           ref={containerRef}
           className="relative mx-auto flex h-16 max-w-[1200px] items-center justify-between px-6 md:px-10"

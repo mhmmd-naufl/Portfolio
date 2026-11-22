@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useContent, useUi } from '../lib/i18n';
+import { PulseHeart } from './PulseHeart';
 import { ScrambleText } from './ScrambleText';
 import { Reveal } from './Reveal';
 
@@ -133,15 +134,16 @@ export function Footer() {
                 </a>
                 <button
                   type="button"
+                  data-spark=""
                   onClick={copy}
-                  className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:border-ink hover:text-ink"
+                  className="glass rounded-md border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:border-ink hover:text-ink"
                 >
                   {copied ? ui.footer.copied : ui.footer.copyEmail}
                 </button>
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:border-ink hover:text-ink"
+                  className="glass rounded-md border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:border-ink hover:text-ink"
                 >
                   {ui.footer.resume}
                 </button>
@@ -215,6 +217,14 @@ export function Footer() {
               <a href="#home" className="u-line font-mono text-[11px] uppercase tracking-widest">
                 {ui.footer.backToTop}
               </a>
+              <PulseHeart
+                size={22}
+                corner={8}
+                likedColor="rgb(var(--ink))"
+                idleColor="rgb(var(--muted))"
+                pillColor="rgb(var(--bg) / 0.6)"
+                textColor="rgb(var(--ink))"
+              />
             </div>
           </div>
         </Reveal>

@@ -51,6 +51,13 @@ section[id] {
   scroll-margin-top: 88px;
 }
 
+/* Glassmorphism: translucent bg + blur, warna mengikuti tema via --bg. */
+.glass {
+  background-color: rgb(var(--bg) / 0.62);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  backdrop-filter: blur(16px) saturate(1.3);
+}
+
 ::selection {
   background: rgb(var(--ink));
   color: rgb(var(--bg));
@@ -158,30 +165,47 @@ section[id] {
   }
 }
 
-/* Minimalist custom cursor: small solid purple square.
-   The only color on the site. Tweak size here. */
-.cursor-box {
-  display: none;
+/* TargetCursor (ReactBits adapt): reticle bracket yang mengunci elemen
+   interaktif. Native cursor disembunyikan dinamis oleh komponen itu sendiri
+   (hanya saat pointer di dalam viewport). Warna mengikuti --ink. */
+.target-cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  pointer-events: none;
 }
 
-.has-cursor,
-.has-cursor * {
-  cursor: none !important;
+.target-cursor__corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--target-cursor-color, rgb(var(--ink)));
+  transform-origin: 0 0;
+  will-change: transform;
 }
 
-@media (hover: hover) {
-  .has-cursor .cursor-box {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 200;
-    width: 12px;
-    height: 12px;
-    background: #7c3aed;
-    pointer-events: none;
-    will-change: transform;
-  }
+.target-cursor__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: var(--target-cursor-color, rgb(var(--ink)));
+  will-change: transform;
+}
+
+.target-cursor__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--target-cursor-color, rgb(var(--ink)));
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 /* Width-locked scramble: ghost reserves width, live layer overlays it */
@@ -314,6 +338,175 @@ section[id] {
   animation: modal-exit 0.42s cubic-bezier(0.4, 0, 0.3, 1) forwards;
 }
 
+/* PulseHeart (ReactBits adapt): like button contract → dot → pulse.
+   Semua warna via CSS vars yang di-set inline dari props. */
+.pulse-heart {
+  --ph-size: 40px;
+  --ph-corner: 32px;
+  --ph-pill: transparent;
+  --ph-idle: rgb(var(--muted));
+  --ph-liked: rgb(var(--ink));
+  --ph-text: rgb(var(--ink));
+  --ph-roll: 350ms;
+  --ph-stroke: 2.5px;
+  --ph-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ph-corner);
+  background: none;
+  color: var(--ph-text);
+  font-family: inherit;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  outline: none;
+  transition: transform 160ms var(--ph-ease-out);
+}
+
+.pulse-heart[data-pressed] {
+  transform: scale(0.97);
+}
+
+.pulse-heart:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--ph-liked) 60%, transparent);
+  outline-offset: 3px;
+}
+
+.pulse-heart:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.pulse-heart__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--ph-size) * 0.25);
+  padding: calc(var(--ph-size) * 0.3);
+  padding-inline-end: calc(var(--ph-size) * 0.4);
+  border-radius: var(--ph-corner);
+  background: var(--ph-pill);
+  transform-origin: center;
+}
+
+.pulse-heart[data-no-count] .pulse-heart__pill {
+  padding-inline-end: calc(var(--ph-size) * 0.3);
+}
+
+.pulse-heart__heart {
+  display: block;
+  width: var(--ph-size);
+  height: var(--ph-size);
+  color: var(--ph-idle);
+  transform-origin: center;
+  transition: color 160ms ease;
+}
+
+.pulse-heart__heart svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--ph-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pulse-heart[data-solid] .pulse-heart__heart svg,
+.pulse-heart[data-liked='true'] .pulse-heart__heart svg {
+  fill: currentColor;
+}
+
+.pulse-heart[data-liked='true'] .pulse-heart__heart {
+  color: var(--ph-liked);
+}
+
+.pulse-heart[data-running] .pulse-heart__heart,
+.pulse-heart[data-instant] .pulse-heart__heart {
+  transition: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pulse-heart:not([data-liked='true']):not(:disabled):hover .pulse-heart__heart {
+    color: color-mix(in srgb, var(--ph-idle) 45%, var(--ph-liked));
+  }
+}
+
+.pulse-heart__count {
+  display: inline-flex;
+  font-size: calc(var(--ph-size) * 0.5);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.1px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ph-text);
+}
+
+.pulse-heart__count > span {
+  display: block;
+  height: 1em;
+}
+
+.pulse-heart__slot {
+  position: relative;
+  overflow: hidden;
+}
+
+.pulse-heart__roll {
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--ph-roll) var(--ph-ease-out);
+}
+
+.pulse-heart__roll > span {
+  display: block;
+  height: 1em;
+  line-height: 1;
+}
+
+.pulse-heart__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (pointer: coarse) {
+  .pulse-heart {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-heart {
+    transition: none;
+  }
+
+  .pulse-heart__heart {
+    transition: color 200ms ease;
+  }
+
+  .pulse-heart__roll {
+    transition: none;
+  }
+}
+
 /* Hide scrollbars (modal panel) */
 .no-scrollbar {
   scrollbar-width: none;
@@ -361,4 +554,194 @@ section[id] {
   #root > div > *:not(.resume-doc) {
     display: none !important;
   }
+}
+.reflective-card {
+  position: relative;
+  box-sizing: border-box;
+  width: var(--rc-width);
+  height: var(--rc-height);
+  max-width: 100%;
+  perspective: 900px;
+  color: var(--rc-ink);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.reflective-card__body {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--rc-radius);
+  background: var(--rc-base);
+  box-shadow: var(--rc-shadow);
+  transform: translate3d(0, var(--rc-lift, 0px), 0) rotateX(var(--rc-rotate-x, 0deg)) rotateY(var(--rc-rotate-y, 0deg));
+  opacity: var(--rc-presence, 1);
+  isolation: isolate;
+  will-change: transform;
+}
+
+.reflective-card__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.reflective-card__content {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: var(--rc-pad);
+}
+
+.reflective-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.reflective-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--rc-ink);
+  font-weight: 500;
+}
+
+.reflective-card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  color: var(--rc-muted);
+}
+
+.reflective-card__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rc-status);
+}
+
+.reflective-card__identity {
+  margin-top: auto;
+}
+
+.reflective-card__name {
+  margin: 0;
+  color: var(--rc-ink);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.reflective-card__role {
+  margin: 4px 0 0;
+  color: var(--rc-muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.reflective-card__footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.reflective-card__id {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reflective-card__label {
+  color: var(--rc-muted);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.reflective-card__value {
+  overflow: hidden;
+  color: var(--rc-ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reflective-card__tile {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--rc-tile-radius);
+  background: var(--rc-tile);
+  box-shadow: var(--rc-tile-shadow);
+  color: var(--rc-muted);
+}
+
+.reflective-card__tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px var(--rc-tile-edge),
+    inset 0 1px 0 var(--rc-tile-highlight);
+  pointer-events: none;
+}
+
+.reflective-card__rim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px var(--rc-rim),
+    inset 0 1px 0 var(--rc-rim-highlight);
+  pointer-events: none;
+}
+
+.reflective-card__media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.tech-text {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.tech-text-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }

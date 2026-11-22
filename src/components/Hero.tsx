@@ -3,11 +3,11 @@ import { useContent, useUi } from '../lib/i18n';
 import { gsap, reducedMotion } from '../lib/gsap';
 import { Magnetic } from './Magnetic';
 import { Reveal } from './Reveal';
+import { TechText } from './TechText';
 
 export function Hero() {
   const { profile } = useContent();
   const ui = useUi();
-  const [first, ...rest] = profile.tagline.split(' ');
   const sectionRef = useRef<HTMLElement>(null);
 
   // Intro timeline: lines rise in staggered, then gentle parallax on scroll.
@@ -56,13 +56,19 @@ export function Hero() {
         <p className="hero-fade font-mono text-xs uppercase tracking-[0.2em] text-muted md:hidden">
           {ui.hero.folio} · {profile.location}
         </p>
-        <h1 className="mt-6 font-display text-[clamp(2.75rem,9vw,8rem)] font-medium leading-[0.92] tracking-[-0.04em]">
-          <span className="-mb-[0.08em] block overflow-hidden pb-[0.08em]">
-            <span className="hero-line block">{first}</span>
-          </span>
-          <span className="-mb-[0.08em] block overflow-hidden pb-[0.08em] md:ml-[8vw]">
-            <span className="hero-line block">{rest.join(' ')}</span>
-          </span>
+        <h1 className="mt-6">
+          <div className="overflow-hidden pb-[0.08em]">
+            <div className="hero-line">
+              <TechText
+                text={profile.tagline}
+                align="left"
+                labels={false}
+                intro="assemble"
+                introDuration={1.6}
+                className="h-[clamp(120px,18vw,190px)] text-ink"
+              />
+            </div>
+          </div>
         </h1>
         <div className="hero-fade mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-end">
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4">

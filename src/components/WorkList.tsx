@@ -163,7 +163,7 @@ export function WorkList() {
         {current && (
           <div
             key={current.id}
-            className={`animate-modal-fade border border-line bg-base p-6 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`glass animate-modal-fade rounded-2xl border border-line p-6 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               cardVisible ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
             }`}
           >

@@ -2,14 +2,16 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { gsap, reducedMotion } from './lib/gsap';
 import { useUi } from './lib/i18n';
 import { About } from './components/About';
+import { ClickSpark } from './components/ClickSpark';
 import { CommandMenu } from './components/CommandMenu';
-import { CustomCursor } from './components/CustomCursor';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Footer } from './components/Footer';
 import { Hero } from './components/Hero';
 import { Nav } from './components/Nav';
 import { ResumeDoc } from './components/ResumeDoc';
 import { SmoothScroll } from './components/SmoothScroll';
+import { SubtleDither } from './components/SubtleDither';
+import { TargetCursor } from './components/TargetCursor';
 import { ToolsMarquee } from './components/ToolsMarquee';
 import { WorkList } from './components/WorkList';
 
@@ -79,9 +81,23 @@ export default function App() {
 
   return (
     <div className="min-h-screen font-sans text-ink">
+      <SubtleDither />
       <div className="site-atmosphere" aria-hidden="true" />
       <SmoothScroll />
-      <CustomCursor />
+      <TargetCursor
+        targetSelector="a, button, [data-spark]"
+        cursorColor="rgb(var(--ink))"
+        blendMode="normal"
+        spinDuration={8}
+        showLabel={false}
+        clickEffect={false}
+        size={22}
+        cornerSize={8}
+        thickness={2}
+        padding={4}
+        dotSize={3}
+      />
+      <ClickSpark />
       <CommandMenu />
       <a href="#main" className="skip-link">
         {ui.skipToContent}
