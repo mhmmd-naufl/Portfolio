@@ -9,6 +9,7 @@ subtle motion. Dark by default, light mode included.
 
 ## Features
 
+- EN/ID content toggle — Selected Work + About copy localized (ID: `src/data/content.id.ts`)
 - Case-study modals — per-project story, screenshot gallery, live demo links
 - ⌘K command palette — jump to sections, toggle theme, copy email
 - GSAP + ScrollTrigger motion synced with Lenis smooth scroll
@@ -37,14 +38,21 @@ npm run format     # prettier write
 ```
 src/
 ├── components/    # sections + interactions (Nav, Hero, WorkList, …)
-├── data/content.ts  # all site copy — edit here
-├── lib/           # theme, gsap/ScrollTrigger setup, supabase
-└── index.css      # theme tokens + effects
+├── data/content.ts    # English site copy — edit here
+├── data/content.id.ts # Indonesian site copy (hand-maintained)
+├── lib/i18n.ts        # language context + UI strings (EN/ID)
+├── lib/LangProvider.tsx
+├── lib/               # theme, gsap/ScrollTrigger setup, supabase
+└── index.css          # theme tokens + effects
 public/projects/   # project screenshots
 ```
 
-Content lives in `src/data/content.ts`. Project screenshots go in
-`public/projects/` and are referenced via the `image`/`gallery` fields.
+Content lives in `src/data/content.ts` (EN) and `src/data/content.id.ts` (ID) —
+the active locale is picked via `useContent()` from `src/lib/i18n.ts`. Only the
+Selected Work and About content is localized; all UI chrome stays English.
+`content.ts` is the sync/admin target, so ID edits live only in `content.id.ts`.
+Project screenshots go in `public/projects/` and are referenced via the
+`image`/`gallery` fields.
 
 ## Deploy
 

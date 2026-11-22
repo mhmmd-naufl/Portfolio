@@ -1,10 +1,12 @@
-import { capabilities, certifications, education, experiences, profile } from '../data/content';
+import { useContent, useUi } from '../lib/i18n';
 import { DotPattern } from './DotPattern';
 import { PortraitField } from './PortraitField';
 import { Reveal } from './Reveal';
 import { motion, useMotionValue, useReducedMotion, useTransform } from 'motion/react';
 
 export function About() {
+  const { profile, capabilities, certifications, education, experiences } = useContent();
+  const ui = useUi();
   const reduce = useReducedMotion();
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -30,7 +32,7 @@ export function About() {
         <div className="scrub-y border-b border-line pb-4">
           <h2 className="font-display text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium tracking-tight">
             <span className="mr-3 font-mono text-sm font-normal text-muted">03 /</span>
-            About
+            {ui.about.title}
           </h2>
         </div>
       </Reveal>
@@ -48,7 +50,7 @@ export function About() {
             <div className="relative">
               <img
                 src="/portrait.jpg"
-                alt="Portrait of Muhammad Naufal Aulia"
+                alt={ui.about.portraitAlt}
                 loading="lazy"
                 className="aspect-[4/5] w-full border border-line object-cover grayscale transition-[filter] duration-500 hover:grayscale-0"
               />
@@ -56,7 +58,7 @@ export function About() {
             </div>
           </motion.div>
           <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted">
-            {profile.name} — {profile.degree}
+            {profile.name} · {profile.degree}
           </p>
           <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
             {profile.role}
@@ -66,7 +68,7 @@ export function About() {
             onClick={() => window.print()}
             className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted underline underline-offset-4 transition-colors hover:text-ink"
           >
-            Download resume ↓
+            {ui.about.downloadResume}
           </button>
         </Reveal>
 
@@ -100,7 +102,9 @@ export function About() {
 
       <div className="mt-16 grid gap-10 md:grid-cols-12 md:gap-6">
         <Reveal className="md:col-span-7">
-          <h3 className="font-mono text-xs uppercase tracking-widest text-muted">Experience</h3>
+          <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
+            {ui.about.experience}
+          </h3>
           <div className="mt-4">
             {experiences.map((e, i) => (
               <Reveal key={`${e.org}-${e.role}`} delay={i * 60}>
@@ -120,7 +124,9 @@ export function About() {
 
         <div className="md:col-span-5">
           <Reveal>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-muted">Education</h3>
+            <h3 className="font-mono text-xs uppercase tracking-widest text-muted">
+              {ui.about.education}
+            </h3>
             <p className="mt-4 font-medium">{education.school}</p>
             <p className="text-[15px] text-muted">{education.degree}</p>
             <p className="mt-1 font-mono text-[11px] text-muted">
@@ -132,7 +138,7 @@ export function About() {
           </Reveal>
           <Reveal>
             <h3 className="mt-10 font-mono text-xs uppercase tracking-widest text-muted">
-              Certifications
+              {ui.about.certifications}
             </h3>
             <ul className="mt-4">
               {certifications.map(c => (
@@ -145,7 +151,7 @@ export function About() {
               ))}
             </ul>
             <p className="mt-6 border-t border-line pt-4 font-mono text-[11px] uppercase tracking-widest text-muted">
-              Languages — {profile.languages}
+              {ui.about.languages} · {profile.languages}
             </p>
           </Reveal>
         </div>

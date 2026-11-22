@@ -1,14 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { profile } from '../data/content';
+import { useContent, useUi } from '../lib/i18n';
 import { ScrambleText } from './ScrambleText';
 import { Reveal } from './Reveal';
-
-const sitemap = [
-  { href: '#home', no: '01', label: 'Home' },
-  { href: '#work', no: '02', label: 'Work' },
-  { href: '#about', no: '03', label: 'About' },
-  { href: '#contact', no: '04', label: 'Contact' },
-];
 
 function useWibClock() {
   const [now, setNow] = useState('');
@@ -28,6 +21,14 @@ function useWibClock() {
 }
 
 export function Footer() {
+  const { profile } = useContent();
+  const ui = useUi();
+  const sitemap = [
+    { href: '#home', no: '01', label: ui.nav.home },
+    { href: '#work', no: '02', label: ui.nav.work },
+    { href: '#about', no: '03', label: ui.nav.about },
+    { href: '#contact', no: '04', label: ui.nav.contact },
+  ];
   const time = useWibClock();
   const ref = useRef<HTMLElement>(null);
   const [copied, setCopied] = useState(false);
@@ -50,7 +51,7 @@ export function Footer() {
     try {
       await navigator.clipboard.writeText(profile.email);
     } catch {
-      window.prompt('Copy email:', profile.email);
+      window.prompt(ui.footer.copyPrompt, profile.email);
       return;
     }
     setCopied(true);
@@ -114,13 +115,13 @@ export function Footer() {
           <div className="flex flex-col justify-center md:col-span-7">
             <Reveal>
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
-                04 / Contact
+                04 / {ui.nav.contact}
               </p>
               <div className="scrub-y">
                 <h2 className="mt-6 font-display text-[clamp(2.4rem,5.5vw,5rem)] font-medium leading-[1.0] tracking-[-0.03em]">
-                  Let&apos;s work
+                  {ui.footer.heading1}
                   <br />
-                  <span className="md:ml-[8vw]">together</span>
+                  <span className="md:ml-[8vw]">{ui.footer.heading2}</span>
                 </h2>
               </div>
               <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
@@ -135,14 +136,14 @@ export function Footer() {
                   onClick={copy}
                   className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:border-ink hover:text-ink"
                 >
-                  {copied ? 'Copied ✓' : 'Copy email'}
+                  {copied ? ui.footer.copied : ui.footer.copyEmail}
                 </button>
                 <button
                   type="button"
                   onClick={() => window.print()}
                   className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:border-ink hover:text-ink"
                 >
-                  Resume ↓
+                  {ui.footer.resume}
                 </button>
               </div>
               <p className="mt-8 flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-muted">
@@ -170,7 +171,7 @@ export function Footer() {
               <address className="mt-3 font-mono text-xs uppercase not-italic leading-relaxed tracking-widest text-muted">
                 {profile.name}
                 <br />
-                {profile.location} — {profile.phone}
+                {profile.location} · {profile.phone}
               </address>
               <hr className="my-5 border-t border-dashed border-line" />
               <ul className="space-y-2">
@@ -194,7 +195,7 @@ export function Footer() {
         <Reveal>
           <div className="mt-16 border-y border-dashed border-line px-2 py-4">
             <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
-              <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Sitemap">
+              <nav className="flex flex-wrap gap-x-6 gap-y-2" aria-label={ui.footer.sitemap}>
                 {sitemap.map(l => (
                   <a
                     key={l.href}
@@ -209,10 +210,10 @@ export function Footer() {
                 © 2026 {profile.name}
               </p>
               <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
-                {profile.location} — {time} WIB
+                {profile.location} · {time} WIB
               </p>
               <a href="#home" className="u-line font-mono text-[11px] uppercase tracking-widest">
-                Back to top ↑
+                {ui.footer.backToTop}
               </a>
             </div>
           </div>

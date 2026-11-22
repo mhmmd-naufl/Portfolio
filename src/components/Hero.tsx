@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react';
-import { profile } from '../data/content';
+import { useContent, useUi } from '../lib/i18n';
 import { gsap, reducedMotion } from '../lib/gsap';
 import { Magnetic } from './Magnetic';
 import { Reveal } from './Reveal';
 
 export function Hero() {
+  const { profile } = useContent();
+  const ui = useUi();
   const [first, ...rest] = profile.tagline.split(' ');
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -47,12 +49,12 @@ export function Hero() {
         aria-hidden="true"
         className="hero-parallax absolute left-6 top-1/2 hidden -translate-y-1/2 font-mono text-[11px] uppercase tracking-[0.3em] text-muted [writing-mode:vertical-rl] md:left-10 md:block"
       >
-        Folio 2026 — {profile.location}
+        {ui.hero.folio} · {profile.location}
       </span>
 
       <Reveal className="relative">
         <p className="hero-fade font-mono text-xs uppercase tracking-[0.2em] text-muted md:hidden">
-          Folio 2026 — {profile.location}
+          {ui.hero.folio} · {profile.location}
         </p>
         <h1 className="mt-6 font-display text-[clamp(2.75rem,9vw,8rem)] font-medium leading-[0.92] tracking-[-0.04em]">
           <span className="-mb-[0.08em] block overflow-hidden pb-[0.08em]">
@@ -69,7 +71,7 @@ export function Hero() {
                 href="#work"
                 className="inline-block border border-line px-4 py-2 font-mono text-sm uppercase tracking-widest transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-base"
               >
-                View work ↓
+                {ui.hero.viewWork}
               </a>
             </Magnetic>
             <a
@@ -89,7 +91,7 @@ export function Hero() {
             />
             {profile.status}
           </span>
-          <span>Scroll ↓</span>
+          <span>{ui.hero.scroll}</span>
         </div>
       </Reveal>
     </section>

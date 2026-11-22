@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { Project } from '../data/content';
+import { useUi } from '../lib/i18n';
 
 // Case-study modal: gallery + narrative + links. Esc / backdrop / Close
 // dismiss; body scroll locked while open.
@@ -12,6 +13,7 @@ export function ProjectModal({
 }) {
   const [idx, setIdx] = useState(0);
   const [closing, setClosing] = useState(false);
+  const ui = useUi();
 
   useEffect(() => setIdx(0), [project]);
 
@@ -60,15 +62,15 @@ export function ProjectModal({
       >
         <div className="flex items-center justify-between border-b border-line px-6 py-4 md:px-8">
           <p className="font-mono text-xs text-muted">
-            {project.id} — {project.category} · {project.year}
+            {project.id} · {project.category} · {project.year}
           </p>
           <button
             type="button"
             onClick={requestClose}
-            aria-label="Close"
+            aria-label={ui.modal.closeAria}
             className="font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-ink"
           >
-            Close ✕
+            {ui.modal.close}
           </button>
         </div>
 
@@ -123,7 +125,7 @@ export function ProjectModal({
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-dashed border-line pt-5">
             <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
-              Stack — {project.stack.join(' / ')}
+              {ui.modal.stack} · {project.stack.join(' / ')}
             </p>
             <span className="flex-1" />
             <span className="flex items-center gap-2">
@@ -144,7 +146,7 @@ export function ProjectModal({
                   rel="noreferrer"
                   className="border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-base"
                 >
-                  Live demo ↗
+                  {ui.modal.liveDemo}
                 </a>
               )}
             </span>
