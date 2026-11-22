@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { isDark, setDark, withViewTransition } from '../lib/theme';
+import { useUi } from '../lib/i18n';
 
 export function ThemeToggle() {
   const [dark, setDarkState] = useState(false);
+  const ui = useUi();
 
   useEffect(() => {
     const sync = () => setDarkState(isDark());
@@ -17,10 +19,10 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label={dark ? ui.theme.toLight : ui.theme.toDark}
       className="font-mono text-xs uppercase tracking-widest text-muted transition-colors hover:text-ink"
     >
-      {dark ? 'Dark ●' : 'Light ○'}
+      {dark ? ui.theme.dark : ui.theme.light}
     </button>
   );
 }

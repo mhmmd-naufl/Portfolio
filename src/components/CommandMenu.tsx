@@ -1,26 +1,27 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Command } from 'cmdk';
-import { profile } from '../data/content';
+import { useContent, useUi } from '../lib/i18n';
 import { isDark, setDark, withViewTransition } from '../lib/theme';
 
-const sections = [
-  { id: '#home', no: '01', label: 'Home' },
-  { id: '#work', no: '02', label: 'Work' },
-  { id: '#about', no: '03', label: 'About' },
-  { id: '#contact', no: '04', label: 'Contact' },
-];
-
-async function copyEmail(): Promise<void> {
+async function copyEmail(email: string, promptLabel: string): Promise<void> {
   try {
-    await navigator.clipboard.writeText(profile.email);
+    await navigator.clipboard.writeText(email);
   } catch {
-    window.prompt('Copy email:', profile.email);
+    window.prompt(promptLabel, email);
   }
 }
 
 // ⌘K palette: jump to sections, toggle theme, copy email, open socials.
 export function CommandMenu() {
+  const { profile } = useContent();
+  const ui = useUi();
   const [open, setOpen] = useState(false);
+  const sections = [
+    { id: '#home', no: '01', label: ui.nav.home },
+    { id: '#work', no: '02', label: ui.nav.work },
+    { id: '#about', no: '03', label: ui.nav.about },
+    { id: '#contact', no: '04', label: ui.nav.contact },
+  ];
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -54,7 +55,7 @@ export function CommandMenu() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Open command menu"
+        aria-label={ui.command.open}
         className="fixed bottom-5 left-5 z-[60] hidden border border-line bg-base px-3 py-2 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-ink [@media(hover:hover)]:block"
       >
         ⌘K
@@ -68,17 +69,17 @@ export function CommandMenu() {
             className="w-full max-w-md border border-line bg-base"
             onClick={e => e.stopPropagation()}
           >
-            <Command label="Site commands" loop>
+            <Command label={ui.command.label} loop>
               <Command.Input
-                placeholder="Type a command…"
+                placeholder={ui.command.placeholder}
                 className="w-full border-b border-line bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-muted"
               />
               <Command.List className="max-h-[40vh] overflow-y-auto py-2">
                 <Command.Empty className="px-4 py-3 font-mono text-xs text-muted">
-                  No results.
+                  {ui.command.empty}
                 </Command.Empty>
                 <Command.Group
-                  heading="Go to"
+                  heading={ui.command.goTo}
                   className="px-2 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-widest [&_[cmdk-group-heading]]:text-muted"
                 >
                   {sections.map(s => (
@@ -93,40 +94,40 @@ export function CommandMenu() {
                   ))}
                 </Command.Group>
                 <Command.Group
-                  heading="Actions"
+                  heading={ui.command.actions}
                   className="px-2 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-widest [&_[cmdk-group-heading]]:text-muted"
                 >
                   <Command.Item
-                    value="toggle theme"
+                    value={`toggle theme ${ui.command.toggleTheme}`}
                     onSelect={toggleTheme}
                     className="cursor-pointer px-2 py-2 font-mono text-xs uppercase tracking-widest text-muted data-[selected=true]:bg-ink data-[selected=true]:text-base"
                   >
-                    Toggle theme
+                    {ui.command.toggleTheme}
                   </Command.Item>
                   <Command.Item
-                    value="copy email"
+                    value={`copy email ${ui.command.copyEmail}`}
                     onSelect={() => {
-                      void copyEmail();
+                      void copyEmail(profile.email, ui.footer.copyPrompt);
                       setOpen(false);
                     }}
                     className="cursor-pointer px-2 py-2 font-mono text-xs uppercase tracking-widest text-muted data-[selected=true]:bg-ink data-[selected=true]:text-base"
                   >
-                    Copy email
+                    {ui.command.copyEmail}
                   </Command.Item>
                   {profile.socials.map(s => (
                     <Command.Item
                       key={s.label}
-                      value={`open ${s.label}`}
+                      value={`open ${s.label} ${ui.command.openLink}`}
                       onSelect={() => openLink(s.href)}
                       className="cursor-pointer px-2 py-2 font-mono text-xs uppercase tracking-widest text-muted data-[selected=true]:bg-ink data-[selected=true]:text-base"
                     >
-                      Open {s.label} ↗
+                      {ui.command.openLink} {s.label} ↗
                     </Command.Item>
                   ))}
                 </Command.Group>
               </Command.List>
               <div className="border-t border-line px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-muted">
-                ↑↓ navigate · enter select · esc close
+                {ui.command.hint}
               </div>
             </Command>
           </div>

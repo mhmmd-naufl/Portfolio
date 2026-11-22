@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { gsap, reducedMotion } from './lib/gsap';
+import { useUi } from './lib/i18n';
 import { About } from './components/About';
 import { CommandMenu } from './components/CommandMenu';
 import { CustomCursor } from './components/CustomCursor';
@@ -59,6 +60,7 @@ function useScrubParallax() {
 
 export default function App() {
   const admin = useAdmin();
+  const ui = useUi();
   useScrubParallax();
 
   if (admin) {
@@ -82,7 +84,7 @@ export default function App() {
       <CustomCursor />
       <CommandMenu />
       <a href="#main" className="skip-link">
-        Skip to content
+        {ui.skipToContent}
       </a>
       <Nav />
       <ErrorBoundary>

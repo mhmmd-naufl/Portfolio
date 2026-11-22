@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { projects } from '../data/content';
+import { useContent, useUi } from '../lib/i18n';
 import type { Project } from '../data/content';
 import { gsap, reducedMotion } from '../lib/gsap';
 import { withViewTransition } from '../lib/theme';
@@ -9,6 +9,8 @@ import { Reveal } from './Reveal';
 type CardTarget = { x: number; y: number };
 
 export function WorkList() {
+  const { projects } = useContent();
+  const ui = useUi();
   const [cardId, setCardId] = useState<string | null>(null);
   const [cardVisible, setCardVisible] = useState(false);
   const [open, setOpen] = useState<Project | null>(null);
@@ -30,7 +32,7 @@ export function WorkList() {
         img.src = p.image;
       }
     });
-  }, []);
+  }, [projects]);
 
   // GSAP stagger reveal for rows — replaces per-row CSS reveal here.
   useEffect(() => {
@@ -103,7 +105,7 @@ export function WorkList() {
         <div className="scrub-y flex items-baseline justify-between border-b border-line pb-4">
           <h2 className="font-display text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium tracking-tight">
             <span className="mr-3 font-mono text-sm font-normal text-muted">02 /</span>
-            Selected Work
+            {ui.work.title}
           </h2>
           <span className="font-mono text-xs text-muted">
             ({String(projects.length).padStart(2, '0')})
@@ -124,7 +126,7 @@ export function WorkList() {
               }}
               role="button"
               tabIndex={0}
-              aria-label={`${p.title} — details`}
+              aria-label={`${p.title} · ${ui.work.detailsAria}`}
               onMouseEnter={e => showCard(e, p.id)}
               onMouseMove={moveCard}
               className={`group grid cursor-pointer gap-2 border-b border-line py-6 transition-colors duration-300 md:grid-cols-12 md:items-baseline md:gap-6 md:py-8 ${
@@ -142,7 +144,7 @@ export function WorkList() {
               </div>
               <div className="md:col-span-4 md:text-right">
                 <p className="font-mono text-xs uppercase tracking-widest">
-                  {p.category} — {p.year}
+                  {p.category} · {p.year}
                 </p>
                 <p className="mt-1 font-mono text-[11px] text-muted transition-colors duration-300 group-hover:text-ink">
                   {p.stack.join(' / ')}
@@ -179,7 +181,7 @@ export function WorkList() {
             <p className="font-mono text-xs text-muted">{current.id}</p>
             <p className="mt-2 font-display text-3xl font-medium tracking-tight">{current.title}</p>
             <p className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted">
-              {current.category} — {current.year}
+              {current.category} · {current.year}
             </p>
             <p className="mt-3 font-mono text-[11px] uppercase tracking-widest">Details →</p>
           </div>

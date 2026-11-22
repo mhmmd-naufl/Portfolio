@@ -1,16 +1,11 @@
-import {
-  capabilities,
-  certifications,
-  education,
-  experiences,
-  profile,
-  projects,
-  tools,
-} from '../data/content';
+import { useContent, useUi } from '../lib/i18n';
 
 // ATS-friendly resume: single column, standard headings, real text.
 // Screen-hidden, print-visible. Opened via window.print() -> Save as PDF.
 export function ResumeDoc() {
+  const { profile, projects, experiences, capabilities, certifications, tools, education } =
+    useContent();
+  const ui = useUi();
   const linkedIn =
     profile.socials.find(s => s.label === 'LinkedIn')?.href.replace('https://', '') ?? '';
 
@@ -28,24 +23,24 @@ export function ResumeDoc() {
       </p>
 
       <h2 className="mb-1 mt-4 border-b border-black pb-1 text-[12pt] font-bold uppercase">
-        Summary
+        {ui.resume.summary}
       </h2>
       <p className="text-[10.5pt] leading-relaxed">{profile.bio}</p>
 
       <h2 className="mb-1 mt-4 border-b border-black pb-1 text-[12pt] font-bold uppercase">
-        Experience
+        {ui.resume.experience}
       </h2>
       {experiences.map(e => (
         <div key={`${e.org}-${e.role}`} className="mb-2">
           <p className="text-[11pt] font-bold">
-            {e.role} — {e.org}
+            {e.role} · {e.org}
           </p>
           <p className="text-[10pt]">{e.period}</p>
         </div>
       ))}
 
       <h2 className="mb-1 mt-4 border-b border-black pb-1 text-[12pt] font-bold uppercase">
-        Selected Work
+        {ui.resume.selectedWork}
       </h2>
       {projects.map(p => (
         <div key={p.id} className="mb-2">
@@ -53,12 +48,14 @@ export function ResumeDoc() {
             {p.title} ({p.category}, {p.year})
           </p>
           <p className="text-[10pt]">{p.summary}</p>
-          <p className="text-[10pt]">Stack: {p.stack.join(', ')}</p>
+          <p className="text-[10pt]">
+            {ui.resume.stack}: {p.stack.join(', ')}
+          </p>
         </div>
       ))}
 
       <h2 className="mb-1 mt-4 border-b border-black pb-1 text-[12pt] font-bold uppercase">
-        Education
+        {ui.resume.education}
       </h2>
       <p className="text-[11pt] font-bold">{education.school}</p>
       <p className="text-[10pt]">
@@ -66,13 +63,15 @@ export function ResumeDoc() {
       </p>
 
       <h2 className="mb-1 mt-4 border-b border-black pb-1 text-[12pt] font-bold uppercase">
-        Skills
+        {ui.resume.skills}
       </h2>
       <p className="text-[10.5pt] leading-relaxed">{tools.join(', ')}</p>
       <p className="mt-1 text-[10.5pt] leading-relaxed">
-        {capabilities.map(c => c.title).join(' · ')} — {certifications.join('; ')}
+        {capabilities.map(c => c.title).join(' · ')} · {certifications.join('; ')}
       </p>
-      <p className="mt-1 text-[10.5pt] leading-relaxed">Languages: {profile.languages}</p>
+      <p className="mt-1 text-[10.5pt] leading-relaxed">
+        {ui.resume.languages}: {profile.languages}
+      </p>
     </div>
   );
 }

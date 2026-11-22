@@ -1,9 +1,10 @@
-import { tools } from '../data/content';
+import { useContent } from '../lib/i18n';
 import { Reveal } from './Reveal';
 
 // Infinite tools strip between About and Contact. Pure CSS marquee,
 // pauses on hover, static under prefers-reduced-motion.
 export function ToolsMarquee() {
+  const { tools } = useContent();
   const row = (hidden: boolean) => (
     <div aria-hidden={hidden} className="flex shrink-0 items-center gap-10 pr-10">
       {tools.map(t => (
