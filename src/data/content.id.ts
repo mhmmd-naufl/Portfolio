@@ -55,6 +55,18 @@ export const projects: Project[] = [
   },
   {
     id: 'P.03',
+    title: 'beberes',
+    category: 'CLI · Kualitas Data',
+    year: '2026',
+    stack: ['Python', 'Typer', 'FastAPI', 'openpyxl', 'Pydantic'],
+    summary:
+      'Mesin kualitas data untuk spreadsheet Indonesia yang berantakan — NIK, NPWP, Rupiah, wilayah, gelar. Dry-run secara default, audit log + undo, UI browser lokal.',
+    story:
+      'CLI open-source (MIT, tersedia di PyPI) yang membersihkan file Excel/CSV sesuai keruwetan data Indonesia yang sebenarnya: format tanggal campur, "Rp 25.000" tersimpan sebagai teks, nama orang yang sama ejaannya tiga variasi, nama daerah yang salah ketik. Alurnya: baca → profil kolom → deteksi masalah → usulkan perbaikan → terapkan → laporan + audit log. Perbaikan yang mengubah makna (tanggal ambigu, penggabungan duplikat, penyamaan nama mirip) tidak pernah diterapkan otomatis. Semua berjalan lokal — `beberes ui` memunculkan UI satu halaman FastAPI untuk upload → periksa → bersihkan → unduh, dan ada file .exe Windows di GitHub Releases untuk pengguna tanpa Python. v0.5.2, pytest + Ruff di CI, semua data uji sintetis.',
+    link: 'https://github.com/mhmmd-naufl/beberes',
+  },
+  {
+    id: 'P.04',
     title: 'Solea',
     category: 'Aplikasi Web Full-Stack',
     year: '2025',
@@ -77,7 +89,7 @@ export const projects: Project[] = [
     demo: 'https://solea-ten-pi.vercel.app',
   },
   {
-    id: 'P.04',
+    id: 'P.05',
     title: 'Social Search App',
     category: 'Web · Analitik',
     year: '2025',
@@ -96,7 +108,7 @@ export const projects: Project[] = [
     demo: 'https://social-searchv2.vercel.app/',
   },
   {
-    id: 'P.05',
+    id: 'P.06',
     title: 'Computer Vision BIB Reader',
     category: 'AI · Computer Vision',
     year: '2025',

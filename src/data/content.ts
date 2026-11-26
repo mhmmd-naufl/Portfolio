@@ -68,6 +68,18 @@ export const projects: Project[] = [
   },
   {
     id: 'P.03',
+    title: 'beberes',
+    category: 'CLI · Data Quality',
+    year: '2026',
+    stack: ['Python', 'Typer', 'FastAPI', 'openpyxl', 'Pydantic'],
+    summary:
+      'Data-quality engine for messy Indonesian spreadsheets — NIK, NPWP, Rupiah, wilayah, gelar. Dry-run by default, audit log + undo, local browser UI.',
+    story:
+      'Open-source CLI (MIT, on PyPI) that cleans Excel/CSV files the way Indonesian data is actually messed up: mixed date formats, "Rp 25.000" stored as text, the same person spelled three ways, misspelled place names. Pipeline: read → profile columns → detect issues → propose fixes → apply → report + audit log. Fixes that change meaning (ambiguous dates, duplicate merges, similar-name joins) are never applied automatically. Everything runs locally — `beberes ui` spins up a FastAPI single-page UI for upload → periksa → bersihkan → unduh, and a Windows .exe ships on GitHub Releases for users without Python. v0.5.2, pytest + Ruff in CI, all test data synthetic.',
+    link: 'https://github.com/mhmmd-naufl/beberes',
+  },
+  {
+    id: 'P.04',
     title: 'Solea',
     category: 'Full-Stack Web App',
     year: '2025',
@@ -87,7 +99,7 @@ export const projects: Project[] = [
     demo: 'https://solea-ten-pi.vercel.app',
   },
   {
-    id: 'P.04',
+    id: 'P.05',
     title: 'Social Search App',
     category: 'Web · Analytics',
     year: '2025',
@@ -106,7 +118,7 @@ export const projects: Project[] = [
     demo: 'https://social-searchv2.vercel.app/',
   },
   {
-    id: 'P.05',
+    id: 'P.06',
     title: 'Computer Vision BIB Reader',
     category: 'AI · Computer Vision',
     year: '2025',
